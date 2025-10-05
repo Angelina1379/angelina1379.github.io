@@ -146,6 +146,12 @@ a {
         padding: 8px 0;
     }
 }
+/* Кнопки "Подробнее" всегда кликабельны */
+.tour-card a.btn-small {
+  pointer-events: auto;
+  z-index: 2;
+}
+
 
 /* === ГЕРОЙ === */
 .hero{background:url('image/1.jpg')center/cover no-repeat;color:#fff;text-align:center;padding:150px 20px;}
