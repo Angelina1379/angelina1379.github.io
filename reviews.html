@@ -1,422 +1,65 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Отзывы — КалининградТур</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: #ffffff;
-      color: #002244;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* Шапка */
-    .header {
-      background: #002244;
-      padding: 20px 0;
-      color: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    .header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .nav {
-      display: flex;
-    }
-
-    .nav a {
-      margin-left: 20px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .burger {
-      display: none;
-      font-size: 28px;
-      color: #fff;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-
-    @media(max-width:768px){
-      .burger{display:block;}
-      .nav{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:100%;background:#002244;}
-      .nav.show{display:flex;}
-      .nav a{margin:10px 0;}
-    }
-
-    /* Форма отзыва */
-    .reviews-container {
-      width: 90%;
-      max-width: 800px;
-      margin: 30px auto;
-    }
-
-    .review-form {
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-    }
-
-    .review-form input,
-    .review-form textarea,
-    .review-form select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-
-    .review-form button {
-      background: #FFD700;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .review-form button:hover {
-      background: #e6c200;
-      transform: translateY(-2px);
-    }
-
-    .stars {
-      display: inline-block;
-    }
-
-    .star {
-      font-size: 24px;
-      color: #ddd;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .star:hover,
-    .star.active {
-      color: #ffd700;
-    }
-
-    /* Загрузка фото */
-    .photo-upload {
-      margin: 15px 0;
-    }
-
-    .upload-area {
-      border: 2px dashed #ddd;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: #fafafa;
-    }
-
-    .upload-area:hover {
-      border-color: #002244;
-      background: #f0f0f0;
-    }
-
-    .upload-area.dragover {
-      border-color: #FFD700;
-      background: #fff9e6;
-    }
-
-    .upload-icon {
-      font-size: 48px;
-      color: #002244;
-      margin-bottom: 10px;
-    }
-
-    .upload-text {
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .upload-btn {
-      background: #002244;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: inline-block;
-      transition: background 0.3s ease;
-    }
-
-    .upload-btn:hover {
-      background: #004488;
-    }
-
-    #fileInput {
-      display: none;
-    }
-
-    .preview-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .preview-item {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .preview-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .remove-photo {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: rgba(255,0,0,0.7);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Отзывы */
-    .review-item {
-      background: white;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .review-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .review-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .review-author {
-      font-weight: bold;
-      flex-grow: 1;
-      font-size: 16px;
-    }
-
-    .review-tour {
-      color: #666;
-      font-size: 14px;
-      margin: 5px 0;
-    }
-
-    .review-rating {
-      color: #ffd700;
-      margin: 10px 0;
-      font-size: 18px;
-    }
-
-    .review-message {
-      line-height: 1.6;
-      margin: 10px 0;
-    }
-
-    .review-photos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .review-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .review-photo:hover {
-      transform: scale(1.05);
-    }
-
-    .review-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Пагинация */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 5px;
-      margin-top: 20px;
-    }
-
-    .pagination button {
-      padding: 8px 12px;
-      border: 1px solid #002244;
-      background: #fff;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
-
-    .pagination button.active {
-      background: #002244;
-      color: #fff;
-    }
-
-    .pagination button:hover:not(.active) {
-      background: #f0f0f0;
-    }
-
-    /* Сортировка */
-    .sort-controls {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .sort-controls select {
-      padding: 8px 12px;
-      border-radius: 5px;
-      border: 1px solid #ddd;
-      background: white;
-    }
-
-    /* Модальное окно для фото */
-    .photo-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .photo-modal img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-    }
-
-    /* Адаптивность */
-    @media (max-width: 768px) {
-      .review-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-      }
-      
-      .review-photo {
-        width: 100px;
-        height: 100px;
-      }
-      
-      .preview-item {
-        width: 80px;
-        height: 80px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .reviews-container {
-        width: 95%;
-        margin: 20px auto;
-      }
-      
-      .review-form {
-        padding: 15px;
-      }
-      
-      .review-photo {
-        width: 80px;
-        height: 80px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отзывы — КалининградТур</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap">
+<style>
+body { margin:0; font-family:'Open Sans',sans-serif; background:#fff; color:#002244;}
+h1,h2,h3{font-family:'Playfair Display',serif;}
+a{text-decoration:none;color:inherit;}
+.container{width:90%; max-width:1200px; margin:0 auto;}
+.header{background:#002244; padding:20px 0; color:#fff; position:sticky; top:0; z-index:999;}
+.header .container{display:flex; justify-content:space-between; align-items:center; position:relative;}
+.logo{font-size:24px; font-weight:bold;}
+.nav{display:flex;}
+.nav a{margin-left:20px;color:#fff; font-weight:600;}
+.burger{display:none; font-size:28px; color:#fff; background:none; border:none; cursor:pointer;}
+@media(max-width:768px){.burger{display:block;} .nav{display:none; flex-direction:column; position:absolute; top:60px; right:0; width:100%; background:#002244;} .nav.show{display:flex;} .nav a{margin:10px 0;}}
+.reviews-container{width:90%; max-width:800px; margin:30px auto;}
+.review-form{background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:30px;}
+.review-form input, .review-form textarea, .review-form select{width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;}
+.review-form button{background:#FFD700; border:none; padding:10px 20px; border-radius:8px; font-weight:bold; cursor:pointer; transition: all 0.3s ease;}
+.review-form button:hover{background:#e6c200; transform:translateY(-2px);}
+.review-form button:disabled{background:#ccc; cursor:not-allowed; transform:none;}
+.stars{display:inline-block;}
+.star{font-size:24px; color:#ddd; cursor:pointer; transition: color 0.2s;}
+.star:hover, .star.active{color:#ffd700;}
+.photo-upload{margin:15px 0;}
+.upload-area{border:2px dashed #ddd; border-radius:8px; padding:20px; text-align:center; cursor:pointer; transition:all 0.3s ease; background:#fafafa;}
+.upload-area:hover{border-color:#002244; background:#f0f0f0;}
+.upload-area.dragover{border-color:#FFD700; background:#fff9e6;}
+.review-photos{display:flex; flex-wrap:wrap; gap:10px; margin-top:15px;}
+.review-photos img{width:100px; height:100px; border-radius:8px; object-fit:cover; cursor:pointer; transition:transform 0.3s;}
+.review-photos img:hover{transform:scale(1.05);}
+.review-item{background:white; padding:20px; margin:15px 0; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+.review-header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:15px;}
+.review-avatar{width:40px; height:40px; border-radius:50%; color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px; flex-shrink:0;}
+.review-author{font-weight:bold; flex-grow:1; font-size:16px;}
+.review-rating{color:#ffd700; margin:10px 0; font-size:18px;}
+.review-message{line-height:1.6; margin:10px 0;}
+.review-response{background:#f0f0f0; padding:10px; border-radius:8px; margin-top:10px; font-style:italic;}
+button.reply-btn, button.delete-btn{padding:5px 10px; border-radius:5px; border:none; cursor:pointer; margin-left:5px;}
+button.reply-btn{background:#FFD700; font-weight:bold;}
+button.delete-btn{background:#ff4d4d; color:white;}
+.photo-modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; align-items:center; justify-content:center;}
+.photo-modal img{max-width:90%; max-height:90%; object-fit:contain;}
+.close-modal{position:absolute; top:20px; right:30px; color:white; font-size:40px; cursor:pointer;}
+.loading {display:inline-block; width:20px; height:20px; border:3px solid #f3f3f3; border-top:3px solid #002244; border-radius:50%; animation:spin 1s linear infinite;}
+@keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@media(max-width:768px){.review-header{flex-direction:column; align-items:flex-start; gap:5px;} .review-photos img{width:80px; height:80px;}}
+@media(max-width:480px){.reviews-container{width:95%; margin:20px auto;} .review-form{padding:15px;}}
+</style>
 </head>
 <body>
+
 <header class="header">
   <div class="container">
     <div class="logo">КалининградТур</div>
     <button class="burger" onclick="toggleMenu()">☰</button>
     <nav class="nav" id="navMenu">
-      <a href="home.html">Главная</a>
+      <a href="index.html">Главная</a>
       <a href="excursion.html">Туры</a>
       <a href="komanda.html">О нас</a>
       <a href="reviews.html" class="active">Отзывы</a>
@@ -426,7 +69,6 @@
 
 <div class="reviews-container">
   <h2>Оставьте ваш отзыв</h2>
-
   <form id="review-form" class="review-form">
     <input type="text" id="name" placeholder="Ваше имя" required>
     <select id="tour" required>
@@ -444,7 +86,6 @@
       <option>Амалиенау</option>
     </select>
     <textarea id="message" placeholder="Ваш отзыв" rows="5" required></textarea>
-    
     <div class="rating">
       <span>Оценка:</span>
       <div class="stars">
@@ -456,129 +97,290 @@
       </div>
     </div>
 
-    <!-- Блок загрузки фото -->
     <div class="photo-upload">
       <div class="upload-area" id="uploadArea">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text">Перетащите фото сюда или нажмите для выбора</div>
-        <div class="upload-btn">Выбрать фото</div>
-        <input type="file" id="fileInput" multiple accept="image/*">
+        Перетащите фото сюда или <span id="uploadText" style="text-decoration:underline; cursor:pointer;">выбрать</span>
+        <input type="file" id="photoInput" multiple accept="image/*" style="display:none;">
       </div>
-      <div class="preview-container" id="previewContainer"></div>
+      <div id="photoPreview" class="review-photos"></div>
     </div>
 
     <button type="submit">Отправить отзыв</button>
   </form>
 
-  <div class="sort-controls">
-    <label>Сортировать по: </label>
-    <select id="sortSelect">
-      <option value="date_desc">По дате (новые сначала)</option>
-      <option value="date_asc">По дате (старые сначала)</option>
-      <option value="rating_desc">По оценке (сначала лучшие)</option>
-      <option value="rating_asc">По оценке (сначала худшие)</option>
-    </select>
-  </div>
-
   <div id="reviews-list" class="reviews-list"></div>
-  <div class="pagination" id="pagination"></div>
 </div>
 
-<!-- Модальное окно для просмотра фото -->
-<div class="photo-modal" id="photoModal">
-  <span class="close-modal" onclick="closePhotoModal()">×</span>
-  <img id="modalImage" src="" alt="">
+<!-- Модальное окно фото -->
+<div id="photoModal" class="photo-modal">
+  <img id="photoModalImg">
+  <span class="close-modal" onclick="document.getElementById('photoModal').style.display='none'">&times;</span>
 </div>
 
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
 <script>
-  // Конфигурация Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
-    authDomain: "kaliningrad-tour2025.firebaseapp.com",
-    projectId: "kaliningrad-tour2025",
-    storageBucket: "kaliningrad-tour2025.appspot.com",
-    messagingSenderId: "733180646321",
-    appId: "1:733180646321:web:f7e0106357edc327162390",
-    measurementId: "G-L7J4PSLSEY"
-  };
+// Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
+  authDomain: "kaliningrad-tour2025.firebaseapp.com",
+  projectId: "kaliningrad-tour2025",
+  storageBucket: "kaliningrad-tour2025.appspot.com",
+  messagingSenderId: "733180646321",
+  appId: "1:733180646321:web:f7e0106357edc327162390",
+  measurementId: "G-L7J4PSLSEY"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
+// Проверка подключения
+db.enablePersistence().catch((err) => {
+  console.error('Ошибка подключения к Firebase:', err);
+});
 
-<script>
-  function toggleMenu() {
-    document.getElementById('navMenu').classList.toggle('show');
-  }
+function toggleMenu(){ document.getElementById('navMenu').classList.toggle('show'); }
 
-  let currentRating = 0;
-
-  document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', function() {
-      currentRating = parseInt(this.dataset.rating);
-      document.querySelectorAll('.star').forEach((s, index) => {
-        s.classList.toggle('active', index < currentRating);
-      });
-    });
+// Звёзды рейтинга
+let currentRating = 0;
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', function(){
+    currentRating = parseInt(this.dataset.rating);
+    document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('active', i<currentRating));
   });
+});
 
-  document.getElementById('review-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('name').value.trim();
-    const message = document.getElementById('message').value.trim();
+// Фото
+const uploadArea=document.getElementById('uploadArea');
+const photoInput=document.getElementById('photoInput');
+const uploadText=document.getElementById('uploadText');
+const photoPreview=document.getElementById('photoPreview');
+let photosData=[];
 
-    if (!name || !message || currentRating === 0) {
-      alert('Пожалуйста, заполните все поля и выберите оценку');
-      return;
+uploadArea.addEventListener('click', ()=>photoInput.click());
+uploadText.addEventListener('click', ()=>photoInput.click());
+photoInput.addEventListener('change', e=>handleFiles(e.target.files));
+uploadArea.addEventListener('dragover', e=>{ e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', e=>{ uploadArea.classList.remove('dragover'); });
+uploadArea.addEventListener('drop', e=>{ e.preventDefault(); uploadArea.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+
+function handleFiles(files) {
+  if (photosData.length === 0) {
+    photoPreview.innerHTML = '';
+  }
+  
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) {
+      alert('Пожалуйста, загружайте только изображения');
+      continue;
     }
+    
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Размер файла не должен превышать 5MB');
+      continue;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      photosData.push(ev.target.result);
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.alt = 'Фото отзыва';
+      img.addEventListener('click', () => {
+        document.getElementById('photoModal').style.display = 'flex';
+        document.getElementById('photoModalImg').src = ev.target.result;
+      });
+      photoPreview.appendChild(img);
+    };
+    reader.onerror = () => {
+      console.error('Ошибка чтения файла');
+      alert('Ошибка при загрузке изображения');
+    };
+    reader.readAsDataURL(file);
+  }
+}
 
+// Админ
+const adminUID = "PSV7Glh3hDTgXKmONpgeThQ9lEq2";
+let currentUserUID = null;
+
+// Отправка отзыва
+document.getElementById('review-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('name').value.trim();
+  const messageText = document.getElementById('message').value.trim();
+  const tour = document.getElementById('tour').value;
+  
+  // Валидация
+  if (!name || !messageText || currentRating === 0 || !tour) {
+    alert('Заполните все обязательные поля!');
+    return;
+  }
+  
+  if (name.length < 2) {
+    alert('Имя должно содержать минимум 2 символа');
+    return;
+  }
+  
+  if (messageText.length < 10) {
+    alert('Отзыв должен содержать минимум 10 символов');
+    return;
+  }
+  
+  const submitButton = e.target.querySelector('button[type="submit"]');
+  const originalText = submitButton.textContent;
+  submitButton.innerHTML = '<div class="loading"></div>';
+  submitButton.disabled = true;
+  
+  try {
     const review = {
       name,
-      message,
+      message: messageText,
       rating: currentRating,
-      date: new Date().toISOString()
+      tour,
+      date: new Date().toISOString(),
+      photos: photosData,
+      responses: []
     };
+    
+    await db.collection('reviews').add(review);
+    
+    // Сбрасываем форму
+    e.target.reset();
+    currentRating = 0;
+    document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+    photosData = [];
+    photoPreview.innerHTML = '';
+    
+    await loadReviews();
+    
+    alert('Отзыв успешно добавлен!');
+    
+  } catch (err) {
+    console.error('Ошибка при добавлении отзыва:', err);
+    alert('Ошибка при добавлении отзыва: ' + err.message);
+  } finally {
+    submitButton.textContent = originalText;
+    submitButton.disabled = false;
+  }
+});
 
-    try {
-      await db.collection('reviews').add(review);
-      alert('Отзыв успешно добавлен!');
-      e.target.reset();
-      currentRating = 0;
-      document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
-      loadReviews();
-    } catch (error) {
-      console.error('Ошибка добавления отзыва: ', error);
-      alert('Не удалось отправить отзыв.');
-    }
-  });
-
-  async function loadReviews() {
+// Загрузка отзывов
+async function loadReviews() {
+  try {
     const snapshot = await db.collection('reviews').orderBy('date', 'desc').get();
     const reviewsList = document.getElementById('reviews-list');
     reviewsList.innerHTML = '';
-
+    
+    if (snapshot.empty) {
+      reviewsList.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+      return;
+    }
+    
     snapshot.forEach(doc => {
       const r = doc.data();
       const item = document.createElement('div');
       item.className = 'review-item';
+      
+      let photosHTML = '';
+      if (r.photos && r.photos.length > 0) {
+        photosHTML = '<div class="review-photos">' + 
+          r.photos.map(p => `<img src="${p}" onclick="showPhoto(this.src)" alt="Фото отзыва">`).join('') + 
+          '</div>';
+      }
+      
+      let responsesHTML = '';
+      if (r.responses && r.responses.length > 0) {
+        responsesHTML = r.responses.map(resp => 
+          `<div class="review-response"><strong>${resp.adminName}:</strong> ${resp.message}</div>`
+        ).join('');
+      }
+      
       item.innerHTML = `
         <div class="review-header">
           <div class="review-avatar" style="background:#002244;">${r.name.slice(0,2).toUpperCase()}</div>
           <span class="review-author">${r.name}</span>
-          <span class="review-date">${new Date(r.date).toLocaleDateString()}</span>
+          <span class="review-date">${new Date(r.date).toLocaleDateString('ru-RU')}</span>
+          <div>
+            <button class="reply-btn" onclick="replyReview('${doc.id}')">Ответить</button>
+            ${currentUserUID === adminUID ? `<button class="delete-btn" onclick="deleteReview('${doc.id}')">Удалить</button>` : ''}
+          </div>
         </div>
-        <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+        <div class="review-tour">${r.tour}</div>
+        <div class="review-rating">${'★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)}</div>
         <div class="review-message">${r.message}</div>
+        ${photosHTML}
+        ${responsesHTML}
       `;
       reviewsList.appendChild(item);
     });
+  } catch (err) {
+    console.error('Ошибка при загрузке отзывов:', err);
+    document.getElementById('reviews-list').innerHTML = '<p>Ошибка при загрузке отзывов</p>';
   }
+}
 
-  document.addEventListener('DOMContentLoaded', loadReviews);
+// Удаление отзыва
+async function deleteReview(id) {
+  if (confirm('Удалить этот отзыв?')) { 
+    try { 
+      await db.collection('reviews').doc(id).delete(); 
+      loadReviews(); 
+    } catch(err) { 
+      console.error(err); 
+      alert('Ошибка при удалении'); 
+    } 
+  }
+}
+
+// Ответ админа
+async function replyReview(id) {
+  if (currentUserUID !== adminUID) {
+    const email = prompt("Введите email администратора");
+    const password = prompt("Введите пароль администратора");
+    try {
+      const userCredential = await auth.signInWithEmailAndPassword(email, password);
+      if (userCredential.user.uid === adminUID) { 
+        currentUserUID = adminUID; 
+      } else { 
+        alert("Неверный админ"); 
+        return; 
+      }
+    } catch(e) { 
+      alert("Ошибка входа: " + e.message); 
+      return; 
+    }
+  }
+  const message = prompt("Введите ответ администратора:");
+  if (message) {
+    const docRef = db.collection('reviews').doc(id);
+    const docSnap = await docRef.get();
+    if (docSnap.exists) {
+      const data = docSnap.data();
+      const responses = data.responses || [];
+      responses.push({adminName: "Админ", message});
+      await docRef.update({responses});
+      loadReviews();
+    }
+  }
+}
+
+// Helpers
+function showPhoto(src) { 
+  document.getElementById('photoModal').style.display = 'flex'; 
+  document.getElementById('photoModalImg').src = src; 
+}
+
+auth.onAuthStateChanged(user => { 
+  if (user && user.uid === adminUID) currentUserUID = adminUID; 
+});
+
+document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
+
 </body>
 </html>
