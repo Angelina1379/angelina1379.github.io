@@ -15,8 +15,46 @@ a{text-decoration:none;color:inherit;}
 .logo{font-size:24px; font-weight:bold;}
 .nav{display:flex;}
 .nav a{margin-left:20px;color:#fff; font-weight:600;}
-.burger{display:none; font-size:28px; color:#fff; background:none; border:none; cursor:pointer;}
-@media(max-width:768px){.burger{display:block;} .nav{display:none; flex-direction:column; position:absolute; top:60px; right:0; width:100%; background:#002244;} .nav.show{display:flex;} .nav a{margin:10px 0;}}
+/* Бургер кнопка */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Мобильная версия бургер-меню */
+@media(max-width:768px){
+  .burger { 
+    display: block;
+    position: absolute; 
+    right: 20px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+  }
+  .nav {
+    display: none;
+    flex-direction: column;
+    background-color: #002244;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .nav.show { 
+    display: flex; 
+    max-height: 300px; 
+  }
+  .nav a { margin: 15px 0; }
+}
 .reviews-container{width:90%; max-width:800px; margin:30px auto;}
 .review-form{background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:30px;}
 .review-form input, .review-form textarea, .review-form select{width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;}
