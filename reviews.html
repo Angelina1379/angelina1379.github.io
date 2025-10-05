@@ -350,8 +350,8 @@ document.getElementById('review-form').addEventListener('submit', async (e) => {
     return;
   }
   
-  if (messageText.length < 10) {
-    alert('Отзыв должен содержать минимум 10 символов');
+  if (messageText.length < 3) {
+    alert('Отзыв должен содержать минимум 3 символа');
     return;
   }
   
@@ -479,14 +479,14 @@ async function replyReview(id) {
       return; 
     }
   }
-  const message = prompt("Введите ответ администратора:");
+  const message = prompt("Введите ответ:");
   if (message) {
     const docRef = db.collection('reviews').doc(id);
     const docSnap = await docRef.get();
     if (docSnap.exists) {
       const data = docSnap.data();
       const responses = data.responses || [];
-      responses.push({adminName: "Админ", message});
+      responses.push({adminName: "Ирина Пеунова:", message});
       await docRef.update({responses});
       loadReviews();
     }
