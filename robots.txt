@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://tours-kaliningrad.ru/sitemap.xml
