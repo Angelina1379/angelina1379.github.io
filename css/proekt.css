@@ -1,0 +1,888 @@
+/*первый блок*/
+body {
+    margin: 0%;
+    background-image: url('../img/zadnik.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+}
+
+h1 {
+    color: rgb(225, 184, 133);
+    text-align: center;
+    font-family: "Baskervville", serif;
+    font-size: 48px;
+    letter-spacing: 10px;
+    font-weight: normal;
+    margin: 0%;
+    margin-top: 1.5cm;
+}
+
+h2 {
+    color: rgb(139, 125, 108);
+    text-align: center;
+    font-family: "Baskervville", serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: normal;
+}
+
+.au {
+    text-align: center;
+    color: rgb(238, 167, 80);
+    font-family: "Baskervville", serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 0.2cm;
+    margin-left: 200px;
+} 
+
+.au ul li {
+    display: inline;
+    padding: 30px;
+}
+
+.slime {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    line-height: 0.3px;
+    word-spacing: 2px;
+    text-align: center;
+}
+
+
+.like {
+    background-color: white;
+}
+
+.search {
+    float: right;
+    margin-right: 1cm;
+}
+
+div.slime{
+    padding:5px;
+}
+div.drive{
+    padding:5px;
+}
+
+div.like{
+    padding:5px;
+}
+
+div.search {
+    padding: 0px;
+}
+
+.img_zas {
+    margin-left: 1.5cm;
+    margin-right: 1cm;
+}
+
+.slime ul li{
+    display: inline;
+    padding: 20px;
+}
+
+.slime a {
+    text-decoration:none;
+    color: rgba(139, 136, 130, 0.653);
+}
+
+A {
+    text-decoration:none;
+    color: rgba(218, 171, 101, 0.653);
+}
+
+
+a:hover {
+    color: rgb(229, 149, 44); /* Цвет ссылки при наведении на нее курсора мыши */  
+    text-decoration: underline; /* Добавляем подчеркивание */
+}
+
+p {
+    line-height: 0.7cm;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    max-width: 300px;
+    padding: 20px;
+    margin-top: 10cm;
+    margin-right: 3cm;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 3px;
+    margin: 5px 0 20px 0;
+    border-color: #d7d1d1;
+    background: #ffffff;
+    color: #d4d0d0;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ffffff;
+    outline: none;
+    color: #c4bebe;
+}
+
+.btn {
+    background-color: #bf9436;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+/*блок 2 где картинки три на три*/
+.container2 {
+    text-align: center;
+    margin: 0px;
+}
+.gallery2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery-item2 {
+    width: 800px;
+    margin: 0;
+}
+.gallery-item2 img {
+    margin: 10px;
+}
+
+.bottom-text {
+    font-size: 10px;
+    color: #7f7d7d;
+    margin: 20px 290px 20px 290px;
+}
+
+.container2 h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: -0.5px; /* Сокращение межбуквенного интервала */
+    font-size: 32px;
+}
+.rectangle3 {
+    position: absolute;
+    top: 910px;
+    left: 23.2%;
+    width: 200px;
+    height: 25px;
+    background-color: rgb(134, 134, 134);
+    z-index: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: #fff;
+}
+.rectangle4 {
+    position: absolute;
+    top: 910px;
+    left: 41.7%;
+    width: 200px;
+    height: 25px;
+    background-color: rgb(134, 134, 134);
+    z-index: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: #fff;
+
+}.rectangle5 {
+    position: absolute;
+    top: 907px;
+    left: 60.2%;
+    width: 200px;
+    height: 25px;
+    background-color: rgb(134, 134, 134);
+    z-index: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 300;
+    color: #fff;
+}
+
+
+/*блок про Кайлу*/
+.container3 {
+    display: flex;
+    position: relative; /* Позволяет позиционировать дочерние элементы относительно родителя */
+}
+
+.image_Kyla {
+    flex: 1;
+    margin: 60px;
+}
+
+.text_h1 {
+    margin: 90px 225px 10px 65px;
+    letter-spacing: -0.5px; /* Сокращение межбуквенного интервала */
+    font-size: 32px;
+    flex: 1;
+    padding-left: 20px;
+    justify-content: center;
+    position: relative;
+    z-index: 1; /* Задаем элементам текстов меньший z-index */
+    text-align: left;
+}
+
+.lina_h2 {
+    font-size: 22px;
+    font-family: "BlackJackRegular", sans-serif;
+    color: rgb(167, 160, 160);
+    line-height: 1.222;
+    position: absolute;
+    margin: 40px auto 100px 100px;
+    flex: 1;
+  }
+
+.text_p {
+    color: #7f7d7d;
+    line-height: 1.2; /* Межстрочный интервал */
+    letter-spacing: 1px; /* Межбуквенный интервал */
+    font-size: 32px;
+    margin: 0px 100px 10px 67px;
+    flex: 1;
+    padding-left: 20px;
+    justify-content: center;
+    position: relative;
+    z-index: 1; /* Задаем элементам текстов меньший z-index */
+    text-align: left;
+}
+
+.but {
+    background-color: #c4932b;
+    color: white;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    justify-content: center;
+    margin-left: 100px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 1; /* Задаем элементам кнопок меньший z-index */
+}
+
+.but:hover {
+    opacity: 1;
+}
+
+.Shape {
+    background-image: url(../img/list3.png);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px; /* Новая ширина */
+    height: 300px; /* Новая высота */
+    background-size: contain; /* Изображение будет вписываться в блок без обрезки */
+    background-repeat: no-repeat; /* Избегаем повторения изображения */
+    z-index: 10;
+}
+
+.list {
+    justify-content: center;
+    margin-left: 500px;
+}
+
+/*блок 4*/
+.newsletter {
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 120;
+    text-align: center;
+    display: flex;
+    margin: 50px;
+}
+
+.newsletter h2 {
+    font-size: 24px;
+    font-family: "Baskerville", serif;
+    color: rgb(203, 158, 97);
+    line-height: 1.2;
+    margin-top: 120px;
+    margin-left: 250px;
+    margin-right: 100px;
+}
+
+.newsletter p {
+    font-size: 24px;
+    font-family: "Baskerville", serif;
+    color: rgba(143, 145, 149, 0.705);
+    margin-left: 150px;
+}
+
+.newsletter input[type="email"] {
+    font-size: 18px;
+    font-family: "Barlow", sans-serif;
+    padding: 10px 15px;
+    border: 2px solid rgb(140, 140, 140);
+    width: 300px;
+    margin-left: 150px;
+    margin-bottom: 20px;
+}
+
+.newsletter button {
+    font-size: 18px;
+    font-family: "Barlow", sans-serif;
+    background-color: rgb(203, 158, 97);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 300px;
+    margin-left: 150px;
+}
+
+.newsletter button:hover {
+    background-color: rgb(185, 140, 80);
+}
+
+.newsletter img {
+    flex: 1;
+    margin: 0px 100px 0px 0px;
+}
+.bottom-text2 {
+    font-size: 10px;
+    color: #7f7d7d;
+    margin: 20px 150px 20px 310px;
+}
+
+
+/*блок 5*/
+.header5 {
+    text-align: center;
+    padding: 20px;
+}
+
+.header5 h1 {
+    margin-bottom: 10px;
+    color: #b57f50;
+    letter-spacing: -0.5px; /* Сокращение межбуквенного интервала */
+    font-size: 36px;
+}
+
+.header5 p {
+    color: #b57f50;
+    margin: -60px 520px 0px 470px;
+    text-align: left;
+}
+
+.gallery5 img {
+    width: 200px;
+    height: auto;
+}
+
+.left {
+    align-self: flex-end; /* Сдвигает левую картинку вниз */
+    margin: 270px 0px 0px 0px;
+}
+
+.center {
+    margin: 0 20px; /* Отступы для центральной картинки */
+    margin: 0px 0px 70px 0px;
+}
+
+.right {
+    align-self: flex-start; /* Сдвигает правую картинку вверх */
+    margin: 0px 30px 270px 0px;
+}
+
+.section5 {
+    text-align: center;
+    padding: 20px;
+}
+
+.section5 img {
+    width: 50%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.footer5 {
+    background-color: #666;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.rectangle1 {
+    position: absolute;
+    top: 3450px;
+    left: 17.5%;
+    width: 250px;
+    height: 25px;
+    background-color: rgb(134, 134, 134);
+    z-index: 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    color: #fff;
+}
+.rectangle2 {
+    position: absolute;
+    top: 3365px;
+    left: 38.45%;
+    width: 350px;
+    height: 25px;
+    background-color: rgb(134, 134, 134);
+    z-index: 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+    color: #fff;
+}
+
+
+.tips-gallery {
+    display: flex;
+    flex-wrap: wrap;  /* Это позволяет элементам переноситься на новую строку */
+    justify-content: center;  /* Центрируем содержимое */
+    gap: 15px;  /* Расстояние между элементами */
+}
+
+.tips-gallery img {
+    width: 30%;  /* Устанавливаем ширину изображения в 30% от ширины контейнера */
+    height: auto;  /* Поддерживаем пропорции изображений */
+    object-fit: cover;  /* Обеспечиваем корректное отображение изображений, если они имеют разные пропорции */
+}
+
+.footer5 {
+    position: relative;
+    height: 400px;
+    z-index: 21;
+    margin: 1cm;
+  }
+  
+  .footer5 ol {
+    list-style-type: none; 
+    word-spacing: 0.5px;   
+    padding: 0;
+    margin: 0;
+    position: absolute;     
+    left: 200px;           
+    top: 100px;           
+  }
+  
+  .footer5 li {
+    margin-bottom: 0.1cm;    
+    text-align: right;
+  }
+  
+  .footer5 a {
+    font-size: 12px;
+    font-family: "Baskerville";
+    color: rgb(255, 255, 255);
+    text-align: right;    
+    text-transform: uppercase;
+    line-height: 0.3;
+    position: relative;
+    left: 0;
+  }
+
+  .newsletter2 {
+    position: relative;
+    width: 30%;
+    height: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;  
+    align-items: center;    
+    justify-content: center; 
+    margin: 0 auto;         
+}
+
+.newsletter2 h2 {
+    font-size: 18px;
+    font-family: "Baskerville", serif;
+    color: rgb(255, 255, 255);
+    margin-top: 100px;
+    margin-bottom: 0%;
+    margin-left: 40px;
+    text-align: left;  
+}
+
+.newsletter2 p {
+    font-size: 18px;
+    font-family: "Baskerville", serif;
+    color: rgb(255, 255, 255);
+    margin: 0px 0px 20px -30px;
+    text-align: left;  
+}
+
+.newsletter2 input[type="email"] {
+    font-size: 14px;
+    font-family: "Barlow", sans-serif;
+    width: 100%;             
+    max-width: 250px;      
+    margin-bottom: 5px;     
+    padding: 3px;
+    box-sizing: border-box;  
+}
+
+.newsletter2 button {
+    font-size: 14px;
+    font-family: "Barlow", sans-serif;
+    background-color: rgb(203, 158, 97);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;            
+    max-width: 250px;       
+    padding: 3px;
+    box-sizing: border-box;
+    margin-bottom: 15px;     
+}
+
+.newsletter2 button:hover {
+    background-color: rgb(185, 140, 80);
+}
+
+.bottom-text3 {
+    font-size: 8px;
+    color: #ffffff;
+    margin-top: 10px;       
+    text-align: left;        
+    max-width: 230px;       
+}
+
+
+
+.first-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.first-section .text-block {
+    position: relative;
+    flex-direction: column;
+    text-align: right; /* Выравнивание текста по правому краю */
+    color: rgb(161, 145, 145);
+    margin-right: 50px; /* Отступ от правого края */
+}
+
+.first-section .image-block {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.first-section .image1 {
+    width: 550px;
+    height: auto;
+    margin: 100px 250px 300px 500px;
+}
+
+.first-section .image2 {
+    position: absolute;
+    top: 450px; /* Позиционирование наложенного изображения */
+    left: 650px; 
+    width: 250px; /* Ширина наложенного изображения */
+    height: auto;
+    z-index: 1;
+    border: 1px solid #fff; /* Белая рамка вокруг наложенного изображения */
+    border-radius: 10px; /* Закругленные углы рамки */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+}
+
+.circle {
+    position: absolute;
+    transform: translateX(50%);
+    width: 25px; /* Новая ширина */
+    height: 25px; /* Новая высота */
+    background-size: contain; /* Изображение будет вписываться в блок без обрезки */
+    background-repeat: no-repeat; /* Избегаем повторения изображения */
+}
+
+.circle1 {
+    top: 255px; /* Adjust the position */
+    left: 930px;
+    background-image: url(../img/krug1.png);
+}
+
+.circle2 {
+    top: 285px; /* Adjust the position */
+    background-image: url(../img/krug2.png);
+    left: 930px;
+}
+
+.circle3 {
+    background-image: url(../img/krug3.png);
+    top: 315px; /* Adjust the position */
+    left: 930px;
+}
+
+.first-section .text-block {
+    position: absolute;
+    left: 15%;
+    top: 10%;
+    color: rgb(161, 145, 145);
+}
+.first-section h1 {
+    font-size: 24px;
+    margin-bottom: 50px;
+    text-align: right;
+    color: rgb(220, 155, 51);
+    letter-spacing: -0.5px; /* Сокращение межбуквенного интервала */
+    justify-content: right;
+    margin-left: 20px;
+}
+.first-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: right;
+    letter-spacing: -0.5px; /* Сокращение межбуквенного интервала */
+    justify-content: right;
+}
+
+.first-section p {
+    font-size: 22px;
+    font-family: "BlackJackRegular", sans-serif;
+    color: rgb(161, 145, 145);
+    line-height: 2cm;
+}
+
+
+.first-section h1, .first-section h2, .first-section p {
+    text-align: right; /* Выравнивание всех заголовков и параграфов по правому краю */
+}
+
+.Shape2 {
+    background-image: url(../img/listok.png);
+    position: absolute;
+    top: 50%;
+    left: 42.5%;
+    transform: translateX(-50%);
+    width: 200px; /* Новая ширина */
+    height: 200px; /* Новая высота */
+    background-size: contain; /* Изображение будет вписываться в блок без обрезки */
+    background-repeat: no-repeat; /* Избегаем повторения изображения */
+}
+
+
+
+
+
+.second-section {
+    position: relative;
+    width: calc(100% - 100px); /* Полная ширина минус отступы */
+    margin: 0 auto; /* Центрируем секцию */
+}
+
+.seven_foto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto; /* Полная высота экрана */
+    object-fit: cover; /* Подгоняет изображение по размеру блока, сохраняя его пропорции */
+    z-index: -1; /* Отправляем изображение на задний план */
+}
+
+.block2 h2 {
+    color: #cfb171;
+    font-size: 26px;
+    font-family: "Baskerville";
+    padding-top: 7%;
+}
+
+.form-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон */
+    padding: 40px;
+    width: 50%; /* Ширина формы */
+    margin: 150px auto 400px auto; /* Центрируем форму */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.second-section button {
+    background-color: rgb(203, 158, 97);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.bottom-text4 {
+    margin-top: 10px;
+    color: #9f9e9e;
+    text-align: center;
+}
+
+
+
+
+.third-section {
+    position: relative;
+    padding: 100px;
+}
+
+.image-container8 {
+    display: flex;
+    justify-content: flex-start; /* Для выравнивания картинок по левому краю */
+    width: 100%; /* Убедимся, что контейнер заполняет всю ширину */
+}
+
+.image {
+    position: absolute;
+    height: auto;
+}
+
+.image10 {
+    z-index: 1;
+    width: 400px;
+    height: auto;
+    justify-content: left;
+    top: 0;
+    left: 100px; /* Первая картинка выровнана по левому краю */
+}
+
+.image20 {
+    z-index: 2;
+    top: 290px;
+    left: 41.7%; /* Сдвигаем вторую картинку, чтобы она перекрывала первую */
+    width: 200px;
+    height: auto;
+}
+
+.image30 {
+    z-index: 3;
+    top: 70px;
+    left: 36%; /* Третья картинка накладывается на предыдущие с небольшим сдвигом */
+    border: 7px solid #fff; /* Белая рамка вокруг наложенного изображения */
+}
+
+.text-block8 {
+    color: rgb(231, 167, 76);
+    display: flex; /* Используем Flexbox для выравнивания */
+    justify-content: right; /* Местоположение элементов по краям */
+    width: 100%; /* Растягиваем на всю ширину родительского элемента */
+    align-items: calc(100%-10px); /* Вертикальное выравнивание элементов */
+    padding-top: 270px;
+    padding-right: 140px;
+}
+
+.text-block8 h1 {
+    font-size: 124px;
+    color: rgb(217, 181, 130);
+}
+
+.text-block8 h1 span {
+    font-size: 124px;
+    color: rgb(217, 181, 130);
+    width: 10%;
+}
+
+.text-block8 h2 {
+    font-size: 26px;
+    width: 30%;
+    text-align: left; /* Текст в h2 выровнен вправо */
+    padding-top: 60px;
+}
+
+.rectangle {
+    position: absolute;
+    bottom: 128px;
+    left: 42%;
+    width: 40px;
+    height: 130px;
+    background-color: rgb(224, 195, 156);
+    z-index: 0;
+}
+
+
+.lina {
+    position: relative;
+    height: auto;
+    text-align: left;
+    display: flex;
+    justify-content: right; /* Center items vertically if necessary */
+}
+.lina h1 {
+  position: absolute;
+  font-size: 46px;
+  font-family: "Baskerville";
+  color: rgb(255, 255, 255);
+  line-height: 1.222;
+  margin-top: 140px;
+  margin-right: 50px;
+}
+
+.lina h3 {
+  font-size: 16px;
+  font-family: "Baskerville";
+  color: rgb(255, 255, 255);
+  line-height: 1.222;
+  text-align: left;
+  position: absolute;
+  text-transform: uppercase;
+  line-height: 2.131;
+  position: absolute;
+  margin-top: 110px;
+  margin-right: 110px;
+}
+
+@font-face {
+    font-family: 'BlackJackRegular';
+    src: url('../fonts/BLACKJAR.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lina h2 {
+  font-size: 22px;
+  font-family: "BlackJackRegular", sans-serif;
+  color: rgb(255, 255, 255);
+  line-height: 1.222;
+  position: absolute;
+  margin-top: 240px;
+  margin-right: 157px;
+}
+
+
+
+
+

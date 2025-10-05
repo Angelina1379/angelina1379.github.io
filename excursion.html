@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Туры по Калининграду</title>
+  <link rel="stylesheet" href="excursion.css">
+  <script defer src="js/excursion.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">КалининградТур</div>
+      <button class="burger" onclick="toggleMenu()">☰</button>
+      <nav class="nav" id="navMenu">
+        <a href="home.html">Главная</a>
+        <a href="excursion.html">Туры</a>
+        <a href="komanda.html">О нас</a>
+        <a href="reviews.html">Отзывы</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="tours" id="tours">
+      <!-- 12 карточек туров -->
+      <div class="tour-card">
+        <img src="image/vorota1.jpg" alt="Ворота Кенигсберга">
+        <div class="content">
+          <h3>Ворота Кенигсберга</h3>
+          <p>Фортификационные ворота XIX века, башни, бастионы и оборонительные сооружения...</p>
+          <div class="price">от 7000 ₽</div>
+          <button onclick="showDetails(0)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/obzornaya1.jpg" alt="Обзорная экскурсия">
+        <div class="content">
+          <h3>Обзорная экскурсия</h3>
+          <p>История города, Кафедральный собор, Рыбная деревня, районы старого Кёнигсберга...</p>
+          <div class="price">от 7000 ₽</div>
+          <button onclick="showDetails(1)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/baltiysk1.jpg" alt="Балтийск и коса">
+        <div class="content">
+          <h3>Балтийск и Балтийская коса</h3>
+          <p>Крепость Пиллау, старый маяк, Северный и Южный молы, янтарные пляжи...</p>
+          <div class="price">от 12000 ₽</div>
+          <button onclick="showDetails(2)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/north1.jpg" alt="На край области">
+        <div class="content">
+          <h3>На край области</h3>
+          <p>Советск, Неман, замок Рагнит, мост Королевы Луизы, сыроварня и монастырь...</p>
+          <div class="price">от 16000 ₽</div>
+          <button onclick="showDetails(3)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/yantarny1.jpg" alt="Янтарный + Светлогорск">
+        <div class="content">
+          <h3>Янтарный + Светлогорск</h3>
+          <p>Вы хотите увидеть все самое-самое на Янтарном побережье Балтийского моря за один день...</p>
+          <div class="price">от 12000 ₽</div>
+          <button onclick="showDetails(4)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/insterburg1.jpg" alt="Инстербург и Георгенбург">
+        <div class="content">
+          <h3>Инстербург + Георгенбург</h3>
+          <p>Черняховск, старинные улочки, костелы и конезавод с тракененскими лошадьми...</p>
+          <div class="price">от 15000 ₽</div>
+          <button onclick="showDetails(5)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/homlins1.jpg" alt="По тропам Хомлинов">
+        <div class="content">
+          <h3>По тропам Хомлинов</h3>
+          <p>В 2018 году в Калининграде  начала появляться славная семейка Хомлинов. Поиск сказочных фигурок по ...</p>
+          <div class="price">от 6000 ₽</div>
+          <button onclick="showDetails(6)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/kurshskaya1.jpg" alt="Куршская коса + Зеленоградск">
+        <div class="content">
+          <h3>Куршская коса + Зеленоградск</h3>
+          <p>Танцующий лес, высота Эфа, дюны, орнитологическая станция и морской курорт...</p>
+          <div class="price">от 15000 ₽</div>
+          <button onclick="showDetails(7)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/3days1.jpg" alt="Все красоты области за 3 дня">
+        <div class="content">
+          <h3>Все красоты области за 3 дня</h3>
+          <p>Калининград, Янтарное побережье, Куршская коса и Зеленоградск за три дня...</p>
+          <div class="price">от 37000 ₽</div>
+          <button onclick="showDetails(8)">Подробнее</button>
+        </div>
+      </div>
+
+      <div class="tour-card">
+        <img src="image/gvardeisk1.jpg" alt="Гвардейск-Знаменск-Железнодорожный-Правдинск">
+        <div class="content">
+          <h3>Гвардейск-Знаменск-Железнодорожный-Правдинск</h3>
+          <p>Путешествие по четырем старинным прусским городам области...</p>
+          <div class="price">от 15000 ₽</div>
+          <button onclick="showDetails(9)">Подробнее</button>
+        </div>
+      </div>
+
+            <div class="tour-card">
+        <img src="image/amalienay1.jpg" alt="Амалиенау">
+        <div class="content">
+          <h3>Амалиенау</h3>
+          <p>Откройте для себя очарование Амалиенау, "кенигсбергской Рублевки" начала XX века, в нашей пешеходной экскурсии!...</p>
+          <div class="price">от 6000 ₽</div>
+          <button onclick="showDetails(10)">Подробнее</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<!-- Модальное окно -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+
+    <!-- Левая часть: фото -->
+    <div class="modal-left">
+      <div class="carousel">
+        <div class="carousel-inner" id="carousel-inner"></div>
+        <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+        <button class="carousel-control next" onclick="nextSlide()">❯</button>
+        <div class="carousel-indicators" id="carousel-indicators"></div>
+      </div>
+    </div>
+
+    <!-- Правая часть: текст -->
+    <div class="modal-right">
+      <h3 id="modal-title"></h3>
+      <div class="modal-right-content">
+        <p id="modal-description"></p>
+      </div>
+      <a id="whatsapp-link" class="btn" target="_blank">Забронировать</a>
+    </div>
+  </div>
+</div>  
+
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 КалининградТур</p>
+      <p>Email: bogira27@mail.ru | Телефон: +7 (905) 248-40-96</p>
+    </div>
+  </footer>
+</body>
+</html>

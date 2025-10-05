@@ -1,0 +1,427 @@
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+    color: #002244;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+.header {
+    background: #002244;
+    padding: 20px 0;
+    color: #fff;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav {
+    float: right;
+}
+
+.nav a {
+    margin-left: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+.burger{display:none;font-size:28px;color:#fff;background:none;border:none;cursor:pointer;}
+@media(max-width:768px){
+  .burger{display:block;}
+  .nav{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:100%;background:#002244;}
+  .nav.show{display:flex;}
+  .nav a{margin:10px 0;}
+}
+
+/* Бургер-кнопка — скрыта на десктопе */
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Адаптив */
+@media screen and (max-width: 768px) {
+    .header .container {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+    }
+
+    .burger {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+    }
+
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002244;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .nav.show {
+        display: flex;
+        max-height: 300px;
+    }
+
+    .nav a {
+        margin: 15px 0;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+}
+.nav a.active {
+    position: relative;
+}
+
+.nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    animation: underline 0.3s ease-out;
+}
+
+@keyframes underline {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@media (max-width: 768px) {
+    .nav a.active {
+        background-color: rgba(255, 215, 0, 0.1);
+        padding: 8px 0;
+    }
+}
+
+/* === ГЕРОЙ === */
+.hero{background:url('image/1.jpg')center/cover no-repeat;color:#fff;text-align:center;padding:150px 20px;}
+.hero h1{font-size:36px;margin-bottom:20px;}
+.btn{background:#FFD700;color:#002244d6;padding:12px 24px;border-radius:30px;font-weight:bold;transition:.3s;display:inline-block;}
+.btn:hover{background:#e6c200;}
+
+/* === ТУРЫ === */
+.tours{padding:60px 0;text-align:center;}
+.tours-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:30px;}
+.tour-card{background:#fff;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.1);overflow:hidden;padding-bottom:20px;transition:.3s;}
+.tour-card img{width:100%;height:200px;object-fit:cover;}
+.tour-card:hover{transform:translateY(-5px);}
+.price{display:block;font-weight:bold;margin:10px 0;}
+.btn-small{background:#FFD700;color:#002244;padding:8px 16px;border-radius:20px;font-size:14px;cursor:pointer;border:none;}
+.btn-small:hover{background:#e6c200;}
+
+
+/* === ПОЧЕМУ МЫ === */
+.why-us{position:relative;padding:60px 0;text-align:center;color:#002244;overflow:hidden;}
+.why-us::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('image/3.jpg')center/cover no-repeat;opacity:.25;z-index:-1;}
+.why-us ul{list-style:none;padding:0;margin:0;}
+.why-us li{margin:15px 0;font-size:18px;opacity:0;transform:translateY(20px);transition:.6s;}
+.why-us li.show{opacity:1;transform:translateY(0);}
+
+/* === ОТЗЫВЫ === */
+.reviews{padding:60px 0;background:#f9f9f9;text-align:center;}
+.review-slider{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.review-card{background:#fff;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1);padding:20px;text-align:left;}
+.review-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.avatar{background:#eee;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;}
+.review-stars{color:gold;margin-bottom:10px;}
+
+/* === МЕССЕНДЖЕРЫ === */
+.messenger-float{position:fixed;bottom:30px;right:30px;display:flex;flex-direction:column;gap:15px;z-index:100;}
+.messenger-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.telegram-btn{background:#0088cc;}
+.whatsapp-btn{background:#25D366;}
+.messenger-btn img{width:30px;height:30px;filter:brightness(0) invert(1);}
+
+/* === ПОДВАЛ === */
+.footer{background:#002244;color:#fff;text-align:center;padding:20px;margin-top:40px;}
+
+/* === МОДАЛКА === */
+/* Модальное окно */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 1000px;
+  width: 90%;
+  height: 80vh;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #002244;
+  transition: transform 0.3s ease;
+  z-index: 20;
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+}
+
+/* Левая часть (фото) */
+.modal-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8; /* Добавим фон для лучшего визуального восприятия */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-left .carousel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* КАРУСЕЛЬ */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item {
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item.active {
+  display: flex;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Изменено с cover на contain */
+  border-radius: 8px;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-control.prev {
+  left: 10px;
+}
+
+.carousel-control.next {
+  right: 10px;
+}
+
+.carousel-indicators {
+  text-align: center;
+  margin-top: 8px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.carousel-indicators .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.carousel-indicators .dot.active {
+  background: #FFD700;
+}
+
+/* Правая часть (текст + кнопка) */
+.modal-right {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+
+.modal-right-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 15px;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.modal-right .btn {
+  flex-shrink: 0;
+  width: 85%;
+  text-align: center;
+}
+
+/* === МОБИЛЬНЫЙ ВАРИАНТ МОДАЛКИ === */
+@media (max-width: 900px) {
+  .modal-content {
+    flex-direction: column;
+    max-height: calc(100vh - 30px);
+    height: auto;
+    min-height: 80vh;
+  }
+  
+  .modal-left, .modal-right {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .modal-left {
+    height: 40vh;
+    min-height: 300px;
+  }
+  
+  .modal-right {
+    height: auto;
+    flex: 1;
+  }
+  
+  .carousel-item img {
+    max-height: 35vh;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .modal-left {
+    height: 35vh;
+    min-height: 250px;
+  }
+}
+/* КАРУСЕЛЬ */
+.carousel{position:relative;}
+.carousel-item{display:none;}
+.carousel-item.active{display:block;}
+
+.carousel-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* сохраняет пропорции */
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.carousel-control{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.6);color:#fff;border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;}
+.carousel-control.prev{left:10px;}
+.carousel-control.next{right:10px;}
+.carousel-indicators{text-align:center;margin-top:8px;}
+.carousel-indicators .dot{display:inline-block;width:10px;height:10px;background:#ccc;border-radius:50%;margin:0 3px;cursor:pointer;}
+.carousel-indicators .dot.active{background:#FFD700;}
+
+/* === МОБИЛЬНЫЙ ВАРИАНТ МОДАЛКИ === */
+@media(max-width:900px){
+  .modal-content{flex-direction:column;max-height:calc(100vh - 30px);}
+  .modal-left,.modal-right{min-width:100%;}
+  .modal-item img{max-height:40vh;}
+}
+
+
+

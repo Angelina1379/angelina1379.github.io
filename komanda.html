@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>КалининградТур — Экскурсовод Ирина Пеунова</title>
+  <link rel="stylesheet" href="komanda.css">
+  <script defer src="js/komanda.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">КалининградТур</div>
+      <button class="burger" onclick="toggleMenu()">☰</button>
+      <nav class="nav" id="navMenu">
+        <a href="home.html">Главная</a>
+        <a href="excursion.html">Туры</a>
+        <a href="komanda.html">О нас</a>
+        <a href="reviews.html">Отзывы</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="profile-section">
+      <div class="container">
+        <div class="profile-container">
+          <!-- Левая колонка: фото -->
+          <div class="photo-column">
+            <div class="carousel-container">
+              <div class="carousel">
+                <div class="carousel-inner" id="carouselInner"></div>
+                <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+                <button class="carousel-control next" onclick="nextSlide()">❯</button>
+              </div>
+              <div class="carousel-indicators" id="carouselIndicators"></div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: текст -->
+          <div class="text-column">
+            <h1 class="name">Ирина Пеунова</h1>
+            <p class="description">
+              Меня зовут Ирина Пеунова, я аттестованный экскурсовод по Калининграду и области, 
+              и вот уже почти десять лет с любовью открываю для гостей тайны этого удивительного края.
+              <br><br>
+              Калининградская земля — это место с богатой историей, живописной природой и уникальной архитектурой, 
+              которое не оставит равнодушным ни одного путешественника.
+              <br><br>
+              Я покажу вам регион во всей его красоте, помогу прочувствовать атмосферу и наполниться яркими впечатлениями. 
+              Каждая моя экскурсия — индивидуальна: она строится вокруг ваших интересов, эмоций и даже капризов погоды. Я организую мастер-классы, дегустации и гастрономические туры — вы сможете буквально попробовать наши регионы на вкус! 
+              Все экскурсии проходят на удобном шестиместном автомобиле, а при желании их можно совместить с трансфером из аэропорта и обратно.
+              <br><br>
+              Добро пожаловать в Калининград! Откройте его для себя по-настоящему.
+            </p>
+            <div class="contact-info">
+              <p><strong>Контакты:</strong></p>
+              <p><i class="fas fa-envelope"></i> Email: bogira27@mail.ru</p>
+              <p><i class="fas fa-phone"></i> Телефон: +7 (905) 248-40-96</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 КалининградТур</p>
+      <p><i class="fas fa-envelope"></i> Email: bogira27@mail.ru | <i class="fas fa-phone"></i> Телефон: +7 (905) 248-40-96</p>
+    </div>
+  </footer>
+</body>
+</html>

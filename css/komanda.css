@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #002244;
+    color: #fff;
+}
+/* Шапка */
+.header {
+    background: #002244;
+    padding: 20px 0;
+    color: #fff;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    
+}
+
+.nav {
+    float: right;
+}
+
+.nav a {
+    margin-left: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Бургер-кнопка — скрыта на десктопе */
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Адаптив */
+@media screen and (max-width: 768px) {
+    .header .container {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+    }
+
+    .burger {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+    }
+
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002244;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .nav.show {
+        display: flex;
+        max-height: 300px;
+    }
+
+    .nav a {
+        margin: 15px 0;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+}
+.about-section {
+    padding: 50px 0;
+    background-color:white;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    color: #002244;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.about-photo {
+    flex: 1;
+    padding: 20px;
+}
+
+.about-photo img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 50%;
+    border: 5px solid #002244;
+}
+
+.about-info {
+    flex: 2;
+    padding: 20px;
+    color: #3c6b9b5a;
+}
+
+.name {
+    font-size: 28px;
+    font-family: 'Playfair Display', serif;
+    color: #002244;
+    margin-bottom: 10px;
+}
+
+.quote {
+    font-size: 18px;
+    font-style: italic;
+    color: #002244;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    margin-top: 20px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-photo img {
+        max-width: 200px;
+    }
+
+    .about-info {
+        text-align: center;
+    }
+}
+/* Подвал */
+.footer {
+    background: #002244;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+} 
