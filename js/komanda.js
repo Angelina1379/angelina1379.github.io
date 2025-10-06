@@ -41,7 +41,9 @@ const photos = [
     { src: 'image/irina18.jpg', caption: 'Авторские экскурсионные маршруты' },
     { src: 'image/irina19.jpg', caption: 'Профессиональный подход к каждой экскурсии' },
     { src: 'image/irina20.jpg', caption: 'Экскурсии на любой вкус' },
-    { src: 'image/irina21.jpg', caption: 'Индивидуальные экскурсии для вас' }
+    { src: 'image/irina21.jpg', caption: 'Индивидуальные экскурсии для вас' },
+    { src: 'image/irina22.jpg', caption: 'Прогулки по старым улочкам' },
+    { src: 'image/irina23.jpg', caption: 'Ваш персональный гид по Калининграду' }
 ];
 
 let currentSlide = 0;
