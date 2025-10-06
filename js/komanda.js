@@ -38,7 +38,10 @@ const photos = [
     { src: 'image/irina15.jpg', caption: 'Экскурсии в любую погоду' },
     { src: 'image/irina16.jpg', caption: 'Калининград глазами местного' },
     { src: 'image/irina17.jpg', caption: 'Путешествие в историю' },
-    { src: 'image/irina18.jpg', caption: 'Авторские экскурсионные маршруты' }
+    { src: 'image/irina18.jpg', caption: 'Авторские экскурсионные маршруты' },
+    { src: 'image/irina19.jpg', caption: 'Профессиональный подход к каждой экскурсии' },
+    { src: 'image/irina20.jpg', caption: 'Экскурсии на любой вкус' },
+    { src: 'image/irina21.jpg', caption: 'Индивидуальные экскурсии для вас' }
 ];
 
 let currentSlide = 0;
