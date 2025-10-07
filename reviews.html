@@ -242,11 +242,13 @@ button.delete-btn{background:#ff4d4d; color:white;}
 </div>
 
 <!-- Firebase SDK -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-// Firebase
+<script>
+// ======= весь ваш JS-код сюда =======
 const firebaseConfig = {
   apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
   authDomain: "kaliningrad-tour2025.firebaseapp.com",
@@ -259,6 +261,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
+
 
 // Переменные
 let currentRating = 0;
@@ -496,4 +499,5 @@ document.addEventListener('DOMContentLoaded', loadReviews);
 
 </body>
 </html>
+
 
