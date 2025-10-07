@@ -242,7 +242,6 @@ button.delete-btn{background:#ff4d4d; color:white;}
 </div>
 
 <!-- Firebase SDK -->
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -254,22 +253,19 @@ const firebaseConfig = {
   projectId: "kaliningrad-tour2025",
   storageBucket: "kaliningrad-tour2025.appspot.com",
   messagingSenderId: "733180646321",
-  appId: "1:733180646321:web:f7e0106357edc327162390",
-  measurementId: "G-L7J4PSLSEY"
+  appId: "1:733180646321:web:f7e0106357edc327162390"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-// Включаем offline persistence (если поддерживается)
-db.enablePersistence().catch(err => console.warn("Persistence error:", err));
+let currentUserUID = null;
+const adminUID = "PSV7Glh3hDTgXKmONpgeThQ9lEq2";
 
 let currentRating = 0;
 let photosData = [];
-const adminUID = "PSV7Glh3hDTgXKmONpgeThQ9lEq2";
-let currentUserUID = null;
 
-// === РЕЙТИНГ ===
+// === Рейтинг ===
 document.querySelectorAll('.star').forEach(star => {
   star.addEventListener('click', () => {
     currentRating = parseInt(star.dataset.rating);
@@ -277,179 +273,178 @@ document.querySelectorAll('.star').forEach(star => {
   });
 });
 
-// === РАБОТА С ФОТО ===
+// === Обработка фото ===
 const uploadArea = document.getElementById('uploadArea');
 const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
 
 uploadArea.addEventListener('click', ()=>photoInput.click());
 photoInput.addEventListener('change', e => handleFiles(e.target.files));
+
 uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
 uploadArea.addEventListener('dragleave', ()=>uploadArea.classList.remove('dragover'));
 uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
 
 function resizeImage(file, maxSize=300){
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject)=>{
     const img = new Image();
-    img.onload = () => {
+    img.onload = ()=>{
       let {width, height} = img;
       if(width>height && width>maxSize){ height*=maxSize/width; width=maxSize; }
       else if(height>width && height>maxSize){ width*=maxSize/height; height=maxSize; }
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
+      const canvas=document.createElement('canvas');
+      canvas.width=width; canvas.height=height;
       canvas.getContext('2d').drawImage(img,0,0,width,height);
       resolve(canvas.toDataURL('image/jpeg',0.7));
     };
-    img.onerror = reject;
-    img.src = URL.createObjectURL(file);
+    img.onerror=reject;
+    img.src=URL.createObjectURL(file);
   });
 }
 
 async function handleFiles(files){
   for(const file of files){
     if(!file.type.startsWith('image/')) continue;
-    try{
-      const smallData = await resizeImage(file);
-      photosData.push(smallData);
-      const img = document.createElement('img');
-      img.src = smallData;
-      img.addEventListener('click', ()=>showPhoto(smallData));
-      photoPreview.appendChild(img);
-    }catch(e){ console.error("Ошибка фото", e);}
+    const smallData = await resizeImage(file);
+    photosData.push(smallData);
+    const img = document.createElement('img');
+    img.src = smallData;
+    img.onclick = ()=>showPhoto(smallData);
+    photoPreview.appendChild(img);
   }
 }
 
-// === ОТПРАВКА ОТЗЫВА ===
+// === Отправка отзыва ===
 document.getElementById('review-form').addEventListener('submit', async e=>{
   e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const message = document.getElementById('message').value.trim();
-  const tour = document.getElementById('tour').value;
+  const name=document.getElementById('name').value.trim();
+  const message=document.getElementById('message').value.trim();
+  const tour=document.getElementById('tour').value;
   if(!name||!message||!tour||currentRating===0){ alert("Заполните все поля"); return; }
 
-  const btn = e.target.querySelector('button[type="submit"]');
-  const oldText = btn.textContent;
+  const btn=e.target.querySelector('button[type="submit"]');
+  const oldText=btn.textContent;
   btn.innerHTML='<div class="loading"></div>'; btn.disabled=true;
 
   try{
     await db.collection('reviews').add({
-      name, message, tour,
+      name,message,tour,
       rating:currentRating,
       photos:photosData,
       date:new Date().toISOString(),
       responses:[]
     });
-    e.target.reset(); currentRating=0; photosData=[]; photoPreview.innerHTML='';
+    e.target.reset();
+    currentRating=0; photosData=[]; photoPreview.innerHTML='';
     document.querySelectorAll('.star').forEach(s=>s.classList.remove('active'));
     loadReviews();
     alert("Отзыв добавлен!");
-  }catch(e){ console.error(e); alert("Ошибка: "+e.message);}
-  finally{ btn.textContent=oldText; btn.disabled=false; }
+  }catch(err){ alert("Ошибка: "+err.message);}
+  finally{btn.textContent=oldText; btn.disabled=false;}
 });
 
-// === ЗАГРУЗКА ОТЗЫВОВ ===
+// === Загрузка отзывов ===
 async function loadReviews(){
-  const container = document.getElementById('reviews-list');
-  try{
-    const snap = await db.collection('reviews').orderBy('date','desc').get();
-    container.innerHTML='';
-    if(snap.empty){ container.innerHTML="<p>Пока нет отзывов</p>"; return; }
-    snap.forEach(doc=>{
-      const r=doc.data();
-      let photosHTML = "";
-      if(r.photos && r.photos.length) photosHTML='<div class="review-photos">'+r.photos.map(p=>`<img src="${p}" onclick="showPhoto(this.src)">`).join('')+'</div>';
-      let responsesHTML="";
-      if(r.responses && r.responses.length) responsesHTML=r.responses.map(resp=>`<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`).join('');
-      
-      const adminButtons = currentUserUID===adminUID
-        ? `<button class="reply-btn" onclick="replyReview('${doc.id}')">Ответить</button>
-           <button class="delete-btn" onclick="deleteReview('${doc.id}')">Удалить</button>`
-        : `<button class="reply-btn" onclick="adminLogin('${doc.id}')">Ответить</button>`;
-      
-      const div = document.createElement('div');
-      div.className="review-item";
-      div.innerHTML=`
-        <div class="review-header">
-          <div class="review-avatar" style="background:#002244;">${r.name.slice(0,2).toUpperCase()}</div>
-          <span class="review-author">${r.name}</span>
-          <span class="review-date">${new Date(r.date).toLocaleDateString()}</span>
-          <div>${adminButtons}</div>
-        </div>
-        <div class="review-tour">${r.tour}</div>
-        <div class="review-rating">${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</div>
-        <div class="review-message">${r.message}</div>
-        ${photosHTML}
-        ${responsesHTML}
-      `;
-      container.appendChild(div);
-    });
-  }catch(e){ console.error(e); container.innerHTML="<p>Ошибка загрузки</p>"; }
+  const container=document.getElementById('reviews-list');
+  const snap=await db.collection('reviews').orderBy('date','desc').get();
+  container.innerHTML='';
+  if(snap.empty){ container.innerHTML="<p>Пока нет отзывов</p>"; return; }
+
+  snap.forEach(doc=>{
+    const r=doc.data();
+    const photosHTML = (r.photos||[]).map(p=>`<img src="${p}" onclick="showPhoto(this.src)">`).join('');
+    const responsesHTML=(r.responses||[]).map(resp=>`<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`).join('');
+    let adminButtons = '';
+
+    // Кнопки в зависимости от статуса
+    if(currentUserUID===adminUID){
+      adminButtons = `
+        <button class="reply-btn" onclick="replyReview('${doc.id}')">Ответить</button>
+        <button class="delete-btn" onclick="deleteReview('${doc.id}')">Удалить</button>`;
+    } else {
+      adminButtons = `<button class="reply-btn" onclick="adminLogin('${doc.id}')">Ответить</button>`;
+    }
+
+    const div=document.createElement('div');
+    div.className="review-item";
+    div.innerHTML=`
+      <div class="review-header">
+        <div class="review-avatar" style="background:#002244;">${r.name.slice(0,2).toUpperCase()}</div>
+        <span class="review-author">${r.name}</span>
+        <span class="review-date">${new Date(r.date).toLocaleDateString()}</span>
+        <div class="review-actions">${adminButtons}</div>
+      </div>
+      <div class="review-tour">${r.tour}</div>
+      <div class="review-rating">${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</div>
+      <div class="review-message">${r.message}</div>
+      ${photosHTML ? `<div class="review-photos">${photosHTML}</div>` : ''}
+      ${responsesHTML}
+    `;
+    container.appendChild(div);
+  });
 }
 
-// === ВХОД АДМИНА ===
+// === Авторизация админа ===
 async function adminLogin(reviewId){
   const email = prompt("Введите email администратора:");
   const password = prompt("Введите пароль:");
   if(!email || !password) return;
+
   try{
     const userCred = await auth.signInWithEmailAndPassword(email, password);
-    if(userCred.user.uid === adminUID){
+    if(userCred.user.uid===adminUID){
       currentUserUID = adminUID;
       alert("Вы вошли как администратор!");
       await loadReviews();
-      if(reviewId) replyReview(reviewId);
-    } else {
-      alert("Неверный администратор!");
-    }
-  } catch(e){
-    alert("Ошибка входа: " + e.message);
-  }
+      if(reviewId){
+        // сразу дать выбор
+        const action = confirm("Вы хотите удалить отзыв? Нажмите 'Отмена', чтобы ответить.");
+        if(action) deleteReview(reviewId);
+        else replyReview(reviewId);
+      }
+    } else alert("Неверный администратор!");
+  }catch(err){ alert("Ошибка входа: "+err.message); }
 }
 
-// === УДАЛЕНИЕ ОТЗЫВА ===
-async function deleteReview(id){
-  if(!confirm("Удалить этот отзыв?")) return;
-  try{
-    await db.collection('reviews').doc(id).delete();
-    loadReviews();
-  }catch(e){ alert("Ошибка удаления: "+e.message); }
-}
-
-// === ОТВЕТ АДМИНА ===
+// === Ответить ===
 async function replyReview(id){
   const message = prompt("Введите ответ на отзыв:");
   if(!message) return;
-  try{
-    const docRef = db.collection('reviews').doc(id);
-    const docSnap = await docRef.get();
-    if(docSnap.exists){
-      const data = docSnap.data();
-      const responses = data.responses || [];
-      responses.push({adminName:"Администратор", message});
-      await docRef.update({responses});
-      loadReviews();
-    }
-  }catch(e){ alert("Ошибка ответа: "+e.message); }
+  const docRef=db.collection('reviews').doc(id);
+  const docSnap=await docRef.get();
+  if(!docSnap.exists) return;
+  const data=docSnap.data();
+  const responses=data.responses||[];
+  responses.push({adminName:"Администратор", message});
+  await docRef.update({responses});
+  loadReviews();
 }
 
-// === МОДАЛЬНОЕ ФОТО ===
-function showPhoto(src){ 
-  const modal = document.getElementById('photoModal');
+// === Удалить ===
+async function deleteReview(id){
+  if(!confirm("Удалить этот отзыв?")) return;
+  await db.collection('reviews').doc(id).delete();
+  loadReviews();
+}
+
+// === Просмотр фото ===
+function showPhoto(src){
+  const modal=document.getElementById('photoModal');
   modal.style.display='flex';
   document.getElementById('photoModalImg').src=src;
 }
 
-// === СОСТОЯНИЕ АВТОРИЗАЦИИ ===
+// === Проверка входа ===
 auth.onAuthStateChanged(user=>{
   if(user && user.uid===adminUID) currentUserUID=adminUID;
 });
 
-// === СТАРТ ===
+// === Загрузка ===
 document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
 </body>
 </html>
+
 
 
 
