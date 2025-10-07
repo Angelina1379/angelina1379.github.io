@@ -15,36 +15,8 @@ a{text-decoration:none;color:inherit;}
 .logo{font-size:24px; font-weight:bold;}
 .nav{display:flex;}
 .nav a{margin-left:20px;color:#fff; font-weight:600;}
-/* Шапка */
-.header {
-    background: #002244;
-    padding: 20px 0;
-    color: #fff;
-}
-
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-.header .logo {
-    font-size: 24px;
-    font-weight: bold;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.nav {
-    float: right;
-}
-
-.nav a {
-    margin-left: 20px;
-    color: #fff;
-    font-weight: 600;
-}
 .burger{display:none;font-size:28px;color:#fff;background:none;border:none;cursor:pointer;}
+
 @media(max-width:768px){
   .burger{display:block;}
   .nav{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:100%;background:#002244;}
@@ -52,30 +24,17 @@ a{text-decoration:none;color:inherit;}
   .nav a{margin:10px 0;}
 }
 
-/* Бургер-кнопка — скрыта на десктопе */
-.burger {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-}
-
-/* Адаптив */
 @media screen and (max-width: 768px) {
     .header .container {
         justify-content: center;
         padding: 10px;
     }
-
     .logo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         font-size: 22px;
     }
-
     .burger {
         position: absolute;
         right: 20px;
@@ -83,7 +42,6 @@ a{text-decoration:none;color:inherit;}
         transform: translateY(-50%);
         display: block;
     }
-
     .nav {
         display: none;
         flex-direction: column;
@@ -99,26 +57,18 @@ a{text-decoration:none;color:inherit;}
         overflow: hidden;
         transition: max-height 0.4s ease;
     }
-
     .nav.show {
         display: flex;
         max-height: 300px;
     }
-
     .nav a {
         margin: 15px 0;
     }
-
-    .header {
-        position: sticky;
-        top: 0;
-        z-index: 999;
-    }
 }
+
 .nav a.active {
     position: relative;
 }
-
 .nav a.active::after {
     content: '';
     position: absolute;
@@ -126,21 +76,19 @@ a{text-decoration:none;color:inherit;}
     left: 0;
     width: 100%;
     height: 2px;
+    background: #FFD700;
     animation: underline 0.3s ease-out;
 }
-
 @keyframes underline {
     from { width: 0 }
     to { width: 100% }
 }
-
 @media (max-width: 768px) {
     .nav a.active {
         background-color: rgba(255, 215, 0, 0.1);
         padding: 8px 0;
     }
 }
-
 
 /* Фильтр */
 .filter-bar{
@@ -149,6 +97,9 @@ a{text-decoration:none;color:inherit;}
   gap:10px;
   justify-content:center;
   margin:20px 0;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 10px;
 }
 .filter-bar select{
   padding:10px;
@@ -217,30 +168,6 @@ button.delete-btn{background:#ff4d4d; color:white;}
   </div>
 </header>
 
-  <!-- === ФИЛЬТР === -->
-  <div class="filter-bar">
-    <select id="filterTour">
-      <option value="">Все экскурсии</option>
-      <option>Ворота Кенигсберга</option>
-      <option>Обзорная экскурсия</option>
-      <option>Балтийск и Балтийская коса</option>
-      <option>Янтарный + Светлогорск</option>
-      <option>Куршская коса + Зеленоградск</option>
-    </select>
-
-    <select id="filterRating">
-      <option value="">Все оценки</option>
-      <option value="5">★★★★★</option>
-      <option value="4">★★★★☆</option>
-      <option value="3">★★★☆☆</option>
-      <option value="2">★★☆☆☆</option>
-      <option value="1">★☆☆☆☆</option>
-    </select>
-
-    <button onclick="applyFilter()">Применить</button>
-    <button onclick="resetFilter()">Сбросить</button>
-  </div>
-    
 <div class="reviews-container">
   <h2>Оставьте ваш отзыв</h2>
   <form id="review-form" class="review-form">
@@ -282,6 +209,30 @@ button.delete-btn{background:#ff4d4d; color:white;}
     <button type="submit">Отправить отзыв</button>
   </form>
 
+  <!-- === ФИЛЬТР ПЕРЕМЕЩЕН СЮДА === -->
+  <div class="filter-bar">
+    <select id="filterTour">
+      <option value="">Все экскурсии</option>
+      <option>Ворота Кенигсберга</option>
+      <option>Обзорная экскурсия</option>
+      <option>Балтийск и Балтийская коса</option>
+      <option>Янтарный + Светлогорск</option>
+      <option>Куршская коса + Зеленоградск</option>
+    </select>
+
+    <select id="filterRating">
+      <option value="">Все оценки</option>
+      <option value="5">★★★★★</option>
+      <option value="4">★★★★☆</option>
+      <option value="3">★★★☆☆</option>
+      <option value="2">★★☆☆☆</option>
+      <option value="1">★☆☆☆☆</option>
+    </select>
+
+    <button onclick="applyFilter()">Применить</button>
+    <button onclick="resetFilter()">Сбросить</button>
+  </div>
+
   <div id="reviews-list" class="reviews-list"></div>
 </div>
 
@@ -314,6 +265,13 @@ const adminUID = "PSV7Glh3hDTgXKmONpgeThQ9lEq2";
 
 let currentRating = 0;
 let photosData = [];
+let allReviews = [];
+
+// Функция для бургер-меню
+function toggleMenu() {
+  const nav = document.getElementById('navMenu');
+  nav.classList.toggle('show');
+}
 
 // === Рейтинг ===
 document.querySelectorAll('.star').forEach(star => {
@@ -324,20 +282,67 @@ document.querySelectorAll('.star').forEach(star => {
 });
     
 // === Фильтр ===
-let allReviews=[];
 function applyFilter(){
-  const tour=document.getElementById('filterTour').value;
-  const rating=document.getElementById('filterRating').value;
-  let filtered=allReviews;
-  if(tour) filtered=filtered.filter(r=>r.tour===tour);
-  if(rating) filtered=filtered.filter(r=>r.rating==rating);
+  const tour = document.getElementById('filterTour').value;
+  const rating = document.getElementById('filterRating').value;
+  let filtered = [...allReviews];
+  
+  if(tour) filtered = filtered.filter(r => r.tour === tour);
+  if(rating) filtered = filtered.filter(r => r.rating == rating);
+  
   renderReviews(filtered);
 }
+
 function resetFilter(){
-  document.getElementById('filterTour').value='';
-  document.getElementById('filterRating').value='';
+  document.getElementById('filterTour').value = '';
+  document.getElementById('filterRating').value = '';
   renderReviews(allReviews);
 }
+
+// Функция renderReviews которая отсутствовала
+function renderReviews(reviews) {
+  const container = document.getElementById('reviews-list');
+  container.innerHTML = '';
+  
+  if(reviews.length === 0) {
+    container.innerHTML = "<p>Отзывы не найдены</p>";
+    return;
+  }
+
+  reviews.forEach(review => {
+    const photosHTML = (review.photos || []).map(p => `<img src="${p}" onclick="showPhoto(this.src)">`).join('');
+    const responsesHTML = (review.responses || []).map(resp => 
+      `<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`
+    ).join('');
+    
+    let adminButtons = '';
+    if(currentUserUID === adminUID){
+      adminButtons = `
+        <button class="reply-btn" onclick="replyReview('${review.id}')">Ответить</button>
+        <button class="delete-btn" onclick="deleteReview('${review.id}')">Удалить</button>`;
+    } else {
+      adminButtons = `<button class="reply-btn" onclick="adminLogin('${review.id}')">Ответить</button>`;
+    }
+
+    const div = document.createElement('div');
+    div.className = "review-item";
+    div.innerHTML = `
+      <div class="review-header">
+        <div class="review-avatar" style="background:#002244;">${review.name.slice(0,2).toUpperCase()}</div>
+        <span class="review-author">${review.name}</span>
+        <span class="review-date">${new Date(review.date).toLocaleDateString()}</span>
+        <div class="review-actions">${adminButtons}</div>
+      </div>
+      <div class="review-tour">${review.tour}</div>
+      <div class="review-rating">${'★'.repeat(review.rating)+'☆'.repeat(5-review.rating)}</div>
+      <div class="review-message">${review.message}</div>
+      ${photosHTML ? `<div class="review-photos">${photosHTML}</div>` : ''}
+      ${responsesHTML}
+    `;
+    container.appendChild(div);
+  });
+}
+
 // === Обработка фото ===
 const uploadArea = document.getElementById('uploadArea');
 const photoInput = document.getElementById('photoInput');
@@ -413,40 +418,23 @@ async function loadReviews(){
   const container=document.getElementById('reviews-list');
   const snap=await db.collection('reviews').orderBy('date','desc').get();
   container.innerHTML='';
-  if(snap.empty){ container.innerHTML="<p>Пока нет отзывов</p>"; return; }
+  
+  if(snap.empty){ 
+    container.innerHTML="<p>Пока нет отзывов</p>"; 
+    allReviews = [];
+    return; 
+  }
 
+  allReviews = [];
   snap.forEach(doc=>{
-    const r=doc.data();
-    const photosHTML = (r.photos||[]).map(p=>`<img src="${p}" onclick="showPhoto(this.src)">`).join('');
-    const responsesHTML=(r.responses||[]).map(resp=>`<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`).join('');
-    let adminButtons = '';
-
-    // Кнопки в зависимости от статуса
-    if(currentUserUID===adminUID){
-      adminButtons = `
-        <button class="reply-btn" onclick="replyReview('${doc.id}')">Ответить</button>
-        <button class="delete-btn" onclick="deleteReview('${doc.id}')">Удалить</button>`;
-    } else {
-      adminButtons = `<button class="reply-btn" onclick="adminLogin('${doc.id}')">Ответить</button>`;
-    }
-
-    const div=document.createElement('div');
-    div.className="review-item";
-    div.innerHTML=`
-      <div class="review-header">
-        <div class="review-avatar" style="background:#002244;">${r.name.slice(0,2).toUpperCase()}</div>
-        <span class="review-author">${r.name}</span>
-        <span class="review-date">${new Date(r.date).toLocaleDateString()}</span>
-        <div class="review-actions">${adminButtons}</div>
-      </div>
-      <div class="review-tour">${r.tour}</div>
-      <div class="review-rating">${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</div>
-      <div class="review-message">${r.message}</div>
-      ${photosHTML ? `<div class="review-photos">${photosHTML}</div>` : ''}
-      ${responsesHTML}
-    `;
-    container.appendChild(div);
+    const reviewData = doc.data();
+    allReviews.push({
+      id: doc.id,
+      ...reviewData
+    });
   });
+  
+  renderReviews(allReviews);
 }
 
 // === Авторизация админа ===
@@ -462,7 +450,6 @@ async function adminLogin(reviewId){
       alert("Вы вошли как администратор!");
       await loadReviews();
       if(reviewId){
-        // сразу дать выбор
         const action = confirm("Вы хотите удалить отзыв? Нажмите 'Отмена', чтобы ответить.");
         if(action) deleteReview(reviewId);
         else replyReview(reviewId);
@@ -509,11 +496,3 @@ document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
