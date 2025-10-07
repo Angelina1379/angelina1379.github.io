@@ -320,6 +320,7 @@ const db = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
 
+// Меню
 function toggleMenu() {
   document.getElementById('navMenu').classList.toggle('show');
 }
@@ -343,13 +344,10 @@ let photosData = [];
 photoInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
 async function handleFiles(files) {
-  for (const file of files) {
+  const fileArray = Array.from(files); // Преобразуем FileList в массив
+  for (const file of fileArray) {
     if (!file.type.startsWith('image/')) {
       alert('Пожалуйста, выберите изображение.');
-      continue;
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      alert('Размер файла не должен превышать 10 МБ.');
       continue;
     }
 
@@ -358,19 +356,24 @@ async function handleFiles(files) {
     photoPreview.appendChild(loadingText);
 
     try {
-      const fileName = `${Date.now()}_${file.name}`;
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}_${file.name}`;
       const storageRef = storage.ref(`reviews/${fileName}`);
+
+      // Дожидаемся загрузки каждого файла
       const snapshot = await storageRef.put(file);
       const downloadURL = await snapshot.ref.getDownloadURL();
 
+      // Добавляем ссылку в массив
       photosData.push(downloadURL);
-      loadingText.remove();
 
+      // Удаляем текст загрузки и добавляем фото
+      loadingText.remove();
       const img = document.createElement('img');
       img.src = downloadURL;
       img.alt = 'Фото отзыва';
       img.addEventListener('click', () => showPhoto(downloadURL));
       photoPreview.appendChild(img);
+
     } catch (error) {
       console.error('Ошибка при загрузке фото:', error);
       loadingText.textContent = `Ошибка загрузки ${file.name}`;
@@ -546,6 +549,7 @@ auth.onAuthStateChanged(user => {
 
 document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
+
 
 
 </body>
