@@ -141,6 +141,32 @@ a{text-decoration:none;color:inherit;}
     }
 }
 
+
+/* Фильтр */
+.filter-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin:20px 0;
+}
+.filter-bar select{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+.filter-bar button{
+  background:#FFD700;
+  border:none;
+  padding:10px 20px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+.filter-bar button:hover{background:#e6c200;}
+
 .reviews-container{width:90%; max-width:800px; margin:30px auto;}
 .review-form{background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:30px;}
 .review-form input, .review-form textarea, .review-form select{width:100%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:5px; box-sizing:border-box;}
@@ -191,6 +217,30 @@ button.delete-btn{background:#ff4d4d; color:white;}
   </div>
 </header>
 
+  <!-- === ФИЛЬТР === -->
+  <div class="filter-bar">
+    <select id="filterTour">
+      <option value="">Все экскурсии</option>
+      <option>Ворота Кенигсберга</option>
+      <option>Обзорная экскурсия</option>
+      <option>Балтийск и Балтийская коса</option>
+      <option>Янтарный + Светлогорск</option>
+      <option>Куршская коса + Зеленоградск</option>
+    </select>
+
+    <select id="filterRating">
+      <option value="">Все оценки</option>
+      <option value="5">★★★★★</option>
+      <option value="4">★★★★☆</option>
+      <option value="3">★★★☆☆</option>
+      <option value="2">★★☆☆☆</option>
+      <option value="1">★☆☆☆☆</option>
+    </select>
+
+    <button onclick="applyFilter()">Применить</button>
+    <button onclick="resetFilter()">Сбросить</button>
+  </div>
+    
 <div class="reviews-container">
   <h2>Оставьте ваш отзыв</h2>
   <form id="review-form" class="review-form">
@@ -272,7 +322,22 @@ document.querySelectorAll('.star').forEach(star => {
     document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('active', i<currentRating));
   });
 });
-
+    
+// === Фильтр ===
+let allReviews=[];
+function applyFilter(){
+  const tour=document.getElementById('filterTour').value;
+  const rating=document.getElementById('filterRating').value;
+  let filtered=allReviews;
+  if(tour) filtered=filtered.filter(r=>r.tour===tour);
+  if(rating) filtered=filtered.filter(r=>r.rating==rating);
+  renderReviews(filtered);
+}
+function resetFilter(){
+  document.getElementById('filterTour').value='';
+  document.getElementById('filterRating').value='';
+  renderReviews(allReviews);
+}
 // === Обработка фото ===
 const uploadArea = document.getElementById('uploadArea');
 const photoInput = document.getElementById('photoInput');
@@ -444,6 +509,7 @@ document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
 </body>
 </html>
+
 
 
 
