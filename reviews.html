@@ -301,9 +301,10 @@ button.delete-btn{background:#ff4d4d; color:white;}
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
 <script>
-// Firebase
+// 🔥 Настройка Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
   authDomain: "kaliningrad-tour2025.firebaseapp.com",
@@ -314,110 +315,91 @@ const firebaseConfig = {
   measurementId: "G-L7J4PSLSEY"
 };
 firebase.initializeApp(firebaseConfig);
+
 const db = firebase.firestore();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
-// Проверка подключения
-db.enablePersistence().catch((err) => {
-  console.error('Ошибка подключения к Firebase:', err);
-});
+function toggleMenu() {
+  document.getElementById('navMenu').classList.toggle('show');
+}
 
-function toggleMenu(){ document.getElementById('navMenu').classList.toggle('show'); }
-
-// Звёзды рейтинга
+// ⭐ Рейтинг
 let currentRating = 0;
 document.querySelectorAll('.star').forEach(star => {
-  star.addEventListener('click', function(){
+  star.addEventListener('click', function() {
     currentRating = parseInt(this.dataset.rating);
-    document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('active', i<currentRating));
+    document.querySelectorAll('.star').forEach((s, i) =>
+      s.classList.toggle('active', i < currentRating)
+    );
   });
 });
 
-// Фото
-const uploadArea=document.getElementById('uploadArea');
-const photoInput=document.getElementById('photoInput');
-const uploadText=document.getElementById('uploadText');
-const photoPreview=document.getElementById('photoPreview');
-let photosData=[];
-
-uploadArea.addEventListener('click', ()=>photoInput.click());
-uploadText.addEventListener('click', ()=>photoInput.click());
-photoInput.addEventListener('change', e=>handleFiles(e.target.files));
-uploadArea.addEventListener('dragover', e=>{ e.preventDefault(); uploadArea.classList.add('dragover'); });
-uploadArea.addEventListener('dragleave', e=>{ uploadArea.classList.remove('dragover'); });
-uploadArea.addEventListener('drop', e=>{ e.preventDefault(); uploadArea.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
-
+// 📷 Фото
 const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
 let photosData = [];
 
 photoInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
-function handleFiles(files) {
-  photoPreview.innerHTML = ''; // очищаем старые превью
-  photosData = [];
-
+async function handleFiles(files) {
   for (const file of files) {
     if (!file.type.startsWith('image/')) {
-      alert('Пожалуйста, выберите изображение');
+      alert('Пожалуйста, выберите изображение.');
       continue;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Размер файла не должен превышать 5 МБ');
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Размер файла не должен превышать 10 МБ.');
       continue;
     }
 
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      photosData.push(ev.target.result);
+    const loadingText = document.createElement('p');
+    loadingText.textContent = `Загрузка: ${file.name}...`;
+    photoPreview.appendChild(loadingText);
+
+    try {
+      const fileName = `${Date.now()}_${file.name}`;
+      const storageRef = storage.ref(`reviews/${fileName}`);
+      const snapshot = await storageRef.put(file);
+      const downloadURL = await snapshot.ref.getDownloadURL();
+
+      photosData.push(downloadURL);
+      loadingText.remove();
+
       const img = document.createElement('img');
-      img.src = ev.target.result;
+      img.src = downloadURL;
       img.alt = 'Фото отзыва';
-      img.addEventListener('click', () => {
-        document.getElementById('photoModal').style.display = 'flex';
-        document.getElementById('photoModalImg').src = ev.target.result;
-      });
+      img.addEventListener('click', () => showPhoto(downloadURL));
       photoPreview.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Ошибка при загрузке фото:', error);
+      loadingText.textContent = `Ошибка загрузки ${file.name}`;
+    }
   }
 }
 
-}
-
-// Админ
+// 👩‍💼 Админ
 const adminUID = "PSV7Glh3hDTgXKmONpgeThQ9lEq2";
 let currentUserUID = null;
 
-// Отправка отзыва
+// 📝 Отправка отзыва
 document.getElementById('review-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  
+
   const name = document.getElementById('name').value.trim();
   const messageText = document.getElementById('message').value.trim();
   const tour = document.getElementById('tour').value;
-  
-  // Валидация
-  if (!name || !messageText || currentRating === 0 || !tour) {
-    alert('Заполните все обязательные поля!');
+
+  if (!name || !messageText || !tour || currentRating === 0) {
+    alert('Пожалуйста, заполните все поля.');
     return;
   }
-  
-  if (name.length < 2) {
-    alert('Имя должно содержать минимум 2 символа');
-    return;
-  }
-  
-  if (messageText.length < 3) {
-    alert('Отзыв должен содержать минимум 3 символа');
-    return;
-  }
-  
+
   const submitButton = e.target.querySelector('button[type="submit"]');
   const originalText = submitButton.textContent;
   submitButton.innerHTML = '<div class="loading"></div>';
   submitButton.disabled = true;
-  
+
   try {
     const review = {
       name,
@@ -428,60 +410,59 @@ document.getElementById('review-form').addEventListener('submit', async (e) => {
       photos: photosData,
       responses: []
     };
-    
+
     await db.collection('reviews').add(review);
-    
-    // Сбрасываем форму
+
+    // Сброс формы
     e.target.reset();
     currentRating = 0;
-    document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
     photosData = [];
     photoPreview.innerHTML = '';
-    
+    document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+
     await loadReviews();
-    
     alert('Отзыв успешно добавлен!');
-    
   } catch (err) {
     console.error('Ошибка при добавлении отзыва:', err);
-    alert('Ошибка при добавлении отзыва: ' + err.message);
+    alert('Ошибка при добавлении отзыва.');
   } finally {
     submitButton.textContent = originalText;
     submitButton.disabled = false;
   }
 });
 
-// Загрузка отзывов
+// 📄 Загрузка отзывов
 async function loadReviews() {
   try {
     const snapshot = await db.collection('reviews').orderBy('date', 'desc').get();
     const reviewsList = document.getElementById('reviews-list');
     reviewsList.innerHTML = '';
-    
+
     if (snapshot.empty) {
       reviewsList.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
       return;
     }
-    
+
     snapshot.forEach(doc => {
       const r = doc.data();
       const item = document.createElement('div');
       item.className = 'review-item';
-      
+
       let photosHTML = '';
       if (r.photos && r.photos.length > 0) {
-        photosHTML = '<div class="review-photos">' + 
-          r.photos.map(p => `<img src="${p}" onclick="showPhoto(this.src)" alt="Фото отзыва">`).join('') + 
-          '</div>';
+        photosHTML = `
+          <div class="review-photos">
+            ${r.photos.map(p => `<img src="${p}" onclick="showPhoto('${p}')" alt="Фото отзыва">`).join('')}
+          </div>`;
       }
-      
+
       let responsesHTML = '';
       if (r.responses && r.responses.length > 0) {
-        responsesHTML = r.responses.map(resp => 
-          `<div class="review-response"><strong>${resp.adminName}:</strong> ${resp.message}</div>`
+        responsesHTML = r.responses.map(resp =>
+          `<div class="review-response"><strong>${resp.adminName}</strong> ${resp.message}</div>`
         ).join('');
       }
-      
+
       item.innerHTML = `
         <div class="review-header">
           <div class="review-avatar" style="background:#002244;">${r.name.slice(0,2).toUpperCase()}</div>
@@ -493,7 +474,7 @@ async function loadReviews() {
           </div>
         </div>
         <div class="review-tour">${r.tour}</div>
-        <div class="review-rating">${'★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)}</div>
+        <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
         <div class="review-message">${r.message}</div>
         ${photosHTML}
         ${responsesHTML}
@@ -502,41 +483,41 @@ async function loadReviews() {
     });
   } catch (err) {
     console.error('Ошибка при загрузке отзывов:', err);
-    document.getElementById('reviews-list').innerHTML = '<p>Ошибка при загрузке отзывов</p>';
   }
 }
 
-// Удаление отзыва
+// ❌ Удаление отзыва
 async function deleteReview(id) {
-  if (confirm('Удалить этот отзыв?')) { 
-    try { 
-      await db.collection('reviews').doc(id).delete(); 
-      loadReviews(); 
-    } catch(err) { 
-      console.error(err); 
-      alert('Ошибка при удалении'); 
-    } 
+  if (confirm('Удалить этот отзыв?')) {
+    try {
+      await db.collection('reviews').doc(id).delete();
+      loadReviews();
+    } catch (err) {
+      console.error(err);
+      alert('Ошибка при удалении');
+    }
   }
 }
 
-// Ответ админа
+// 💬 Ответ админа
 async function replyReview(id) {
   if (currentUserUID !== adminUID) {
     const email = prompt("Введите email администратора");
     const password = prompt("Введите пароль администратора");
     try {
       const userCredential = await auth.signInWithEmailAndPassword(email, password);
-      if (userCredential.user.uid === adminUID) { 
-        currentUserUID = adminUID; 
-      } else { 
-        alert("Неверный админ"); 
-        return; 
+      if (userCredential.user.uid === adminUID) {
+        currentUserUID = adminUID;
+      } else {
+        alert("Неверный админ");
+        return;
       }
-    } catch(e) { 
-      alert("Ошибка входа: " + e.message); 
-      return; 
+    } catch (e) {
+      alert("Ошибка входа: " + e.message);
+      return;
     }
   }
+
   const message = prompt("Введите ответ:");
   if (message) {
     const docRef = db.collection('reviews').doc(id);
@@ -544,26 +525,30 @@ async function replyReview(id) {
     if (docSnap.exists) {
       const data = docSnap.data();
       const responses = data.responses || [];
-      responses.push({adminName: "Ирина Пеунова:", message});
-      await docRef.update({responses});
+      responses.push({ adminName: "Ирина Пеунова:", message });
+      await docRef.update({ responses });
       loadReviews();
     }
   }
 }
 
-// Helpers
-function showPhoto(src) { 
-  document.getElementById('photoModal').style.display = 'flex'; 
-  document.getElementById('photoModalImg').src = src; 
+// 🔍 Просмотр фото в модалке
+function showPhoto(src) {
+  const modal = document.getElementById('photoModal');
+  const modalImg = document.getElementById('photoModalImg');
+  modal.style.display = 'flex';
+  modalImg.src = src;
 }
 
-auth.onAuthStateChanged(user => { 
-  if (user && user.uid === adminUID) currentUserUID = adminUID; 
+auth.onAuthStateChanged(user => {
+  if (user && user.uid === adminUID) currentUserUID = adminUID;
 });
 
 document.addEventListener('DOMContentLoaded', loadReviews);
 </script>
 
+
 </body>
 
 </html>
+
