@@ -131,7 +131,7 @@ a {
 
 /* === ГЕРОЙ === */
 .hero {
-    background: url('image/kurshskaya27.jpg') center/cover no-repeat;
+    background: url('image/kurshskaya1.jpg') center/cover no-repeat;
     color: #fff;
     text-align: center;
     padding: 150px 20px;
@@ -644,5 +644,6 @@ a {
     }
 
 }
+
 
 
