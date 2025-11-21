@@ -70,10 +70,34 @@ a {
     cursor: pointer;
 }
 
-/* ===== Мобильное меню — исправленное ===== */
-
+/* ✨ БУРГЕР — БЛОК №1 */
 @media (max-width: 768px) {
+    .burger {
+        display: block;
+    }
+    
+    .nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;       /* исправлено */
+        left: auto;     /* исправлено */
+        width: 100%;
+        background: #002244;
+    }
+    
+    .nav.show {
+        display: flex;
+    }
+    
+    .nav a {
+        margin: 10px 0;
+    }
+}
 
+/* Адаптив */
+@media screen and (max-width: 768px) {
     .header .container {
         justify-content: center;
         padding: 10px;
@@ -87,57 +111,39 @@ a {
     }
 
     .burger {
-        display: block;
-        font-size: 28px;
-        background: none;
-        border: none;
-        color: #fff;
-        cursor: pointer;
         position: absolute;
         right: 20px;
         top: 50%;
         transform: translateY(-50%);
+        display: block;
     }
 
+    /* ✨ БУРГЕР — БЛОК №2 */
     .nav {
         display: none;
         flex-direction: column;
+        background-color: #002244;
         position: absolute;
         top: 60px;
-        right: 0;
+        right: 0;      /* исправлено */
+        left: auto;    /* исправлено */
         width: 100%;
-        background: #002244;
-        padding: 10px 0;
         text-align: center;
-
-        /* Удаление эффектов, которые растягивали меню */
-        max-height: none !important;
-        overflow: visible !important;
-        transition: none !important;
-        box-shadow: none !important;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        box-shadow: none; /* исправлено */
     }
 
     .nav.show {
         display: flex;
+        max-height: 300px;
     }
 
     .nav a {
-        padding: 8px 0;
-        margin: 0; /* Убираем большие расстояния */
-        color: #fff;
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-    /* Убираем выделение активного пункта */
-    .nav a.active,
-    .nav a.active::after {
-        background: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        box-shadow: none !important;
-        content: none !important;
+        margin: 15px 0; /* исправлено под старый стиль */
     }
 
     .header {
@@ -147,7 +153,6 @@ a {
     }
 }
 
-/* Для больших экранов остаётся как было */
 .nav a.active {
     position: relative;
 }
@@ -165,6 +170,13 @@ a {
 @keyframes underline {
     from { width: 0 }
     to { width: 100% }
+}
+
+@media (max-width: 768px) {
+    .nav a.active {
+        background-color: rgba(255, 215, 0, 0.1);
+        padding: 8px 0;
+    }
 }
 
 /* Main Content */
@@ -251,10 +263,86 @@ main {
 .carousel-item img {
     max-width: 100%;
     max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    display: block;
 }
 
-/* Footer */
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--dark-color);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev {
+    left: 20px;
+}
+
+.carousel-control.next {
+    right: 20px;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.carousel-indicator.active {
+    background: var(--secondary-color);
+    transform: scale(1.2);
+}
+
+.carousel-indicator:hover {
+    background: var(--secondary-color);
+}
+
+/* Footer Styles */
 .footer {
     background-color: var(--dark-color);
     color: white;
@@ -266,8 +354,48 @@ main {
     margin-bottom: 10px;
 }
 
-/* Mobile carousel fixes */
+/* ✨ БУРГЕР — БЛОК №3 (финальный, перезаписывающий все предыдущие) */
 @media (max-width: 768px) {
+    .header .container {
+        justify-content: center;
+        padding: 10px;
+    }
+    
+    .burger {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+    }
+    
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002244;
+        position: absolute;
+        top: 60px;
+        right: 0;      /* исправлено */
+        left: auto;    /* исправлено */
+        width: 100%;
+        text-align: center;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        box-shadow: none; /* исправлено */
+    }
+    
+    .nav.show {
+        display: flex;
+        max-height: 300px;
+    }
+    
+    .nav a {
+        margin: 15px 0; /* исправлено */
+    }
+
     .profile-container {
         flex-direction: column;
         margin-bottom: 30px;
@@ -277,14 +405,67 @@ main {
     .carousel-container {
         height: 400px;
     }
+    
+    .photo-column {
+        order: 2;
+        width: 100%;
+    }
+    
+    .text-column {
+        order: 3;
+        width: 100%;
+    }
+    
+    .name {
+        order: 1;
+        font-size: 28px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .carousel-control.prev {
+        left: 10px;
+    }
+    
+    .carousel-control.next {
+        right: 10px;
+    }
+    
+    .carousel-caption {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
 
+/* Для очень маленьких экранов */
 @media (max-width: 480px) {
     .carousel-container {
         height: 350px;
     }
+    
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+    
+    .name {
+        font-size: 24px;
+    }
+    
+    .description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
 }
 
+/* Для больших экранов */
 @media (min-width: 1200px) {
     .carousel-container {
         height: 700px;
