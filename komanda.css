@@ -70,6 +70,7 @@ a {
     cursor: pointer;
 }
 
+/* ✨ БУРГЕР — БЛОК №1 */
 @media (max-width: 768px) {
     .burger {
         display: block;
@@ -80,7 +81,8 @@ a {
         flex-direction: column;
         position: absolute;
         top: 60px;
-        right: 0;
+        right: 0;       /* исправлено */
+        left: auto;     /* исправлено */
         width: 100%;
         background: #002244;
     }
@@ -116,13 +118,15 @@ a {
         display: block;
     }
 
+    /* ✨ БУРГЕР — БЛОК №2 */
     .nav {
         display: none;
         flex-direction: column;
         background-color: #002244;
         position: absolute;
         top: 60px;
-        right: 0;
+        right: 0;      /* исправлено */
+        left: auto;    /* исправлено */
         width: 100%;
         text-align: center;
         padding-bottom: 20px;
@@ -130,6 +134,7 @@ a {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease;
+        box-shadow: none; /* исправлено */
     }
 
     .nav.show {
@@ -138,7 +143,7 @@ a {
     }
 
     .nav a {
-        margin: 15px 0;
+        margin: 15px 0; /* исправлено под старый стиль */
     }
 
     .header {
@@ -225,10 +230,10 @@ main {
     color: var(--dark-color);
 }
 
-/* Carousel Section - ПОЛНОСТЬЮ ПЕРЕДЕЛАНО */
+/* Carousel Section */
 .carousel-container {
     position: relative;
-    height: 600px; /* Уменьшил высоту для лучшего отображения */
+    height: 600px;
 }
 
 .carousel {
@@ -260,7 +265,7 @@ main {
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain; /* Важно: contain вместо cover */
+    object-fit: contain;
     display: block;
 }
 
@@ -349,6 +354,7 @@ main {
     margin-bottom: 10px;
 }
 
+/* ✨ БУРГЕР — БЛОК №3 (финальный, перезаписывающий все предыдущие) */
 @media (max-width: 768px) {
     .header .container {
         justify-content: center;
@@ -369,8 +375,8 @@ main {
         background-color: #002244;
         position: absolute;
         top: 60px;
-        left: 0;
-        right: 0;
+        right: 0;      /* исправлено */
+        left: auto;    /* исправлено */
         width: 100%;
         text-align: center;
         padding-bottom: 20px;
@@ -378,7 +384,7 @@ main {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.4s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: none; /* исправлено */
     }
     
     .nav.show {
@@ -387,7 +393,7 @@ main {
     }
     
     .nav a {
-        margin: 10px 0;
+        margin: 15px 0; /* исправлено */
     }
 
     .profile-container {
