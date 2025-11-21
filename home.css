@@ -79,7 +79,7 @@ a {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 22px;
+        font-size: 18px;
     }
 
     .burger {
@@ -644,6 +644,7 @@ a {
     }
 
 }
+
 
 
 
