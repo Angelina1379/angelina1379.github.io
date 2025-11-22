@@ -1,183 +1,325 @@
-/* ===== СТИЛИ ДЛЯ КАРТОЧЕК ЭКСКУРСИЙ ===== */
+/* Основные стили */
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+    color: #002244;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+.header {
+    background: #002244;
+    padding: 20px 0;
+    color: #fff;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav {
+    float: right;
+}
+
+.nav a {
+    margin-left: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+.burger{display:none;font-size:28px;color:#fff;background:none;border:none;cursor:pointer;}
+@media(max-width:768px){
+  .burger{display:block;}
+  .nav{display:none;flex-direction:column;position:absolute;top:60px;right:0;width:100%;background:#002244;}
+  .nav.show{display:flex;}
+  .nav a{margin:10px 0;}
+}
+
+/* Бургер-кнопка — скрыта на десктопе */
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Адаптив */
+@media screen and (max-width: 768px) {
+    .header .container {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 22px;
+    }
+
+    .burger {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: block;
+    }
+
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002244;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .nav.show {
+        display: flex;
+        max-height: 300px;
+    }
+
+    .nav a {
+        margin: 15px 0;
+    }
+
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
+}
+.nav a.active {
+    position: relative;
+}
+
+.nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    animation: underline 0.3s ease-out;
+}
+
+@keyframes underline {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@media (max-width: 768px) {
+    .nav a.active {
+        background-color: rgba(255, 215, 0, 0.1);
+        padding: 8px 0;
+    }
+}
+
+/* Основное содержимое */
+main {
+  padding: 2rem 15%;
+  min-height: calc(100vh - 120px);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Карточки туров */
 .tours {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .tour-card {
-  background: white;
-  border-radius: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .tour-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 34, 68, 0.2);
 }
 
 .tour-card img {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.tour-card:hover img {
+  transform: scale(1.05);
 }
 
 .tour-card .content {
-  padding: 20px;
+  padding: 1rem;
 }
 
 .tour-card h3 {
-  margin: 0 0 10px 0;
-  color: var(--dark-color);
-  font-size: 1.3em;
-}
-
-.tour-card p {
-  color: var(--text-light);
-  margin-bottom: 15px;
-  line-height: 1.5;
+  margin-bottom: 0.5rem;
 }
 
 .tour-card .price {
+  margin: 1rem 0;
   font-weight: bold;
-  color: var(--secondary-color);
-  margin-bottom: 15px;
-  font-size: 1.1em;
+  font-size: 1.1rem;
 }
 
-.tour-card button {
-  width: 100%;
-  padding: 12px;
-  background: var(--secondary-color);
-  color: white;
+/* Единый стиль кнопок */
+.tour-card button,
+.btn {
+  background-color: #FFD700;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-weight: bold;
+  border-radius: 30px;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
 }
 
-.tour-card button:hover {
-  background: #2980b9;
+.tour-card button:hover,
+.btn:hover {
+  background-color: #e6c200;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН ===== */
+/* Модальное окно */
 .modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
   justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
-  background: white;
-  border-radius: 15px;
-  width: 90%;
+  background: #fff;
+  border-radius: 12px;
   max-width: 1000px;
-  max-height: 90vh;
-  display: flex;
+  width: 90%;
+  height: 80vh;
+  padding: 20px;
   position: relative;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
 }
 
+/* Закрытие модалки */
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 24px;
+  top: 1rem;
+  right: 1rem;
   cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #002244;
+  transition: transform 0.3s ease;
+  z-index: 20;
 }
 
 .modal-close:hover {
-  background: rgba(0, 0, 0, 0.9);
+  transform: rotate(90deg);
 }
 
+/* Левая часть (фото) */
 .modal-left {
   flex: 1;
-  min-width: 0;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
+/* Правая часть (текст + кнопка) */
 .modal-right {
-  flex: 1;
-  padding: 40px;
+  flex: 0 0 50%;
+  max-width: 50%;
   display: flex;
   flex-direction: column;
-  min-width: 0;
-}
-
-.modal-right h3 {
-  margin: 0 0 20px 0;
-  color: var(--dark-color);
-  font-size: 1.8em;
+  overflow: hidden;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 
 .modal-right-content {
   flex: 1;
   overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.modal-right-content p {
-  line-height: 1.6;
-  color: var(--text-color);
+  overflow-x: hidden;
+  margin-bottom: 15px;
   white-space: pre-line;
+  word-wrap: break-word;
 }
 
-.btn {
-  display: inline-block;
-  padding: 15px 30px;
-  background: #25D366;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  margin-top: auto;
+.modal-right .btn {
+  flex-shrink: 0;
+  width: 85%;
 }
 
-.btn:hover {
-  background: #128C7E;
-}
-
-/* ===== КАРУСЕЛЬ В МОДАЛКЕ ===== */
+/* Карусель */
 .carousel {
   position: relative;
+  width: 100%;
   height: 100%;
-  border-radius: 15px 0 0 15px;
   overflow: hidden;
 }
 
 .carousel-inner {
   display: flex;
-  transition: transform 0.5s ease;
   height: 100%;
+  transition: transform 0.5s ease;
 }
 
 .carousel-item {
@@ -186,147 +328,184 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f8f8;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .carousel-item img {
-  max-width: 100%;
-  max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain;
-  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* сохраняем пропорции */
+  border-radius: 8px;
 }
 
+/* Кнопки управления */
 .carousel-control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--dark-color);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  padding: 0.5rem;
   cursor: pointer;
-  font-size: 20px;
   z-index: 10;
-  transition: all 0.3s ease;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.3s ease;
 }
 
 .carousel-control:hover {
-  background: white;
-  transform: translateY(-50%) scale(1.1);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .carousel-control.prev {
-  left: 20px;
+  left: 10px;
 }
 
 .carousel-control.next {
-  right: 20px;
+  right: 10px;
 }
 
+/* Индикаторы */
 .carousel-indicators {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
   position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
   z-index: 10;
 }
 
 .carousel-indicator {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: all 0.3s ease;
   border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .carousel-indicator.active {
   background: white;
-  transform: scale(1.2);
 }
 
-.carousel-indicator:hover {
-  background: rgba(255, 255, 255, 0.8);
-}
-
-/* ===== АДАПТИВ ДЛЯ МОДАЛКИ ===== */
+/* --- Мобильная адаптация --- */
 @media (max-width: 768px) {
   .modal-content {
     flex-direction: column;
-    width: 95%;
-    max-height: 95vh;
+    height: auto;
+    max-height: 90vh;
   }
-  
+
   .modal-left {
-    height: 300px;
-    flex: none;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  
+
   .modal-right {
-    padding: 20px;
-    flex: 1;
-    overflow-y: auto;
+    max-width: 100%;
+    flex: unset;
+    max-height: none;
+    margin-top: 15px;
   }
-  
-  .carousel {
-    border-radius: 15px 15px 0 0;
+
+  .carousel-item {
+    width: 100%;
+    height: auto;
+    padding: 10px;
   }
-  
-  .carousel-control {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-  
-  .carousel-control.prev {
-    left: 10px;
-  }
-  
-  .carousel-control.next {
-    right: 10px;
-  }
-  
-  .modal-right h3 {
-    font-size: 1.4em;
-    margin-bottom: 15px;
+
+  .carousel-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh; /* ограничение по высоте экрана */
+    object-fit: contain;
   }
 }
 
 @media (max-width: 480px) {
+  .carousel-item img {
+    max-height: 70vh;
+  }
+}
+
+
+/* Футер */
+.footer {
+  background-color: #002244;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0.5rem 0;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  main {
+    padding: 2rem 10%;
+  }
+  .tours {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh;
+  }
+
+  .modal-left {
+    height: 300px;
+    min-height: 300px;
+  }
+
+  .modal-right {
+    max-width: 100%;
+    flex: unset;
+    max-height: 300px;
+  }
+
   .tours {
     grid-template-columns: 1fr;
-    padding: 20px 10px;
-    gap: 20px;
   }
-  
-  .modal-content {
-    width: 100%;
-    max-height: 100vh;
-    border-radius: 0;
-  }
-  
-  .modal-left {
-    height: 250px;
-  }
-  
-  .modal-right {
+
+  .carousel-item {
     padding: 15px;
   }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .modal-left {
+    height: 250px;
+    min-height: 250px;
+  }
   
-  .carousel-control {
-    width: 35px;
-    height: 35px;
-    font-size: 16px;
+  .carousel-item {
+    padding: 10px;
+  }
+  
+  .carousel-item img {
+    max-height: 230px;
   }
 }
