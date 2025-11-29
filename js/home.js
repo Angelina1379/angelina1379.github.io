@@ -65,6 +65,7 @@
     }
   ];
 
+
   const modal = document.getElementById("tourModal");
   const modalTitle = document.getElementById("modal-title");
   const modalDescription = document.getElementById("modal-description");
@@ -92,8 +93,7 @@
     const tour = tours[index];
     
     // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
-    document.body.classList.add('modal-open');
-    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
     
     // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
     const indexToSlug = {
@@ -126,12 +126,14 @@
       const img = document.createElement("img");
       img.src = src;
       img.alt = `Фото ${i + 1}`;
-      img.onerror = function() { this.src = 'image/placeholder.jpg'; };
+      img.onerror = function() { 
+        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7QotC+0LHQtSA8L3RleHQ+PC9zdmc+'; 
+      };
       item.appendChild(img);
       carouselInner.appendChild(item);
 
-      const dot = document.createElement("span");
-      dot.className = `dot ${i === 0 ? "active" : ""}`;
+      const dot = document.createElement("button"); // Изменено с span на button
+      dot.className = `carousel-indicator ${i === 0 ? "active" : ""}`;
       dot.onclick = () => showSlide(i);
       carouselIndicators.appendChild(dot);
     });
@@ -146,19 +148,27 @@
     stopAuto();
     
     // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
-    document.body.classList.remove('modal-open');
-    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
     
     // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
-    history.pushState(null, null, window.location.pathname);
+    if (window.location.hash) {
+      history.pushState(null, null, window.location.pathname + window.location.search);
+    }
   };
 
-  // === СЛАЙДЕР ===
+  // === СЛАЙДЕР - ИСПРАВЛЕННАЯ ФУНКЦИЯ ===
   function showSlide(index) {
     const items = document.querySelectorAll(".carousel-item");
-    const dots = document.querySelectorAll(".dot");
+    const dots = document.querySelectorAll(".carousel-indicator");
+    
+    if (items.length === 0) return;
+    
     if (index >= items.length) index = 0;
     if (index < 0) index = items.length - 1;
+    
+    // Обновляем трансформацию для плавного перехода
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+    
     items.forEach((el, i) => el.classList.toggle("active", i === index));
     dots.forEach((d, i) => d.classList.toggle("active", i === index));
     currentSlide = index;
@@ -167,9 +177,17 @@
   window.nextSlide = () => showSlide(currentSlide + 1);
   window.prevSlide = () => showSlide(currentSlide - 1);
 
-  function startAuto() { autoSlide = setInterval(() => showSlide(currentSlide + 1), 4000); }
-  function stopAuto() { clearInterval(autoSlide); }
+  function startAuto() { 
+    autoSlide = setInterval(() => showSlide(currentSlide + 1), 4000); 
+  }
+  
+  function stopAuto() { 
+    if (autoSlide) {
+      clearInterval(autoSlide); 
+    }
+  }
 
+  // Остальной код без изменений...
   // === МОДАЛКА ОТЗЫВОВ ===
   window.openReviewModal = function(name, stars, date, text, imgSrc) {
     document.getElementById("modalReviewName").textContent = name;
