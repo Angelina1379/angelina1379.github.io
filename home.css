@@ -405,11 +405,23 @@ h1 {
         margin: 15px auto 0 auto;
     }
     
-    .hero .btn {
-        padding: 10px 25px;
-        font-size: 14px;
-    }
+
+.hero .btn {
+    background: #FFD700;
+    color: #002244;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: .3s;
+    display: block; /* Изменено с inline-block на block */
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 auto; /* Центрирование */
+    width: fit-content; /* Ширина по содержимому */
 }
+
 /* --- Мобильная адаптация --- */
 @media (max-width: 768px) {
   .modal-content {
@@ -1220,6 +1232,7 @@ a {
         max-height: 300px;
     }
 }
+
 
 
 
