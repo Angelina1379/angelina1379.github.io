@@ -938,7 +938,7 @@ a {
     margin-top: 40px;
 }
 
-/* === МОДАЛКА === */
+/* === ОБНОВЛЕННАЯ МОДАЛКА (исправленная) === */
 .modal {
     position: fixed;
     top: 0;
@@ -965,6 +965,7 @@ a {
     overflow: hidden;
 }
 
+/* Закрытие модалки */
 .modal-close {
     position: absolute;
     top: 1rem;
@@ -982,7 +983,7 @@ a {
     transform: rotate(90deg);
 }
 
-/* Левая часть модалки */
+/* Левая часть (фото) */
 .modal-left {
     flex: 1;
     display: flex;
@@ -992,93 +993,6 @@ a {
     border-radius: 8px;
     overflow: hidden;
     position: relative;
-}
-
-/* Карусель */
-.carousel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.carousel-item {
-    display: none;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-item.active {
-    display: flex;
-}
-
-.carousel-item img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    border-radius: 8px;
-}
-
-.carousel-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-control.prev {
-    left: 10px;
-}
-
-.carousel-control.next {
-    right: 10px;
-}
-
-.carousel-indicators {
-    text-align: center;
-    margin-top: 8px;
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-}
-
-.carousel-indicators .dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background: #ccc;
-    border-radius: 50%;
-    margin: 0 3px;
-    cursor: pointer;
-}
-
-.carousel-indicators .dot.active {
-    background: #FFD700;
 }
 
 /* Правая часть (текст + кнопка) */
@@ -1104,9 +1018,99 @@ a {
 
 .modal-right .btn {
     flex-shrink: 0;
+    width: 85%;
+}
+
+/* Карусель - ИСПРАВЛЕННАЯ */
+.carousel {
+    position: relative;
     width: 100%;
-    text-align: center;
-    margin-top: auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.carousel-item img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Кнопки управления */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.carousel-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+/* Индикаторы - ИСПРАВЛЕННЫЕ */
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 10;
+}
+
+.carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background: white;
 }
 
 /* Кнопка бронирования в модалке */
@@ -1120,53 +1124,74 @@ a {
     display: inline-block;
     text-align: center;
     transition: background 0.3s ease;
+    width: 85%;
+    border: none;
+    cursor: pointer;
+    margin-top: auto;
 }
 
 .book-btn:hover {
     background: #e6c200;
 }
 
-/* === МОБИЛЬНЫЙ ВАРИАНТ МОДАЛКИ === */
-@media (max-width: 900px) {
+/* --- Мобильная адаптация --- */
+@media (max-width: 768px) {
     .modal-content {
         flex-direction: column;
-        width: 95%;
-        max-height: 95vh;
         height: auto;
+        max-height: 90vh;
     }
 
     .modal-left {
         width: 100%;
-        height: 40vh;
-        min-height: 250px;
+        height: 300px;
+        min-height: 300px;
     }
 
     .modal-right {
-        width: 100%;
         max-width: 100%;
-        flex: 1;
+        flex: unset;
+        max-height: none;
+        margin-top: 15px;
         padding-right: 0;
     }
 
+    .carousel-item {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
     .carousel-item img {
-        max-height: 35vh;
+        max-height: 250px;
+    }
+    
+    .modal-right .btn,
+    .book-btn {
+        width: 100%;
     }
 }
 
-@media (max-width: 480px) {
-    .carousel-item img {
-        max-height: 30vh;
+/* Дополнительные исправления для бургер-меню */
+@media screen and (max-width: 768px) {
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #002244;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 20px;
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
     }
-    
-    .modal-content {
-        padding: 15px;
-    }
-    
-    .hero h1 {
-        font-size: 28px;
-    }
-    
-    .tours-grid {
-        grid-template-columns: 1fr;
+
+    .nav.show {
+        display: flex;
+        max-height: 300px;
     }
 }
