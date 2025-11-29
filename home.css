@@ -955,15 +955,10 @@ a {
 .modal-content {
     background: #fff;
     border-radius: 12px;
-    max-width: 1000px;
-    width: 90%;
-    height: 80vh;
+    max-width: 800px; /* Уменьшено с 1000px */
+    width: 85%; /* Уменьшено с 90% */
+    height: 70vh; /* Уменьшено с 80vh */
     padding: 20px;
-    position: relative;
-    display: flex;
-    gap: 20px;
-    overflow: hidden;
-}
 
 /* Закрытие модалки */
 .modal-close {
@@ -1195,3 +1190,4 @@ a {
         max-height: 300px;
     }
 }
+
