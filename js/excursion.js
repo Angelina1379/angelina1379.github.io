@@ -255,10 +255,54 @@ let currentTourIndex = 0;
 let currentSlide = 0;
 let autoSlideInterval = null;
 
+// ===== ОБРАБОТКА URL И ССЫЛОК =====
+// Функция для открытия модального окна по slug
+function openTourBySlug(slug) {
+  const slugToIndex = {
+    'vorota-kenigsberga': 0,
+    'obzornaya-ekskursiya': 1,
+    'baltiysk-i-kosa': 2,
+    'na-kray-oblasti': 3,
+    'yantarnyy-svetlogorsk': 4,
+    'insterburg-georgenburg': 5,
+    'tropami-homlinov': 6,
+    'kurshskaya-kosa-zelenogradsk': 7,
+    'vse-krasoty-za-3-dnya': 8,
+    'gvardeysk-znamensk': 9,
+    'amalienau': 10
+  };
+  
+  const index = slugToIndex[slug];
+  if (index !== undefined) {
+    showDetails(index);
+  }
+}
+
+// Основная функция показа деталей
 function showDetails(index) {
   currentTourIndex = index;
   currentSlide = 0;
   const tour = toursData[index];
+
+  // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
+  const indexToSlug = {
+    0: 'vorota-kenigsberga',
+    1: 'obzornaya-ekskursiya', 
+    2: 'baltiysk-i-kosa',
+    3: 'na-kray-oblasti',
+    4: 'yantarnyy-svetlogorsk',
+    5: 'insterburg-georgenburg',
+    6: 'tropami-homlinov',
+    7: 'kurshskaya-kosa-zelenogradsk',
+    8: 'vse-krasoty-za-3-dnya',
+    9: 'gvardeysk-znamensk',
+    10: 'amalienau'
+  };
+  
+  const slug = indexToSlug[index];
+  if (slug) {
+    history.pushState(null, null, `#${slug}`);
+  }
 
   // Заголовок и описание
   document.getElementById('modal-title').textContent = tour.title;
@@ -288,8 +332,6 @@ function showDetails(index) {
     // Обработка ошибок загрузки изображений
     image.onerror = function() {
       console.warn(`Не удалось загрузить изображение: ${img}`);
-      // Можно добавить запасное изображение
-      // this.src = 'image/placeholder.jpg';
     };
     
     slide.appendChild(image);
@@ -309,6 +351,9 @@ function showDetails(index) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
   stopAutoSlide();
+  
+  // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
+  history.pushState(null, null, window.location.pathname);
 }
 
 // Управление слайдами
@@ -404,4 +449,24 @@ function setActiveLink() {
   });
 }
 
-window.addEventListener('load', setActiveLink);
+// Обработка загрузки страницы с якорем в URL
+window.addEventListener('load', function() {
+  setActiveLink();
+  
+  const hash = window.location.hash;
+  if (hash) {
+    const slug = hash.replace('#', '');
+    openTourBySlug(slug);
+  }
+});
+
+// Обработка изменения URL (навигация браузера назад/вперед)
+window.addEventListener('hashchange', function() {
+  const hash = window.location.hash;
+  if (!hash) {
+    closeModal();
+  } else {
+    const slug = hash.replace('#', '');
+    openTourBySlug(slug);
+  }
+});
