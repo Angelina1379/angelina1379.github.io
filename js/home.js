@@ -66,7 +66,7 @@
   ];
 
 
-  const modal = document.getElementById("tourModal");
+const modal = document.getElementById("tourModal");
   const modalTitle = document.getElementById("modal-title");
   const modalDescription = document.getElementById("modal-description");
   const carouselInner = document.getElementById("carousel-inner");
@@ -94,6 +94,7 @@
     
     // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     
     // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
     const indexToSlug = {
@@ -132,7 +133,7 @@
       item.appendChild(img);
       carouselInner.appendChild(item);
 
-      const dot = document.createElement("button"); // Изменено с span на button
+      const dot = document.createElement("button");
       dot.className = `carousel-indicator ${i === 0 ? "active" : ""}`;
       dot.onclick = () => showSlide(i);
       carouselIndicators.appendChild(dot);
@@ -149,6 +150,7 @@
     
     // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
     
     // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
     if (window.location.hash) {
@@ -156,7 +158,7 @@
     }
   };
 
-  // === СЛАЙДЕР - ИСПРАВЛЕННАЯ ФУНКЦИЯ ===
+  // === СЛАЙДЕР ===
   function showSlide(index) {
     const items = document.querySelectorAll(".carousel-item");
     const dots = document.querySelectorAll(".carousel-indicator");
@@ -187,7 +189,6 @@
     }
   }
 
-  // Остальной код без изменений...
   // === МОДАЛКА ОТЗЫВОВ ===
   window.openReviewModal = function(name, stars, date, text, imgSrc) {
     document.getElementById("modalReviewName").textContent = name;
@@ -204,10 +205,16 @@
     }
 
     document.getElementById("reviewModal").style.display = "flex";
+    // Блокируем прокрутку и для модалки отзывов
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
   };
 
   window.closeReviewModal = function() {
     document.getElementById("reviewModal").style.display = "none";
+    // Разблокируем прокрутку
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   };
 
   // === КЛИК ВНЕ МОДАЛК ===
@@ -249,7 +256,25 @@
       openTourBySlug(slug);
     }
   });
+
+  // === ПРЕДОТВРАЩЕНИЕ ПРОКРУТКИ ПРИ ОТКРЫТОЙ МОДАЛКЕ ===
+  document.addEventListener('wheel', function(e) {
+    if (modal.style.display === "flex" || document.getElementById("reviewModal").style.display === "flex") {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchmove', function(e) {
+    if (modal.style.display === "flex" || document.getElementById("reviewModal").style.display === "flex") {
+      e.preventDefault();
+    }
+  }, { passive: false });
 });
+
+// === БУРГЕР ===
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("show");
+}
 
 // === БУРГЕР ===
 function toggleMenu() {
