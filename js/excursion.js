@@ -250,223 +250,169 @@ const toursData = [
   }
 ];
 
-// ===== ЛОГИКА МОДАЛКИ И КАРУСЕЛИ =====
-let currentTourIndex = 0;
-let currentSlide = 0;
-let autoSlideInterval = null;
+  const modal = document.getElementById("tourModal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
+  const carouselInner = document.getElementById("carousel-inner");
+  const carouselIndicators = document.getElementById("carousel-indicators");
+  const whatsappLink = document.getElementById("whatsapp-link");
+  let currentSlide = 0, autoSlide;
 
-// ===== ОБРАБОТКА URL И ССЫЛОК =====
-// Функция для открытия модального окна по slug
-function openTourBySlug(slug) {
-  const slugToIndex = {
-    'vorota-kenigsberga': 0,
-    'obzornaya-ekskursiya': 1,
-    'baltiysk-i-kosa': 2,
-    'na-kray-oblasti': 3,
-    'yantarnyy-svetlogorsk': 4,
-    'insterburg-georgenburg': 5,
-    'tropami-homlinov': 6,
-    'kurshskaya-kosa-zelenogradsk': 7,
-    'vse-krasoty-za-3-dnya': 8,
-    'gvardeysk-znamensk': 9,
-    'amalienau': 10
-  };
-  
-  const index = slugToIndex[slug];
-  if (index !== undefined) {
-    showDetails(index);
-  }
-}
-
-// Основная функция показа деталей
-function showDetails(index) {
-  currentTourIndex = index;
-  currentSlide = 0;
-  const tour = toursData[index];
-
-  // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
-  const indexToSlug = {
-    0: 'vorota-kenigsberga',
-    1: 'obzornaya-ekskursiya', 
-    2: 'baltiysk-i-kosa',
-    3: 'na-kray-oblasti',
-    4: 'yantarnyy-svetlogorsk',
-    5: 'insterburg-georgenburg',
-    6: 'tropami-homlinov',
-    7: 'kurshskaya-kosa-zelenogradsk',
-    8: 'vse-krasoty-za-3-dnya',
-    9: 'gvardeysk-znamensk',
-    10: 'amalienau'
-  };
-  
-  const slug = indexToSlug[index];
-  if (slug) {
-    history.pushState(null, null, `#${slug}`);
-  }
-
-  // Заголовок и описание
-  document.getElementById('modal-title').textContent = tour.title;
-  document.getElementById('modal-description').textContent =
-    `${tour.description}\n\nЦена: ${tour.price}`;
-
-  // Ссылка в WhatsApp
-  const phone = "79052484096"; 
-  const text = `Привет! Хочу забронировать экскурсию "${tour.title}"`;
-  document.getElementById('whatsapp-link').href =
-    `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-
-  // Карусель
-  const carouselInner = document.getElementById('carousel-inner');
-  const indicators = document.getElementById('carousel-indicators');
-  carouselInner.innerHTML = '';
-  indicators.innerHTML = '';
-
-  tour.images.forEach((img, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-item';
-    
-    const image = document.createElement('img');
-    image.src = img;
-    image.alt = `${tour.title} - фото ${i+1}`;
-    
-    // Обработка ошибок загрузки изображений
-    image.onerror = function() {
-      console.warn(`Не удалось загрузить изображение: ${img}`);
+  // ===== ОБРАБОТКА URL И ССЫЛОК =====
+  // Функция для открытия модального окна по slug
+  function openTourBySlug(slug) {
+    const slugToIndex = {
+      'kurshskaya-kosa-zelenogradsk': 0,
+      'obzornaya-ekskursiya': 1,
+      'vse-krasoty-za-3-dnya': 2
     };
     
-    slide.appendChild(image);
-    carouselInner.appendChild(slide);
-
-    const indicator = document.createElement('button');
-    indicator.className = 'carousel-indicator' + (i === 0 ? ' active' : '');
-    indicator.onclick = () => goToSlide(i);
-    indicators.appendChild(indicator);
-  });
-
-  updateCarousel();
-  document.getElementById('modal').style.display = 'flex';
-  startAutoSlide();
-}
-
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-  stopAutoSlide();
-  
-  // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
-  history.pushState(null, null, window.location.pathname);
-}
-
-// Управление слайдами
-function prevSlide() {
-  currentSlide--;
-  if (currentSlide < 0) {
-    currentSlide = toursData[currentTourIndex].images.length - 1;
+    const index = slugToIndex[slug];
+    if (index !== undefined) {
+      showDetails(index);
+    }
   }
-  updateCarousel();
-  resetAutoSlide();
-}
 
-function nextSlide() {
-  currentSlide++;
-  if (currentSlide >= toursData[currentTourIndex].images.length) {
+  // === ОТКРЫТИЕ МОДАЛКИ ТУРА ===
+  window.showDetails = (index) => {
+    const tour = tours[index];
+    
+    // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
+    const indexToSlug = {
+      0: 'kurshskaya-kosa-zelenogradsk',
+      1: 'obzornaya-ekskursiya', 
+      2: 'vse-krasoty-za-3-dnya'
+    };
+    
+    const slug = indexToSlug[index];
+    if (slug) {
+      history.pushState(null, null, `#${slug}`);
+    }
+
+    modalTitle.textContent = tour.title;
+    whatsappLink.href = tour.whatsapp;
+    modalDescription.innerHTML = "";
+
+    tour.description.forEach(text => {
+      const p = document.createElement("p");
+      p.textContent = text;
+      modalDescription.appendChild(p);
+    });
+
+    carouselInner.innerHTML = "";
+    carouselIndicators.innerHTML = "";
+
+    tour.images.forEach((src, i) => {
+      const item = document.createElement("div");
+      item.className = `carousel-item ${i === 0 ? "active" : ""}`;
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `Фото ${i + 1}`;
+      img.onerror = function() { this.src = 'image/placeholder.jpg'; };
+      item.appendChild(img);
+      carouselInner.appendChild(item);
+
+      const dot = document.createElement("span");
+      dot.className = `dot ${i === 0 ? "active" : ""}`;
+      dot.onclick = () => showSlide(i);
+      carouselIndicators.appendChild(dot);
+    });
+
     currentSlide = 0;
+    modal.style.display = "flex";
+    startAuto();
+  };
+
+  window.closeModal = () => {
+    modal.style.display = "none";
+    stopAuto();
+    
+    // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
+    history.pushState(null, null, window.location.pathname);
+  };
+
+  // === СЛАЙДЕР ===
+  function showSlide(index) {
+    const items = document.querySelectorAll(".carousel-item");
+    const dots = document.querySelectorAll(".dot");
+    if (index >= items.length) index = 0;
+    if (index < 0) index = items.length - 1;
+    items.forEach((el, i) => el.classList.toggle("active", i === index));
+    dots.forEach((d, i) => d.classList.toggle("active", i === index));
+    currentSlide = index;
   }
-  updateCarousel();
-  resetAutoSlide();
-}
 
-function goToSlide(index) {
-  currentSlide = index;
-  updateCarousel();
-  resetAutoSlide();
-}
+  window.nextSlide = () => showSlide(currentSlide + 1);
+  window.prevSlide = () => showSlide(currentSlide - 1);
 
-function updateCarousel() {
-  const carouselInner = document.getElementById('carousel-inner');
-  const indicators = document.querySelectorAll('.carousel-indicator');
-  
-  if (carouselInner) {
-    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  
-  indicators.forEach((ind, i) =>
-    ind.classList.toggle('active', i === currentSlide)
-  );
-}
+  function startAuto() { autoSlide = setInterval(() => showSlide(currentSlide + 1), 4000); }
+  function stopAuto() { clearInterval(autoSlide); }
 
-// ===== АВТОПРОКРУТКА =====
-function startAutoSlide() {
-  stopAutoSlide();
-  autoSlideInterval = setInterval(() => {
-    nextSlide();
-  }, 4000);
-}
+  // === МОДАЛКА ОТЗЫВОВ ===
+  window.openReviewModal = function(name, stars, date, text, imgSrc) {
+    document.getElementById("modalReviewName").textContent = name;
+    document.getElementById("modalReviewStars").textContent = stars;
+    document.getElementById("modalReviewDate").textContent = date;
+    document.getElementById("modalReviewText").textContent = text;
 
-function stopAutoSlide() {
-  if (autoSlideInterval) {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = null;
-  }
-}
+    if (imgSrc) {
+      const img = document.getElementById("modalReviewImage");
+      if (img) {
+        img.src = imgSrc;
+        img.style.display = "block";
+      }
+    }
 
-function resetAutoSlide() {
-  stopAutoSlide();
-  startAutoSlide();
-}
+    document.getElementById("reviewModal").style.display = "flex";
+  };
 
-// ===== МЕНЮ =====
-function toggleMenu() {
-  const navMenu = document.getElementById('navMenu');
-  navMenu.classList.toggle('show');
-}
+  window.closeReviewModal = function() {
+    document.getElementById("reviewModal").style.display = "none";
+  };
 
-// Закрытие модалки при клике вне
-window.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modal')) closeModal();
-});
+  // === КЛИК ВНЕ МОДАЛК ===
+  window.onclick = function(e) {
+    if (e.target === modal) closeModal();
+    if (e.target === document.getElementById("reviewModal")) closeReviewModal();
+  };
 
-// Останавливаем автопрокрутку при наведении на карусель
-document.addEventListener('DOMContentLoaded', function() {
-  const carousel = document.querySelector('.carousel');
-  if (carousel) {
-    carousel.addEventListener('mouseenter', stopAutoSlide);
-    carousel.addEventListener('mouseleave', startAutoSlide);
-  }
-});
-
-// Подсветка активной ссылки в навигации
-function setActiveLink() {
-  const links = document.querySelectorAll('.nav a');
-  const currentPage = window.location.pathname.split('/').pop() || 'home.html';
-
-  links.forEach(link => {
-    const linkPage = link.getAttribute('href');
-    if (linkPage === currentPage) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (modal.style.display === "flex") closeModal();
+      if (document.getElementById("reviewModal").style.display === "flex") closeReviewModal();
     }
   });
-}
 
-// Обработка загрузки страницы с якорем в URL
-window.addEventListener('load', function() {
-  setActiveLink();
-  
+  // === АНИМАЦИЯ "ПОЧЕМУ ВЫБИРАЮТ НАС" ===
+  const items = document.querySelectorAll(".why-us li");
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("show");
+    });
+  }, { threshold: 0.2 });
+  items.forEach(i => obs.observe(i));
+
+  // === ОБРАБОТКА ЗАГРУЗКИ СТРАНИЦЫ С ЯКОРЕМ ===
   const hash = window.location.hash;
   if (hash) {
     const slug = hash.replace('#', '');
     openTourBySlug(slug);
   }
+
+  // === ОБРАБОТКА ИЗМЕНЕНИЯ URL ===
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash;
+    if (!hash) {
+      closeModal();
+    } else {
+      const slug = hash.replace('#', '');
+      openTourBySlug(slug);
+    }
+  });
 });
 
-// Обработка изменения URL (навигация браузера назад/вперед)
-window.addEventListener('hashchange', function() {
-  const hash = window.location.hash;
-  if (!hash) {
-    closeModal();
-  } else {
-    const slug = hash.replace('#', '');
-    openTourBySlug(slug);
-  }
-});
+// === БУРГЕР ===
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("show");
+}
+
