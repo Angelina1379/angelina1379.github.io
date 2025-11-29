@@ -251,6 +251,7 @@ const toursData = [
 ];
 
 
+
 // ===== ЛОГИКА МОДАЛКИ И КАРУСЕЛИ =====
 let currentTourIndex = 0;
 let currentSlide = 0;
@@ -323,8 +324,9 @@ function showDetails(index) {
   currentSlide = 0;
   const tour = toursData[index];
 
-  // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
+  // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ И ЗУМ
   document.body.classList.add('modal-open');
+  document.documentElement.style.overflow = 'hidden';
   
   // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
   const indexToSlug = {
@@ -369,6 +371,10 @@ function showDetails(index) {
     image.src = img;
     image.alt = `${tour.title} - фото ${i+1}`;
     
+    // Запрещаем масштабирование изображения
+    image.style.touchAction = 'pan-y';
+    image.style.pointerEvents = 'none';
+    
     // Обработка ошибок загрузки изображений
     image.onerror = function() {
       console.warn(`Не удалось загрузить изображение: ${img}`);
@@ -392,8 +398,9 @@ function closeModal() {
   document.getElementById('modal').style.display = 'none';
   stopAutoSlide();
   
-  // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
+  // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ И ЗУМ
   document.body.classList.remove('modal-open');
+  document.documentElement.style.overflow = '';
   
   // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
   history.pushState(null, null, window.location.pathname);
@@ -463,6 +470,19 @@ function toggleMenu() {
   navMenu.classList.toggle('show');
 }
 
+// ===== ПРЕДОТВРАЩЕНИЕ ЗУМА И ПРОКРУТКИ =====
+function preventZoomAndScroll(event) {
+  // Предотвращаем масштабирование
+  if (event.touches && event.touches.length > 1) {
+    event.preventDefault();
+  }
+  
+  // Предотвращаем прокрутку за модалкой
+  if (!event.target.closest('.modal-content') && event.target.closest('.modal')) {
+    event.preventDefault();
+  }
+}
+
 // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
 document.addEventListener('DOMContentLoaded', function() {
   // Убираем .html из ссылок
@@ -477,6 +497,18 @@ document.addEventListener('DOMContentLoaded', function() {
     carousel.addEventListener('mouseenter', stopAutoSlide);
     carousel.addEventListener('mouseleave', startAutoSlide);
   }
+  
+  // Запрещаем масштабирование и прокрутку при открытой модалке
+  document.addEventListener('touchmove', preventZoomAndScroll, { passive: false });
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+  });
+  document.addEventListener('gesturechange', function(e) {
+    e.preventDefault();
+  });
+  document.addEventListener('gestureend', function(e) {
+    e.preventDefault();
+  });
 });
 
 // Обработка загрузки страницы с якорем в URL
@@ -499,14 +531,28 @@ window.addEventListener('hashchange', function() {
   }
 });
 
-// Закрытие модалки при клике вне
-window.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modal')) closeModal();
+// Закрытие модалки при клике вне (ОТКЛЮЧЕНО - закрытие только на крестик)
+// window.addEventListener('click', (e) => {
+//   if (e.target === document.getElementById('modal')) closeModal();
+// });
+
+// Предотвращаем закрытие при клике на контент модалки
+document.querySelector('.modal-content').addEventListener('click', function(e) {
+  e.stopPropagation();
 });
 
-// Обработка нажатия ESC
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
-    closeModal();
-  }
+// Обработка нажатия ESC (ОТКЛЮЧЕНО - закрытие только на крестик)
+// document.addEventListener('keydown', function(event) {
+//   if (event.key === 'Escape') {
+//     closeModal();
+//   }
+// });
+
+// Запрещаем прокрутку страницы при скролле внутри модалки
+document.querySelector('.modal-right-content').addEventListener('wheel', function(e) {
+  e.stopPropagation();
+});
+
+document.querySelector('.carousel').addEventListener('wheel', function(e) {
+  e.stopPropagation();
 });
