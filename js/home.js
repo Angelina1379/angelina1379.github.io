@@ -66,7 +66,7 @@
   ];
 
 
-const modal = document.getElementById("tourModal");
+  const modal = document.getElementById("tourModal");
   const modalTitle = document.getElementById("modal-title");
   const modalDescription = document.getElementById("modal-description");
   const carouselInner = document.getElementById("carousel-inner");
@@ -94,7 +94,6 @@ const modal = document.getElementById("tourModal");
     
     // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
     document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
     
     // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
     const indexToSlug = {
@@ -150,7 +149,6 @@ const modal = document.getElementById("tourModal");
     
     // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
     document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
     
     // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
     if (window.location.hash) {
@@ -205,16 +203,10 @@ const modal = document.getElementById("tourModal");
     }
 
     document.getElementById("reviewModal").style.display = "flex";
-    // Блокируем прокрутку и для модалки отзывов
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
   };
 
   window.closeReviewModal = function() {
     document.getElementById("reviewModal").style.display = "none";
-    // Разблокируем прокрутку
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
   };
 
   // === КЛИК ВНЕ МОДАЛК ===
@@ -256,25 +248,7 @@ const modal = document.getElementById("tourModal");
       openTourBySlug(slug);
     }
   });
-
-  // === ПРЕДОТВРАЩЕНИЕ ПРОКРУТКИ ПРИ ОТКРЫТОЙ МОДАЛКЕ ===
-  document.addEventListener('wheel', function(e) {
-    if (modal.style.display === "flex" || document.getElementById("reviewModal").style.display === "flex") {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  document.addEventListener('touchmove', function(e) {
-    if (modal.style.display === "flex" || document.getElementById("reviewModal").style.display === "flex") {
-      e.preventDefault();
-    }
-  }, { passive: false });
 });
-
-// === БУРГЕР ===
-function toggleMenu() {
-  document.getElementById("navMenu").classList.toggle("show");
-}
 
 // === БУРГЕР ===
 function toggleMenu() {
