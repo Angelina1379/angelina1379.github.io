@@ -73,9 +73,40 @@
   const whatsappLink = document.getElementById("whatsapp-link");
   let currentSlide = 0, autoSlide;
 
+  // ===== ОБРАБОТКА URL ДЛЯ ССЫЛОК =====
+  function openTourBySlug(slug) {
+    const slugToIndex = {
+      'kurshskaya-kosa-zelenogradsk': 0,
+      'obzornaya-ekskursiya': 1,
+      'vse-krasoty-za-3-dnya': 2
+    };
+    
+    const index = slugToIndex[slug];
+    if (index !== undefined) {
+      showDetails(index);
+    }
+  }
+
   // === ОТКРЫТИЕ МОДАЛКИ ТУРА ===
   window.showDetails = (index) => {
     const tour = tours[index];
+    
+    // БЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
+    document.body.classList.add('modal-open');
+    document.documentElement.style.overflow = 'hidden';
+    
+    // ОБНОВЛЯЕМ URL С ЧЕЛОВЕКО-ПОНЯТНЫМ ЯКОРЕМ
+    const indexToSlug = {
+      0: 'kurshskaya-kosa-zelenogradsk',
+      1: 'obzornaya-ekskursiya', 
+      2: 'vse-krasoty-za-3-dnya'
+    };
+    
+    const slug = indexToSlug[index];
+    if (slug) {
+      history.pushState(null, null, `#${slug}`);
+    }
+
     modalTitle.textContent = tour.title;
     whatsappLink.href = tour.whatsapp;
     modalDescription.innerHTML = "";
@@ -113,6 +144,13 @@
   window.closeModal = () => {
     modal.style.display = "none";
     stopAuto();
+    
+    // РАЗБЛОКИРУЕМ ПРОКРУТКУ СТРАНИЦЫ
+    document.body.classList.remove('modal-open');
+    document.documentElement.style.overflow = '';
+    
+    // ВОССТАНАВЛИВАЕМ ОРИГИНАЛЬНЫЙ URL БЕЗ ЯКОРЯ
+    history.pushState(null, null, window.location.pathname);
   };
 
   // === СЛАЙДЕР ===
@@ -139,7 +177,6 @@
     document.getElementById("modalReviewDate").textContent = date;
     document.getElementById("modalReviewText").textContent = text;
 
-    // Если есть картинка отзыва (например, в будущем)
     if (imgSrc) {
       const img = document.getElementById("modalReviewImage");
       if (img) {
@@ -176,6 +213,24 @@
     });
   }, { threshold: 0.2 });
   items.forEach(i => obs.observe(i));
+
+  // === ОБРАБОТКА ЗАГРУЗКИ СТРАНИЦЫ С ЯКОРЕМ ===
+  const hash = window.location.hash;
+  if (hash) {
+    const slug = hash.replace('#', '');
+    openTourBySlug(slug);
+  }
+
+  // === ОБРАБОТКА ИЗМЕНЕНИЯ URL ===
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash;
+    if (!hash) {
+      closeModal();
+    } else {
+      const slug = hash.replace('#', '');
+      openTourBySlug(slug);
+    }
+  });
 });
 
 // === БУРГЕР ===
