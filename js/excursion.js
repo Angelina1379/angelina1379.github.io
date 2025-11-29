@@ -251,14 +251,51 @@ const toursData = [
 ];
 
 
-
 // ===== ЛОГИКА МОДАЛКИ И КАРУСЕЛИ =====
 let currentTourIndex = 0;
 let currentSlide = 0;
 let autoSlideInterval = null;
 
+// ===== УДАЛЕНИЕ .html ИЗ ССЫЛОК =====
+function removeHtmlFromLinks() {
+  // Обновляем все ссылки в навигации
+  const navLinks = document.querySelectorAll('.nav a');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.endsWith('.html')) {
+      const newHref = href.replace('.html', '');
+      link.setAttribute('href', newHref);
+    }
+  });
+}
+
+// Подсветка активной ссылки в навигации
+function setActiveLink() {
+  const links = document.querySelectorAll('.nav a');
+  const currentPath = window.location.pathname;
+  
+  links.forEach(link => {
+    let linkHref = link.getAttribute('href');
+    
+    // Убираем .html для сравнения
+    if (linkHref.endsWith('.html')) {
+      linkHref = linkHref.replace('.html', '');
+    }
+    
+    // Проверяем активную ссылку
+    const isActive = 
+      (linkHref === '/' && (currentPath === '/' || currentPath.endsWith('/index') || currentPath === '/index.html')) ||
+      (linkHref !== '/' && (currentPath.includes(linkHref) || currentPath.endsWith(linkHref + '.html')));
+    
+    if (isActive) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
 // ===== ОБРАБОТКА URL И ССЫЛОК =====
-// Функция для открытия модального окна по slug
 function openTourBySlug(slug) {
   const slugToIndex = {
     'vorota-kenigsberga': 0,
@@ -426,13 +463,15 @@ function toggleMenu() {
   navMenu.classList.toggle('show');
 }
 
-// Закрытие модалки при клике вне
-window.addEventListener('click', (e) => {
-  if (e.target === document.getElementById('modal')) closeModal();
-});
-
-// Останавливаем автопрокрутку при наведении на карусель
+// ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
 document.addEventListener('DOMContentLoaded', function() {
+  // Убираем .html из ссылок
+  removeHtmlFromLinks();
+  
+  // Устанавливаем активные ссылки
+  setActiveLink();
+  
+  // Останавливаем автопрокрутку при наведении на карусель
   const carousel = document.querySelector('.carousel');
   if (carousel) {
     carousel.addEventListener('mouseenter', stopAutoSlide);
@@ -440,25 +479,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Подсветка активной ссылки в навигации
-function setActiveLink() {
-  const links = document.querySelectorAll('.nav a');
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-  links.forEach(link => {
-    const linkPage = link.getAttribute('href');
-    if (linkPage === currentPage) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
-  });
-}
-
 // Обработка загрузки страницы с якорем в URL
 window.addEventListener('load', function() {
-  setActiveLink();
-  
   const hash = window.location.hash;
   if (hash) {
     const slug = hash.replace('#', '');
@@ -475,6 +497,11 @@ window.addEventListener('hashchange', function() {
     const slug = hash.replace('#', '');
     openTourBySlug(slug);
   }
+});
+
+// Закрытие модалки при клике вне
+window.addEventListener('click', (e) => {
+  if (e.target === document.getElementById('modal')) closeModal();
 });
 
 // Обработка нажатия ESC
