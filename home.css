@@ -664,6 +664,21 @@ a {
     padding: 150px 20px;
     position: relative;
 }
+/* Кнопка в герое */
+.hero .btn {
+    background: #FFD700;
+    color: #002244;
+    padding: 12px 30px; /* Можно уменьшить до 10px 25px если нужно еще меньше */
+    border-radius: 30px;
+    font-weight: bold;
+    transition: .3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px; /* Можно уменьшить до 14px если нужно */
+    margin: 0 auto; /* Центрирование */
+}
 
 .hero::before {
     content: '';
@@ -1194,5 +1209,6 @@ a {
         max-height: 300px;
     }
 }
+
 
 
