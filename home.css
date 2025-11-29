@@ -398,7 +398,18 @@ h1 {
 .carousel-indicator.active {
   background: white;
 }
-
+@media (max-width: 768px) {
+    .modal-right .btn,
+    .book-btn {
+        width: 80%; /* На мобильных можно сделать чуть шире */
+        margin: 15px auto 0 auto;
+    }
+    
+    .hero .btn {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
 /* --- Мобильная адаптация --- */
 @media (max-width: 768px) {
   .modal-content {
@@ -1209,6 +1220,7 @@ a {
         max-height: 300px;
     }
 }
+
 
 
 
