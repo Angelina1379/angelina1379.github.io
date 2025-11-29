@@ -1109,20 +1109,28 @@ a {
 }
 
 /* Кнопка бронирования в модалке */
+/* Кнопка бронирования в модалке */
 .book-btn {
     background: #FFD700;
     color: #002244;
-    padding: 12px 24px;
+    padding: 10px 20px; /* Уменьшено */
     border-radius: 30px;
     font-weight: bold;
     text-decoration: none;
-    display: inline-block;
+    display: block; /* Изменено на block */
     text-align: center;
     transition: background 0.3s ease;
-    width: 85%;
+    width: 60%; /* Уменьшено */
     border: none;
     cursor: pointer;
-    margin-top: auto;
+    margin: 20px auto 0 auto; /* Центрирование */
+    font-size: 14px; /* Можно уменьшить размер шрифта */
+}
+
+.modal-right .btn {
+    flex-shrink: 0;
+    width: 60%; /* Синхронизировать с book-btn */
+    margin: 20px auto 0 auto; /* Центрирование */
 }
 
 .book-btn:hover {
@@ -1161,10 +1169,6 @@ a {
         max-height: 250px;
     }
     
-    .modal-right .btn,
-    .book-btn {
-        width: 100%;
-    }
 }
 
 /* Дополнительные исправления для бургер-меню */
@@ -1190,4 +1194,5 @@ a {
         max-height: 300px;
     }
 }
+
 
