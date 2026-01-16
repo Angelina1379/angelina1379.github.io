@@ -997,7 +997,7 @@ a {
     width: 85%; /* Уменьшено с 90% */
     height: 70vh; /* Уменьшено с 80vh */
     padding: 20px;
-
+}
 /* Закрытие модалки */
 .modal-close {
     position: absolute;
@@ -1232,6 +1232,7 @@ a {
         max-height: 300px;
     }
 }
+
 
 
 
