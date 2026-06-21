@@ -1,4 +1,78 @@
 document.addEventListener("DOMContentLoaded", () => {
+ 
+  /* =====================================================================
+     ОТЗЫВЫ
+     Чтобы добавить новый отзыв — просто впишите его в массив ниже.
+     Поле date в формате ГГГГ-ММ-ДД. Скрипт сам отсортирует список так,
+     чтобы самые свежие отзывы были сверху, и покажет первые MAX_REVIEWS.
+     ===================================================================== */
+  const MAX_REVIEWS = 3; // сколько отзывов показывать на главной
+ 
+  const reviews = [
+    {
+      name: "savkinaelena",
+      avatar: "🐻",
+      stars: 5,
+      date: "2024-11-17",
+      dateLabel: "17 нояб. 2024",
+      text: "Калининград с Ириной. Отличный гид! Ездили по Калининграду — Ирина рассказала много интересной информации, что на следующий день решили с ней же поехать уже на Куршскую косу и в Светлогорск. Нам всем очень понравилось (группа 4 человека), так что советую обращаться к Ирине за проведением экскурсий."
+    },
+    {
+      name: "tmakova",
+      avatar: "🦎",
+      stars: 5,
+      date: "2025-01-05",
+      dateLabel: "05 янв. 2025",
+      text: "Не особо люблю писать отзывы, обычно просто благодарю достойных людей, которые ответственно относятся к своей работе, могут подстраиваться под различные нюансы и желания своих клиентов! Ирина настолько заинтересовала рассказами, что решили еще раз весной вернуться!!! Спасибо ей огромное!"
+    },
+    {
+      name: "marina",
+      avatar: "🦋",
+      stars: 5,
+      date: "2025-01-05",
+      dateLabel: "05 янв. 2025",
+      text: "Были на экскурсии с Ириной — великолепно! Очень интересные истории, приятная атмосфера и чудесные маршруты. Обязательно приедем снова и попробуем другие туры!"
+    }
+  ];
+ 
+  function renderReviews() {
+    const slider = document.getElementById("reviewSlider");
+    if (!slider) return;
+ 
+    // сортировка: свежие сверху (по убыванию даты)
+    const sorted = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const visible = sorted.slice(0, MAX_REVIEWS);
+ 
+    slider.innerHTML = "";
+    visible.forEach(r => {
+      const starsStr = "★".repeat(r.stars) + "☆".repeat(5 - r.stars);
+      const short = r.text.length > 90 ? r.text.slice(0, 90).trim() + "..." : r.text;
+ 
+      const card = document.createElement("div");
+      card.className = "review-card reveal";
+      card.innerHTML = `
+        <div class="review-header">
+          <div class="avatar">${r.avatar}</div>
+          <div>
+            <div class="review-name">${r.name}</div>
+            <div class="review-date">${r.dateLabel}</div>
+          </div>
+        </div>
+        <div class="review-stars">${starsStr}</div>
+        <p class="review-text">${short}</p>
+        <span class="see-more">Смотреть больше</span>`;
+ 
+      card.querySelector(".see-more").addEventListener("click", () => {
+        openReviewModal(r.name, starsStr, r.dateLabel, r.text);
+      });
+ 
+      slider.appendChild(card);
+    });
+  }
+ 
+  /* =====================================================================
+     ТУРЫ
+     ===================================================================== */
   const tours = [
     {
       title: "Куршская коса + Зеленоградск",
@@ -63,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
       max: "https://max.ru/+79052484096"
     }
   ];
-
+ 
   const modal = document.getElementById("tourModal");
   const modalTitle = document.getElementById("modal-title");
   const modalDescription = document.getElementById("modal-description");
@@ -71,45 +145,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const carouselIndicators = document.getElementById("carousel-indicators");
   const maxLink = document.getElementById("max-link");
   let currentSlide = 0, autoSlide;
-
-  const indexToSlug = {
-    0: 'kurshskaya-kosa-zelenogradsk',
-    1: 'obzornaya-ekskursiya',
-    2: 'vse-krasoty-za-3-dnya'
-  };
-  const slugToIndex = {
-    'kurshskaya-kosa-zelenogradsk': 0,
-    'obzornaya-ekskursiya': 1,
-    'vse-krasoty-za-3-dnya': 2
-  };
-
+ 
+  const indexToSlug = { 0: 'kurshskaya-kosa-zelenogradsk', 1: 'obzornaya-ekskursiya', 2: 'vse-krasoty-za-3-dnya' };
+  const slugToIndex = { 'kurshskaya-kosa-zelenogradsk': 0, 'obzornaya-ekskursiya': 1, 'vse-krasoty-za-3-dnya': 2 };
+ 
   function openTourBySlug(slug) {
     const index = slugToIndex[slug];
     if (index !== undefined) showDetails(index);
   }
-
-  // === ОТКРЫТИЕ МОДАЛКИ ТУРА ===
+ 
+  /* === ОТКРЫТИЕ МОДАЛКИ ТУРА === */
   window.showDetails = (index) => {
     const tour = tours[index];
-
     document.body.style.overflow = 'hidden';
-
+ 
     const slug = indexToSlug[index];
     if (slug) history.pushState(null, null, `#${slug}`);
-
+ 
     modalTitle.textContent = tour.title;
     maxLink.href = tour.max;
     modalDescription.innerHTML = "";
-
+ 
     tour.description.forEach(text => {
       const p = document.createElement("p");
       p.textContent = text;
       modalDescription.appendChild(p);
     });
-
+ 
     carouselInner.innerHTML = "";
     carouselIndicators.innerHTML = "";
-
+ 
     tour.images.forEach((src, i) => {
       const item = document.createElement("div");
       item.className = `carousel-item ${i === 0 ? "active" : ""}`;
@@ -121,90 +186,89 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       item.appendChild(img);
       carouselInner.appendChild(item);
-
+ 
       const dot = document.createElement("button");
       dot.className = `carousel-indicator ${i === 0 ? "active" : ""}`;
       dot.onclick = () => showSlide(i);
       carouselIndicators.appendChild(dot);
     });
-
+ 
     currentSlide = 0;
     showSlide(0);
-    modal.style.display = "flex";
+    modal.classList.add("open");
     startAuto();
   };
-
+ 
   window.closeModal = () => {
-    modal.style.display = "none";
+    modal.classList.remove("open");
     stopAuto();
     document.body.style.overflow = '';
     if (window.location.hash) {
       history.pushState(null, null, window.location.pathname + window.location.search);
     }
   };
-
-  // === СЛАЙДЕР ===
+ 
+  /* === СЛАЙДЕР === */
   function showSlide(index) {
     const items = document.querySelectorAll(".carousel-item");
     const dots = document.querySelectorAll(".carousel-indicator");
     if (items.length === 0) return;
-
     if (index >= items.length) index = 0;
     if (index < 0) index = items.length - 1;
-
+ 
     carouselInner.style.transform = `translateX(-${index * 100}%)`;
     items.forEach((el, i) => el.classList.toggle("active", i === index));
     dots.forEach((d, i) => d.classList.toggle("active", i === index));
     currentSlide = index;
   }
-
+ 
   window.nextSlide = () => showSlide(currentSlide + 1);
   window.prevSlide = () => showSlide(currentSlide - 1);
-
-  function startAuto() {
-    autoSlide = setInterval(() => showSlide(currentSlide + 1), 4000);
-  }
-
-  function stopAuto() {
-    if (autoSlide) clearInterval(autoSlide);
-  }
-
-  // === МОДАЛКА ОТЗЫВОВ ===
+ 
+  function startAuto() { autoSlide = setInterval(() => showSlide(currentSlide + 1), 4000); }
+  function stopAuto() { if (autoSlide) clearInterval(autoSlide); }
+ 
+  /* === МОДАЛКА ОТЗЫВОВ === */
   window.openReviewModal = function (name, stars, date, text) {
     document.getElementById("modalReviewName").textContent = name;
     document.getElementById("modalReviewStars").textContent = stars;
     document.getElementById("modalReviewDate").textContent = date;
     document.getElementById("modalReviewText").textContent = text;
-    document.getElementById("reviewModal").style.display = "flex";
+    document.getElementById("reviewModal").classList.add("open");
   };
-
+ 
   window.closeReviewModal = function () {
-    document.getElementById("reviewModal").style.display = "none";
+    document.getElementById("reviewModal").classList.remove("open");
   };
-
-  // === КЛИК ВНЕ МОДАЛКИ ===
+ 
+  /* === КЛИК ВНЕ МОДАЛКИ === */
   window.onclick = function (e) {
     if (e.target === modal) closeModal();
     if (e.target === document.getElementById("reviewModal")) closeReviewModal();
   };
-
+ 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
-      if (modal.style.display === "flex") closeModal();
-      if (document.getElementById("reviewModal").style.display === "flex") closeReviewModal();
+      if (modal.classList.contains("open")) closeModal();
+      if (document.getElementById("reviewModal").classList.contains("open")) closeReviewModal();
     }
   });
-
-  // === АНИМАЦИЯ "ПОЧЕМУ ВЫБИРАЮТ НАС" ===
-  const whyItems = document.querySelectorAll(".why-us li");
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("show");
-    });
-  }, { threshold: 0.2 });
-  whyItems.forEach(i => obs.observe(i));
-
-  // === COOKIE-СОГЛАСИЕ ===
+ 
+  /* === SCROLL-REVEAL (появление при прокрутке) === */
+  function initReveal() {
+    const els = document.querySelectorAll(".reveal, .why-us li");
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => obs.observe(el));
+  }
+ 
+  /* === COOKIE-СОГЛАСИЕ === */
   const cookieBanner = document.getElementById("cookieBanner");
   if (cookieBanner && document.cookie.indexOf("cookieConsent=1") === -1) {
     cookieBanner.classList.add("show");
@@ -213,20 +277,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.cookie = "cookieConsent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/";
     if (cookieBanner) cookieBanner.classList.remove("show");
   };
-
-  // === ЗАГРУЗКА С ЯКОРЕМ ===
+ 
+  /* === ИНИЦИАЛИЗАЦИЯ === */
+  renderReviews();
+  initReveal();
+ 
   const hash = window.location.hash;
   if (hash) openTourBySlug(hash.replace('#', ''));
-
-  // === ИЗМЕНЕНИЕ URL ===
+ 
   window.addEventListener('hashchange', function () {
     const h = window.location.hash;
     if (!h) closeModal();
     else openTourBySlug(h.replace('#', ''));
   });
 });
-
-// === БУРГЕР ===
+ 
+/* === БУРГЕР === */
 function toggleMenu() {
   document.getElementById("navMenu").classList.toggle("show");
 }
