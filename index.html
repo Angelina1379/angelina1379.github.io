@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Калининград c гидом — Гид по Калининграду</title>
   <link rel="stylesheet" href="home.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <script defer src="js/home.js"></script>
 </head>
 <body>
-
+ 
   <!-- ШАПКА -->
   <header class="header">
     <div class="container">
@@ -23,41 +23,52 @@
       </nav>
     </div>
   </header>
-
+ 
   <!-- ГЕРОЙ -->
   <section class="hero">
     <span class="ad-label">Реклама</span>
     <div class="container">
       <h1>Открой тайны Калининграда вместе с нами!</h1>
-      <a href="excursion.html" class="btn">Выбрать экскурсию</a>
+      <p class="hero-sub">Авторские экскурсии по городу, Куршской косе и Янтарному побережью</p>
+      <a href="excursion.html" class="btn btn-hero">Выбрать экскурсию</a>
     </div>
+    <div class="hero-scroll" aria-hidden="true"><span></span></div>
   </section>
-
+ 
   <!-- ТУРЫ -->
   <section class="tours">
     <div class="container">
-      <h2>Наши лучшие экскурсии</h2>
+      <h2 class="section-title reveal">Наши лучшие экскурсии</h2>
       <div class="tours-grid">
-        <div class="tour-card">
-          <img src="image/kurshskaya1.jpg" alt="Куршская коса">
+        <div class="tour-card reveal">
+          <div class="tour-card-img">
+            <img src="image/kurshskaya1.jpg" alt="Куршская коса">
+            <span class="tour-badge">8 часов</span>
+          </div>
           <div class="tour-card-body">
             <h3>Куршская коса + Зеленоградск</h3>
             <p>Танцующий лес, высота Эфа, дюны, орнитологическая станция и морской курорт...</p>
-            <span class="price">15 000 ₽ (8 часов)</span>
+            <span class="price">15 000 ₽</span>
             <a href="javascript:void(0)" class="btn-small" onclick="showDetails(0)">Подробнее</a>
           </div>
         </div>
-        <div class="tour-card">
-          <img src="image/obzornaya1.jpg" alt="Обзорная экскурсия">
+        <div class="tour-card reveal">
+          <div class="tour-card-img">
+            <img src="image/obzornaya1.jpg" alt="Обзорная экскурсия">
+            <span class="tour-badge">4 часа</span>
+          </div>
           <div class="tour-card-body">
             <h3>Обзорная экскурсия</h3>
             <p>История города, Кафедральный собор, Рыбная деревня, районы старого Кёнигсберга...</p>
-            <span class="price">8 000 ₽ (4 часа)</span>
+            <span class="price">8 000 ₽</span>
             <a href="javascript:void(0)" class="btn-small" onclick="showDetails(1)">Подробнее</a>
           </div>
         </div>
-        <div class="tour-card">
-          <img src="image/3days1.jpg" alt="3 дня">
+        <div class="tour-card reveal">
+          <div class="tour-card-img">
+            <img src="image/3days1.jpg" alt="3 дня">
+            <span class="tour-badge">3 дня</span>
+          </div>
           <div class="tour-card-body">
             <h3>Все красоты области за 3 дня</h3>
             <p>Калининград, Янтарное побережье, Куршская коса и Зеленоградск за три дня...</p>
@@ -68,67 +79,28 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- ПОЧЕМУ МЫ -->
   <section class="why-us">
     <div class="container">
-      <h2>Почему выбирают нас</h2>
+      <h2 class="section-title">Почему выбирают нас</h2>
       <ul>
-        <li>✔ Опытные гиды</li>
-        <li>✔ Уникальные маршруты</li>
-        <li>✔ Комфортный транспорт</li>
-        <li>✔ Индивидуальный подход</li>
+        <li><span class="why-icon">★</span> Опытные гиды</li>
+        <li><span class="why-icon">🗺</span> Уникальные маршруты</li>
+        <li><span class="why-icon">🚐</span> Комфортный транспорт</li>
+        <li><span class="why-icon">♥</span> Индивидуальный подход</li>
       </ul>
     </div>
   </section>
-
-  <!-- ОТЗЫВЫ -->
+ 
+  <!-- ОТЗЫВЫ (рендерятся из js/home.js, сортировка: свежие сверху) -->
   <section class="reviews">
     <div class="container">
-      <h2>Отзывы</h2>
-      <div class="review-slider">
-        <div class="review-card">
-          <div class="review-header">
-            <div class="avatar">🐻</div>
-            <div>
-              <div class="review-name">savkinaelena</div>
-              <div class="review-date">17 нояб. 2024</div>
-            </div>
-          </div>
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">Калининград с Ириной. Отличный гид! Ездили по Калининграду — Ирина рассказала много интересной...</p>
-          <span class="see-more" onclick="openReviewModal('savkinaelena', '★★★★★', '17 нояб. 2024', 'Калининград с Ириной. Отличный гид! Ездили по Калининграду — Ирина рассказала много интересной информации, что на следующий день решили с ней же поехать уже на Куршскую косу и в Светлогорск. Нам всем очень понравилось (группа 4 человека), так что советую обращаться к Ирине за проведением экскурсий.')">Смотреть больше</span>
-        </div>
-
-        <div class="review-card">
-          <div class="review-header">
-            <div class="avatar">🦎</div>
-            <div>
-              <div class="review-name">tmakova</div>
-              <div class="review-date">05 янв. 2025</div>
-            </div>
-          </div>
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">Не особо люблю писать отзывы, обычно просто благодарю достойных людей...</p>
-          <span class="see-more" onclick="openReviewModal('tmakova', '★★★★★', '05 янв. 2025', 'Не особо люблю писать отзывы, обычно просто благодарю достойных людей, которые ответственно относятся к своей работе, могут подстраиваться под различные нюансы и желания своих клиентов! Ирина настолько заинтересовала рассказами, что решили еще раз весной вернуться!!! Спасибо ей огромное!')">Смотреть больше</span>
-        </div>
-
-        <div class="review-card">
-          <div class="review-header">
-            <div class="avatar">🦋</div>
-            <div>
-              <div class="review-name">marina</div>
-              <div class="review-date">05 янв. 2025</div>
-            </div>
-          </div>
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">Были на экскурсии с Ириной — великолепно! Очень интересные истории и маршруты...</p>
-          <span class="see-more" onclick="openReviewModal('marina', '★★★★★', '05 янв. 2025', 'Были на экскурсии с Ириной — великолепно! Очень интересные истории, приятная атмосфера и чудесные маршруты. Обязательно приедем снова и попробуем другие туры!')">Смотреть больше</span>
-        </div>
-      </div>
+      <h2 class="section-title reveal">Отзывы</h2>
+      <div class="review-slider" id="reviewSlider"></div>
     </div>
   </section>
-
+ 
   <!-- МОДАЛКА ПОЛНОГО ОТЗЫВА -->
   <div class="review-modal" id="reviewModal">
     <div class="review-modal-content">
@@ -139,7 +111,7 @@
       <p id="modalReviewText"></p>
     </div>
   </div>
-
+ 
   <!-- Кнопки мессенджеров -->
   <div class="messenger-float">
     <a href="https://t.me/bogira39" target="_blank" rel="noopener" class="messenger-btn telegram-btn" aria-label="Telegram">
@@ -149,7 +121,7 @@
       <span class="max-text">MAX</span>
     </a>
   </div>
-
+ 
   <!-- ПОДВАЛ -->
   <footer class="footer">
     <div class="container">
@@ -159,7 +131,7 @@
       <p><a href="privacy.html" class="footer-link">Политика конфиденциальности</a></p>
     </div>
   </footer>
-
+ 
   <!-- МОДАЛКА ТУРА -->
   <div class="modal" id="tourModal">
     <div class="modal-content">
@@ -179,7 +151,7 @@
       </div>
     </div>
   </div>
-
+ 
   <!-- COOKIE / СОГЛАСИЕ НА ОБРАБОТКУ ПДн -->
   <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-text">
@@ -190,6 +162,6 @@
     </div>
     <button class="cookie-accept" onclick="acceptCookies()">Принять</button>
   </div>
-
+ 
 </body>
 </html>
