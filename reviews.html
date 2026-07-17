@@ -428,34 +428,6 @@ function renderReviews(reviews) {
       `<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`
     ).join('');
 
-    const div = document.createElement("div");
-    div.id = "pagination";
-    div.className = "pagination";
-
-    for(let i=1;i<=pages;i++){
-
-        const btn=document.createElement("button");
-
-        btn.textContent=i;
-
-        if(i===currentPage)
-            btn.classList.add("active");
-
-        btn.onclick=()=>{
-            currentPage=i;
-            renderReviews(allReviews);
-            window.scrollTo({
-                top:document.querySelector(".filter-bar").offsetTop-20,
-                behavior:"smooth"
-            });
-        };
-
-        div.appendChild(btn);
-    }
-
-    document.getElementById("reviews-list").after(div);
-
-}
     
     let adminButtons = '';
     if(currentUserUID === adminUID){
