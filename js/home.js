@@ -1,254 +1,121 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
-  /* ============================================================
-     СИСТЕМА ОТЗЫВОВ — ПОКАЗЫВАЕМ ТОЛЬКО ПОСЛЕДНИЕ
-     ============================================================ */
-  
-  const MAX_REVIEWS = 5; // сколько последних отзывов показывать
-  const STORAGE_KEY = 'reviews_data';
-  
-  // Загружаем отзывы из localStorage или используем начальные
-  function loadReviewsFromStorage() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      } catch (e) {
-        console.warn('Ошибка загрузки отзывов из localStorage');
-      }
-    }
-    return defaultReviews;
-  }
-  
-  // Сохраняем отзывы в localStorage
-  function saveReviewsToStorage(reviews) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-  }
-  
-  // Получаем текущий список отзывов
-  let reviews = loadReviewsFromStorage();
-  
-  // Функция для генерации аватарки по имени
-  function getAvatar(name) {
-    const emojis = ['🐻', '🦎', '🦋', '🐱', '🐶', '🐰', '🦊', '🐼', '🐨', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🐤', '🦄', '🐴', '🦋', '🦉', '🐳', '🐬', '🦁', '🐯'];
-    const index = name.length % emojis.length;
-    return emojis[index];
-  }
-  
-  // Форматирование даты
-  function formatDate(dateStr) {
-    const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
-    const d = new Date(dateStr);
-    return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-  }
-  
-  // ГЛАВНАЯ ФУНКЦИЯ: рендерим только последние отзывы (от новых к старым)
-  function renderReviews() {
-    const slider = document.getElementById("reviewSlider");
-    if (!slider) return;
-    
-    // СОРТИРУЕМ ПО ДАТЕ (от новых к старым)
-    const sorted = [...reviews].sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
+  authDomain: "kaliningrad-tour2025.firebaseapp.com",
+  projectId: "kaliningrad-tour2025",
+  storageBucket: "kaliningrad-tour2025.appspot.com",
+  messagingSenderId: "733180646321",
+  appId: "1:733180646321:web:f7e0106357edc327162390"
+};
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
+
+let reviews = [];
+
+function getAvatar(name) {
+    const emojis = [
+        "🐻","🦎","🦋","🐱","🐶","🐰","🦊","🐼",
+        "🐨","🐮","🐷","🐸","🐵","🐔","🐧","🐦",
+        "🐤","🦄","🐴","🦉","🐳","🐬","🦁","🐯"
+    ];
+    return emojis[name.length % emojis.length];
+}
+
+function formatDate(dateStr){
+    return new Date(dateStr).toLocaleDateString("ru-RU");
+}
+
+async function loadReviews(){
+
+    const snap = await db
+        .collection("reviews")
+        .orderBy("date","desc")
+        .limit(5)
+        .get();
+
+    reviews = [];
+
+    snap.forEach(doc=>{
+        reviews.push({
+            id: doc.id,
+            ...doc.data()
+        });
     });
-    
-    // БЕРЕМ ТОЛЬКО ПОСЛЕДНИЕ MAX_REVIEWS
-    const visible = sorted.slice(0, MAX_REVIEWS);
-    
-    // Если отзывов нет — показываем сообщение
-    if (visible.length === 0) {
-      slider.innerHTML = `
-        <div style="text-align: center; padding: 40px 20px; background: #f9f9f9; border-radius: 16px;">
-          <p style="color: #999; font-size: 18px;">Пока нет отзывов. Будьте первым! 🌟</p>
-        </div>
-      `;
-      return;
-    }
-    
-    slider.innerHTML = "";
-    
-    visible.forEach((r, index) => {
-      const starsStr = "★".repeat(r.stars) + "☆".repeat(5 - r.stars);
-      const isLong = r.text.length > 120;
-      const short = isLong ? r.text.slice(0, 120).trim() + "..." : r.text;
-      
-      const card = document.createElement("div");
-      card.className = `review-card reveal`;
-      card.style.animationDelay = `${index * 0.1}s`;
-      
-      card.innerHTML = `
-        <div class="review-header">
-          <div class="review-avatar">${r.avatar || getAvatar(r.name)}</div>
-          <div class="review-meta">
-            <div class="review-name">${r.name}</div>
-            <div class="review-date">${r.dateLabel || formatDate(r.date)}</div>
-          </div>
-        </div>
-        <div class="review-stars">${starsStr}</div>
-        <p class="review-text">${short}</p>
-        ${isLong ? `<button class="review-more-btn" onclick="openReviewModal('${r.name.replace(/'/g, "\\'")}', '${starsStr}', '${r.dateLabel || formatDate(r.date)}', \`${r.text.replace(/`/g, '\\`')}\`)">Читать полностью →</button>` : ''}
-      `;
-      
-      slider.appendChild(card);
-    });
-    
-    // Запускаем анимацию появления
-    setTimeout(() => {
-      document.querySelectorAll('.review-card.reveal').forEach((el) => {
-        el.classList.add('show');
-      });
-    }, 100);
-  }
-  
-  // ДОБАВЛЕНИЕ НОВОГО ОТЗЫВА
-  function addReview(name, stars, text) {
-    const now = new Date();
-    const dateStr = now.toISOString().split('T')[0]; // ГГГГ-ММ-ДД
-    
-    const newReview = {
-      id: Date.now(),
-      name: name.trim(),
-      avatar: getAvatar(name),
-      stars: stars,
-      date: dateStr,
-      dateLabel: formatDate(dateStr),
-      text: text.trim()
-    };
-    
-    // Добавляем в массив (в начало, чтобы был самым свежим)
-    reviews.unshift(newReview);
-    
-    // Сохраняем в localStorage
-    saveReviewsToStorage(reviews);
-    
-    // Перерисовываем отзывы (показываем только последние)
+
     renderReviews();
-  }
-  
-  /* ============================================================
-     МОДАЛКА ОТЗЫВА (полный текст)
-     ============================================================ */
-  window.openReviewModal = function(name, stars, date, text) {
-    const modal = document.getElementById("reviewModal");
-    if (!modal) return;
-    
-    document.getElementById("modalReviewName").textContent = name;
-    document.getElementById("modalReviewStars").textContent = stars;
-    document.getElementById("modalReviewDate").textContent = date;
-    document.getElementById("modalReviewText").textContent = text;
-    
-    modal.classList.add("open");
-    document.body.style.overflow = 'hidden';
-  };
-  
-  window.closeReviewModal = function() {
-    const modal = document.getElementById("reviewModal");
-    if (!modal) return;
-    modal.classList.remove("open");
-    document.body.style.overflow = '';
-  };
-  
-  // Закрытие модалки по клику вне окна
-  document.addEventListener('click', (e) => {
-    const modal = document.getElementById("reviewModal");
-    if (modal && e.target === modal) {
-      closeReviewModal();
-    }
-  });
-  
-  // Закрытие по Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const modal = document.getElementById("reviewModal");
-      if (modal && modal.classList.contains("open")) {
-        closeReviewModal();
-      }
-    }
-  });
-  
-  /* ============================================================
-     ФОРМА ДОБАВЛЕНИЯ ОТЗЫВА (можно добавить на страницу отзывов)
-     ============================================================ */
-  // Проверяем, есть ли форма на странице
-  const reviewForm = document.getElementById('reviewForm');
-  if (reviewForm) {
-    const starsSelect = document.getElementById('starsSelect');
-    const ratingInput = document.getElementById('reviewRating');
-    
-    if (starsSelect) {
-      // Выбор звёзд
-      starsSelect.querySelectorAll('span').forEach(star => {
-        star.addEventListener('click', function() {
-          const value = parseInt(this.dataset.value);
-          ratingInput.value = value;
-          
-          starsSelect.querySelectorAll('span').forEach(s => {
-            s.classList.toggle('active', parseInt(s.dataset.value) <= value);
-            s.style.color = parseInt(s.dataset.value) <= value ? '#ffb547' : '#ddd';
-          });
-        });
-        
-        star.addEventListener('mouseenter', function() {
-          const value = parseInt(this.dataset.value);
-          starsSelect.querySelectorAll('span').forEach(s => {
-            s.style.color = parseInt(s.dataset.value) <= value ? '#ffb547' : '#ddd';
-          });
-        });
-        
-        star.addEventListener('mouseleave', function() {
-          const current = parseInt(ratingInput.value);
-          starsSelect.querySelectorAll('span').forEach(s => {
-            s.style.color = parseInt(s.dataset.value) <= current ? '#ffb547' : '#ddd';
-          });
-        });
-      });
-      
-      // Инициализация
-      const initialRating = parseInt(ratingInput.value) || 5;
-      starsSelect.querySelectorAll('span').forEach(s => {
-        const val = parseInt(s.dataset.value);
-        s.classList.toggle('active', val <= initialRating);
-        s.style.color = val <= initialRating ? '#ffb547' : '#ddd';
-      });
-    }
-    
-    // Отправка формы
-    reviewForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('reviewName')?.value.trim();
-      const rating = parseInt(ratingInput?.value || 5);
-      const text = document.getElementById('reviewText')?.value.trim();
-      
-      if (!name || !text) {
-        alert('Пожалуйста, заполните все поля');
+}
+
+function renderReviews(){
+
+    const slider = document.getElementById("reviewSlider");
+
+    if(!slider) return;
+
+    slider.innerHTML="";
+
+    if(reviews.length===0){
+        slider.innerHTML="<p>Пока нет отзывов.</p>";
         return;
-      }
-      
-      if (text.length < 10) {
-        alert('Отзыв должен содержать хотя бы 10 символов');
-        return;
-      }
-      
-      addReview(name, rating, text);
-      
-      reviewForm.reset();
-      if (ratingInput) ratingInput.value = 5;
-      
-      // Сбрасываем звёзды
-      if (starsSelect) {
-        starsSelect.querySelectorAll('span').forEach(s => {
-          s.classList.toggle('active', parseInt(s.dataset.value) <= 5);
-          s.style.color = parseInt(s.dataset.value) <= 5 ? '#ffb547' : '#ddd';
-        });
-      }
-      
-      alert('Спасибо за ваш отзыв! ❤️');
+    }
+
+    reviews.forEach((r,index)=>{
+
+        const stars="★".repeat(r.rating)+"☆".repeat(5-r.rating);
+
+        const text=r.message || "";
+
+        const short=text.length>120
+            ? text.substring(0,120)+"..."
+            : text;
+
+        const card=document.createElement("div");
+
+        card.className="review-card reveal";
+
+        card.style.animationDelay=`${index*0.1}s`;
+
+        card.innerHTML=`
+            <div class="review-header">
+                <div class="review-avatar">${getAvatar(r.name)}</div>
+
+                <div class="review-meta">
+                    <div class="review-name">${r.name}</div>
+                    <div class="review-date">${formatDate(r.date)}</div>
+                </div>
+            </div>
+
+            <div class="review-stars">${stars}</div>
+
+            <p class="review-text">${short}</p>
+
+            ${
+            text.length>120
+            ? `<button class="review-more-btn"
+               onclick="openReviewModal('${r.name.replace(/'/g,"\\'")}','${stars}','${formatDate(r.date)}',\`${text.replace(/`/g,"\\`")}\`)">
+               Читать полностью →
+               </button>`
+            : ""
+            }
+        `;
+
+        slider.appendChild(card);
+
     });
-  }
+
+    setTimeout(()=>{
+        document.querySelectorAll(".review-card").forEach(c=>{
+            c.classList.add("show");
+        });
+    },100);
+
+}
+
+loadReviews();
   
   /* ============================================================
      ОСТАЛЬНЫЕ ФУНКЦИИ (туры, бургер, cookie и т.д.)
@@ -441,8 +308,10 @@ document.addEventListener("DOMContentLoaded", () => {
     els.forEach(el => obs.observe(el));
   }
   
-  // ИНИЦИАЛИЗАЦИЯ
-  renderReviews();
-  initReveal();
+// ИНИЦИАЛИЗАЦИЯ
+initReveal();
+
+// Загружаем последние 5 отзывов из Firebase
+loadReviews();
   
 });
