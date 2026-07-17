@@ -1,3 +1,6 @@
+let reviewCards = [];
+let currentReview = 0;
+
 const firebaseConfig = {
   apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
   authDomain: "kaliningrad-tour2025.firebaseapp.com",
@@ -33,6 +36,8 @@ async function loadReviews(){
 
 
         slider.innerHTML="";
+        reviewCards = [];
+        currentReview = 0;
 
 
         if(snap.empty){
@@ -44,90 +49,75 @@ async function loadReviews(){
         }
 
 
-        snap.forEach(doc=>{
+snap.forEach(doc=>{
 
-            const r = doc.data();
+    const r = doc.data();
 
+    const card=document.createElement("div");
 
-            const card=document.createElement("div");
-
-            card.className="review-card";
-
-
-            card.innerHTML=`
-
-                <div class="review-avatar">
-                    ${r.name.substring(0,1).toUpperCase()}
-                </div>
+    card.className="review-card";
 
 
-                <h3>${r.name}</h3>
+    card.innerHTML=`
+
+        <div class="review-avatar">
+            ${r.name.substring(0,1).toUpperCase()}
+        </div>
 
 
-                <div class="review-stars">
-                    ${"★".repeat(r.rating)}
-                    ${"☆".repeat(5-r.rating)}
-                </div>
+        <h3>${r.name}</h3>
 
 
-                <small>
-                    ${new Date(r.date)
-                    .toLocaleDateString("ru-RU")}
-                </small>
+        <div class="review-stars">
+            ${"★".repeat(r.rating)}
+            ${"☆".repeat(5-r.rating)}
+        </div>
 
 
-card.innerHTML=`
-
-<div class="review-avatar">
-    ${r.name.substring(0,1).toUpperCase()}
-</div>
-
-<h3>${r.name}</h3>
-
-<div class="review-stars">
-    ${"★".repeat(r.rating)}
-    ${"☆".repeat(5-r.rating)}
-</div>
-
-<small>
-    ${new Date(r.date).toLocaleDateString("ru-RU")}
-</small>
+        <small>
+            ${new Date(r.date)
+            .toLocaleDateString("ru-RU")}
+        </small>
 
 
-<p>
-    ${
-    r.message.length > 120
-    ?
-    r.message.substring(0,120)+"..."
-    :
-    r.message
-    }
-</p>
+        <p>
+            ${
+            r.message.length > 120
+            ?
+            r.message.substring(0,120)+"..."
+            :
+            r.message
+            }
+        </p>
 
 
-${
-r.message.length > 120
-?
-`
-<button 
-class="review-more-btn"
-onclick='openReviewModal(${JSON.stringify(r)})'>
-Читать полностью →
-</button>
-`
-:
-""
-}
-
-`;
+        ${
+        r.message.length > 120
+        ?
+        `
+        <button 
+        class="review-more-btn"
+        onclick='openReviewModal(${JSON.stringify(r)})'>
+        Читать полностью →
+        </button>
+        `
+        :
+        ""
+        }
 
 
-            `;
+    `;
 
 
-            slider.appendChild(card);
+    slider.appendChild(card);
 
-        });
+    reviewCards.push(card);
+
+
+});
+
+
+      
 
 
     }
@@ -345,11 +335,9 @@ loadReviews
   
 // ИНИЦИАЛИЗАЦИЯ
 initReveal();
-
-// Загружаем последние 5 отзывов из Firebase
-loadReviews();
   
 });
+
 
 window.openReviewModal=function(review){
 
@@ -384,7 +372,44 @@ window.openReviewModal=function(review){
 
 }
 
+function updateReviewSlider(){
 
+    reviewCards.forEach((card,index)=>{
+
+        if(index === currentReview){
+            card.style.display="block";
+        }
+        else{
+            card.style.display="none";
+        }
+
+    });
+
+}
+
+
+
+window.nextReview=function(){
+
+    if(currentReview < reviewCards.length - 1){
+        currentReview++;
+    }
+
+    updateReviewSlider();
+
+}
+
+
+
+window.prevReview=function(){
+
+    if(currentReview > 0){
+        currentReview--;
+    }
+
+    updateReviewSlider();
+
+}
 
 window.closeReviewModal=function(){
 
