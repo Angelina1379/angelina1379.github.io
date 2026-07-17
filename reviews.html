@@ -446,12 +446,8 @@ function renderReviews(reviews) {
     return;
   }
 
-    const start = (currentPage - 1) * reviewsPerPage;
-    const end = start + reviewsPerPage;
     
-    const pageReviews = reviews.slice(start, end);
-    
-    pageReviews.forEach(review=>{
+    reviews.forEach(review =>{
     const photosHTML = (review.photos || []).map(p => `<img src="${p}" onclick="showPhoto(this.src)">`).join('');
     const responsesHTML = (review.responses || []).map(resp => 
       `<div class="review-response"><strong>${resp.adminName}</strong>: ${resp.message}</div>`
@@ -575,8 +571,6 @@ document.getElementById('review-form').addEventListener('submit', async e=>{
     alert("Заполните все поля и подтвердите согласие.");
     return;
   }
-    let currentPage = 1;
-    const reviewsPerPage = 10;
 
   const btn=e.target.querySelector('button[type="submit"]');
   const oldText=btn.textContent;
