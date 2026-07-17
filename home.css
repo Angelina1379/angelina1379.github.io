@@ -56,50 +56,44 @@ a { text-decoration: none; color: inherit; }
 }
  
 /* ===== ШАПКА (логика как раньше — не трогаем на других страницах) ===== */
+/* Шапка */
 .header {
-  background: var(--navy);
-  padding: 20px 0;
-  color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 999;
+    background: #002244;
+    padding: 20px 0;
+    color: #fff;
 }
- 
+
 .header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 }
- 
+
 .header .logo {
-  font-size: 24px;
-  font-weight: bold;
-  font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    
 }
- 
-.nav { display: flex; }
- 
+
+.nav {
+    float: right;
+}
+
 .nav a {
-  margin-left: 20px;
-  color: #fff;
-  font-weight: 600;
-  transition: color .25s;
+    margin-left: 20px;
+    color: #fff;
+    font-weight: 600;
 }
- 
-.nav a:hover { color: var(--gold); }
- 
-.nav a.active { position: relative; }
- 
-.nav a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--gold);
-  animation: underline .3s ease-out;
+
+/* Бургер-кнопка — скрыта на десктопе */
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
 }
  
 @keyframes underline {
