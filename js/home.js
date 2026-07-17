@@ -115,7 +115,7 @@ snap.forEach(doc=>{
 
 
 });
-
+updateReviewSlider();
 
       
 
