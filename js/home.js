@@ -76,15 +76,50 @@ async function loadReviews(){
                 </small>
 
 
-                <p>
-                    ${
-                    r.message.length>120
-                    ?
-                    r.message.substring(0,120)+"..."
-                    :
-                    r.message
-                    }
-                </p>
+card.innerHTML=`
+
+<div class="review-avatar">
+    ${r.name.substring(0,1).toUpperCase()}
+</div>
+
+<h3>${r.name}</h3>
+
+<div class="review-stars">
+    ${"★".repeat(r.rating)}
+    ${"☆".repeat(5-r.rating)}
+</div>
+
+<small>
+    ${new Date(r.date).toLocaleDateString("ru-RU")}
+</small>
+
+
+<p>
+    ${
+    r.message.length > 120
+    ?
+    r.message.substring(0,120)+"..."
+    :
+    r.message
+    }
+</p>
+
+
+${
+r.message.length > 120
+?
+`
+<button 
+class="review-more-btn"
+onclick='openReviewModal(${JSON.stringify(r)})'>
+Читать полностью →
+</button>
+`
+:
+""
+}
+
+`;
 
 
             `;
