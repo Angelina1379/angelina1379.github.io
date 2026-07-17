@@ -1,5 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-
 const firebaseConfig = {
   apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
   authDomain: "kaliningrad-tour2025.firebaseapp.com",
@@ -9,113 +7,115 @@ const firebaseConfig = {
   appId: "1:733180646321:web:f7e0106357edc327162390"
 };
 
+
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
+
 const db = firebase.firestore();
 
-let reviews = [];
-
-function getAvatar(name) {
-    const emojis = [
-        "🐻","🦎","🦋","🐱","🐶","🐰","🦊","🐼",
-        "🐨","🐮","🐷","🐸","🐵","🐔","🐧","🐦",
-        "🐤","🦄","🐴","🦉","🐳","🐬","🦁","🐯"
-    ];
-    return emojis[name.length % emojis.length];
-}
-
-function formatDate(dateStr){
-    return new Date(dateStr).toLocaleDateString("ru-RU");
-}
 
 async function loadReviews(){
-
-    const snap = await db
-        .collection("reviews")
-        .orderBy("date","desc")
-        .limit(5)
-        .get();
-
-    reviews = [];
-
-    snap.forEach(doc=>{
-        reviews.push({
-            id: doc.id,
-            ...doc.data()
-        });
-    });
-
-    renderReviews();
-}
-
-function renderReviews(){
 
     const slider = document.getElementById("reviewSlider");
 
     if(!slider) return;
 
-    slider.innerHTML="";
 
-    if(reviews.length===0){
-        slider.innerHTML="<p>Пока нет отзывов.</p>";
-        return;
-    }
+    try {
 
-    reviews.forEach((r,index)=>{
+        const snap = await db
+            .collection("reviews")
+            .orderBy("date","desc")
+            .limit(5)
+            .get();
 
-        const stars="★".repeat(r.rating)+"☆".repeat(5-r.rating);
 
-        const text=r.message || "";
+        slider.innerHTML="";
 
-        const short=text.length>120
-            ? text.substring(0,120)+"..."
-            : text;
 
-        const card=document.createElement("div");
+        if(snap.empty){
 
-        card.className="review-card reveal";
+            slider.innerHTML=
+            "<p>Пока нет отзывов</p>";
 
-        card.style.animationDelay=`${index*0.1}s`;
+            return;
+        }
 
-        card.innerHTML=`
-            <div class="review-header">
-                <div class="review-avatar">${getAvatar(r.name)}</div>
 
-                <div class="review-meta">
-                    <div class="review-name">${r.name}</div>
-                    <div class="review-date">${formatDate(r.date)}</div>
+        snap.forEach(doc=>{
+
+            const r = doc.data();
+
+
+            const card=document.createElement("div");
+
+            card.className="review-card";
+
+
+            card.innerHTML=`
+
+                <div class="review-avatar">
+                    ${r.name.substring(0,1).toUpperCase()}
                 </div>
-            </div>
 
-            <div class="review-stars">${stars}</div>
 
-            <p class="review-text">${short}</p>
+                <h3>${r.name}</h3>
 
-            ${
-            text.length>120
-            ? `<button class="review-more-btn"
-               onclick="openReviewModal('${r.name.replace(/'/g,"\\'")}','${stars}','${formatDate(r.date)}',\`${text.replace(/`/g,"\\`")}\`)">
-               Читать полностью →
-               </button>`
-            : ""
-            }
-        `;
 
-        slider.appendChild(card);
+                <div class="review-stars">
+                    ${"★".repeat(r.rating)}
+                    ${"☆".repeat(5-r.rating)}
+                </div>
 
-    });
 
-    setTimeout(()=>{
-        document.querySelectorAll(".review-card").forEach(c=>{
-            c.classList.add("show");
+                <small>
+                    ${new Date(r.date)
+                    .toLocaleDateString("ru-RU")}
+                </small>
+
+
+                <p>
+                    ${
+                    r.message.length>120
+                    ?
+                    r.message.substring(0,120)+"..."
+                    :
+                    r.message
+                    }
+                </p>
+
+
+            `;
+
+
+            slider.appendChild(card);
+
         });
-    },100);
+
+
+    }
+    catch(error){
+
+        console.error(
+            "Ошибка загрузки отзывов:",
+            error
+        );
+
+        slider.innerHTML=
+        "<p>Не удалось загрузить отзывы</p>";
+
+    }
 
 }
 
-loadReviews();
+
+
+document.addEventListener(
+"DOMContentLoaded",
+loadReviews
+);
   
   /* ============================================================
      ОСТАЛЬНЫЕ ФУНКЦИИ (туры, бургер, cookie и т.д.)
