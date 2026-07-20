@@ -336,7 +336,7 @@ loadReviews
 // ИНИЦИАЛИЗАЦИЯ
 initReveal();
   
-});
+
 
 
 window.openReviewModal=function(review){
