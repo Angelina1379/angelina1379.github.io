@@ -381,137 +381,313 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 10px;
 }
  
-/* ===== ОТЗЫВЫ ===== */
-.reviews {
-  padding: 80px 0;
-  background: var(--bg-soft);
-  text-align: center;
+/* =========================
+   ОТЗЫВЫ
+========================= */
+
+.reviews{
+    padding:90px 0;
+    background:#f8f9fb;
+}
+
+.reviews-wrapper{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.review-slider{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.review-card{
+
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    display:flex;
+    flex-direction:column;
+
+    transition:.3s;
+}
+
+.review-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+}
+
+.review-avatar{
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#FFD700;
+
+    color:#002244;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.review-card h3{
+
+    margin:0 0 8px;
+
+    font-size:22px;
+
+}
+
+.review-stars{
+
+    color:#ffb400;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+
+}
+
+.review-card small{
+
+    color:#777;
+
+    margin-bottom:18px;
+
+}
+
+.review-card p{
+
+    line-height:1.6;
+
+    color:#555;
+
+    flex:1;
+
+}
+
+.review-more-btn{
+
+    margin-top:20px;
+
+    background:#002244;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.review-more-btn:hover{
+
+    background:#003c73;
+
+}
+
+.review-arrow{
+
+    width:54px;
+
+    height:54px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#002244;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:26px;
+
+    transition:.3s;
+
+    flex-shrink:0;
+
+}
+
+.review-arrow:hover{
+
+    background:#FFD700;
+
+    color:#002244;
+
+}
+
+.review-arrow.hidden{
+
+    display:none;
+
+}
+
+/* =========================
+   МОДАЛКА
+========================= */
+
+.review-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.25s;
+
+    z-index:9999;
+
+}
+
+.review-modal.open{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.review-modal-content{
+
+    width:min(700px,90%);
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    position:relative;
+
+    animation:popup .25s;
+
+}
+
+.review-modal-close{
+
+    position:absolute;
+
+    right:18px;
+
+    top:15px;
+
+    border:none;
+
+    background:none;
+
+    font-size:34px;
+
+    cursor:pointer;
+
+}
+
+.review-modal-date{
+
+    color:#888;
+
+    margin-bottom:18px;
+
+}
+
+@keyframes popup{
+
+from{
+
+transform:scale(.9);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+/* =========================
+   АДАПТИВНОСТЬ
+========================= */
+
+@media(max-width:992px){
+
+.review-slider{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.review-slider{
+
+grid-template-columns:1fr;
+
+}
+
+.reviews-wrapper{
+
+gap:10px;
+
+}
+
+.review-arrow{
+
+width:46px;
+
+height:46px;
+
+font-size:22px;
+
+}
+
 }
  
-.review-slider {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
-}
- 
-.review-card {
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 26px;
-  text-align: left;
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
-}
- 
-.review-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-}
- 
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
- 
-.avatar {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-}
- 
-.review-name { font-weight: 700; }
-.review-date { color: #8090a0; font-size: 13px; }
- 
-.review-stars { color: var(--gold); margin-bottom: 12px; letter-spacing: 2px; }
- 
-.review-text {
-  color: #3a4a5a;
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
- 
-.see-more {
-  color: var(--navy-light);
-  cursor: pointer;
-  font-weight: 700;
-  border-bottom: 2px solid var(--gold);
-  padding-bottom: 1px;
-  transition: color .25s;
-}
- 
-.see-more:hover { color: var(--gold-dark); }
- 
-/* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ ===== */
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity .7s var(--ease), transform .7s var(--ease);
-}
- 
-.reveal.show { opacity: 1; transform: translateY(0); }
- 
-/* лёгкая лесенка для карточек */
-.tours-grid .reveal:nth-child(2),
-.review-slider .reveal:nth-child(2) { transition-delay: .1s; }
-.tours-grid .reveal:nth-child(3),
-.review-slider .reveal:nth-child(3) { transition-delay: .2s; }
- 
-/* ===== МОДАЛКА ОТЗЫВА ===== */
-.review-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(0, 34, 68, .55);
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(3px);
-}
- 
-.review-modal.open { display: flex; animation: fadeIn .3s ease; }
- 
-.review-modal-content {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: 34px;
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-  box-shadow: var(--shadow-md);
-  animation: popIn .35s var(--ease);
-}
- 
-.review-modal-date { color: #8090a0; margin-bottom: 12px; }
- 
-.review-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: #889;
-  transition: transform .3s, color .3s;
-}
- 
-.review-modal-close:hover { color: var(--navy); transform: rotate(90deg); }
- 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes popIn {
-  from { opacity: 0; transform: translateY(20px) scale(.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
- 
+
 /* ===== МЕССЕНДЖЕРЫ ===== */
 .messenger-float {
   position: fixed;
