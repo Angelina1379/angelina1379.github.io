@@ -115,7 +115,7 @@ snap.forEach(doc=>{
 
 
 });
-updateReviewSlider();
+
 
       
 
@@ -372,44 +372,6 @@ window.openReviewModal=function(review){
 
 }
 
-function updateReviewSlider(){
-
-    reviewCards.forEach((card,index)=>{
-
-        if(index === currentReview){
-            card.style.display="block";
-        }
-        else{
-            card.style.display="none";
-        }
-
-    });
-
-}
-
-
-
-window.nextReview=function(){
-
-    if(currentReview < reviewCards.length - 1){
-        currentReview++;
-    }
-
-    updateReviewSlider();
-
-}
-
-
-
-window.prevReview=function(){
-
-    if(currentReview > 0){
-        currentReview--;
-    }
-
-    updateReviewSlider();
-
-}
 
 window.closeReviewModal=function(){
 
