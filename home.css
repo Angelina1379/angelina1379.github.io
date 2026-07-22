@@ -399,9 +399,30 @@ a { text-decoration: none; color: inherit; }
 
 .review-slider{
     flex:1;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+    display:flex;
     gap:25px;
+    overflow:hidden;
+    align-items:stretch;
+}
+
+.review-card{
+    flex:0 0 calc((100% - 50px) / 3);
+}
+
+@media (max-width:992px){
+
+    .review-card{
+        flex:0 0 calc((100% - 25px)/2);
+    }
+
+}
+
+@media (max-width:768px){
+
+    .review-card{
+        flex:0 0 100%;
+    }
+
 }
 
 .review-card{
