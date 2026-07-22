@@ -94,24 +94,66 @@
     </div>
   </section>
  
-  <!-- ОТЗЫВЫ (рендерятся из js/home.js, сортировка: свежие сверху) -->
-  <section class="reviews">
+<!-- ОТЗЫВЫ -->
+<section class="reviews">
     <div class="container">
-      <h2 class="section-title reveal">Отзывы</h2>
-      <div class="review-slider" id="reviewSlider"></div>
+
+        <h2 class="section-title reveal">Отзывы</h2>
+
+        <div class="reviews-wrapper">
+
+            <button
+                class="review-arrow review-prev"
+                id="reviewPrev"
+                aria-label="Предыдущие отзывы">
+                ❮
+            </button>
+
+            <div
+                class="review-slider"
+                id="reviewSlider">
+            </div>
+
+            <button
+                class="review-arrow review-next"
+                id="reviewNext"
+                aria-label="Следующие отзывы">
+                ❯
+            </button>
+
+        </div>
+
     </div>
-  </section>
+</section>
  
   <!-- МОДАЛКА ПОЛНОГО ОТЗЫВА -->
-  <div class="review-modal" id="reviewModal">
+<div class="review-modal" id="reviewModal">
+
     <div class="review-modal-content">
-      <button class="review-modal-close" onclick="closeReviewModal()">×</button>
-      <h3 id="modalReviewName"></h3>
-      <div id="modalReviewStars" class="review-stars"></div>
-      <div id="modalReviewDate" class="review-modal-date"></div>
-      <p id="modalReviewText"></p>
+
+        <button
+            class="review-modal-close"
+            onclick="closeReviewModal()">
+            ×
+        </button>
+
+        <h3 id="modalReviewName"></h3>
+
+        <div
+            id="modalReviewStars"
+            class="review-stars">
+        </div>
+
+        <div
+            id="modalReviewDate"
+            class="review-modal-date">
+        </div>
+
+        <p id="modalReviewText"></p>
+
     </div>
-  </div>
+
+</div>
  
   <!-- Кнопки мессенджеров -->
   <div class="messenger-float">
