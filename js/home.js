@@ -19,117 +19,94 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 
 
-async function loadReviews(){
+async function loadReviews() {
 
     const slider = document.getElementById("reviewSlider");
 
-    if(!slider) return;
-
+    if (!slider) return;
 
     try {
 
         const snap = await db
             .collection("reviews")
-            .orderBy("date","desc")
-            .limit(5)
+            .orderBy("date", "desc")
+            .limit(20)
             .get();
 
-
-        slider.innerHTML="";
+        slider.innerHTML = "";
         reviewCards = [];
-        currentReview = 0;
 
+        if (snap.empty) {
 
-        if(snap.empty){
+            slider.innerHTML = "<p>Пока нет отзывов</p>";
 
-            slider.innerHTML=
-            "<p>Пока нет отзывов</p>";
+            document.getElementById("reviewPrev").classList.add("hidden");
+            document.getElementById("reviewNext").classList.add("hidden");
 
             return;
         }
 
+        snap.forEach(doc => {
 
-snap.forEach(doc=>{
+            const r = doc.data();
 
-    const r = doc.data();
+            const card = document.createElement("div");
 
-    const card=document.createElement("div");
+            card.className = "review-card";
 
-    card.className="review-card";
+            card.innerHTML = `
 
+                <div class="review-avatar">
+                    ${r.name.charAt(0).toUpperCase()}
+                </div>
 
-    card.innerHTML=`
+                <h3>${r.name}</h3>
 
-        <div class="review-avatar">
-            ${r.name.substring(0,1).toUpperCase()}
-        </div>
+                <div class="review-stars">
+                    ${"★".repeat(r.rating)}
+                    ${"☆".repeat(5-r.rating)}
+                </div>
 
+                <small>
+                    ${new Date(r.date).toLocaleDateString("ru-RU")}
+                </small>
 
-        <h3>${r.name}</h3>
+                <p>
 
+                ${
+                    r.message.length>140
+                    ?
+                    r.message.substring(0,140)+"..."
+                    :
+                    r.message
+                }
 
-        <div class="review-stars">
-            ${"★".repeat(r.rating)}
-            ${"☆".repeat(5-r.rating)}
-        </div>
+                </p>
 
+                <button
+                    class="review-more-btn"
+                    onclick='openReviewModal(${JSON.stringify(r)})'>
 
-        <small>
-            ${new Date(r.date)
-            .toLocaleDateString("ru-RU")}
-        </small>
+                    Читать полностью →
 
+                </button>
 
-        <p>
-            ${
-            r.message.length > 120
-            ?
-            r.message.substring(0,120)+"..."
-            :
-            r.message
-            }
-        </p>
+            `;
 
+            slider.appendChild(card);
 
-        ${
-        r.message.length > 120
-        ?
-        `
-        <button 
-        class="review-more-btn"
-        onclick='openReviewModal(${JSON.stringify(r)})'>
-        Читать полностью →
-        </button>
-        `
-        :
-        ""
-        }
+            reviewCards.push(card);
 
+        });
 
-    `;
-
-
-    slider.appendChild(card);
-
-    reviewCards.push(card);
-
-
-});
-
-
-      
-
+        initReviewSlider();
 
     }
     catch(error){
 
-        console.error(
-            "Ошибка загрузки отзывов:",
-            error
-        );
+        console.error(error);
 
-        slider.innerHTML=
-        "<p>Не удалось загрузить отзывы</p>";
+        slider.innerHTML="<p>Не удалось загрузить отзывы</p>";
 
     }
 
@@ -335,7 +312,106 @@ loadReviews
   
 // ИНИЦИАЛИЗАЦИЯ
 initReveal();
-  
+
+/* ==========================
+   СЛАЙДЕР ОТЗЫВОВ
+========================== */
+
+let reviewPage = 0;
+let cardsPerPage = 3;
+
+function getCardsPerPage() {
+
+    if (window.innerWidth <= 768) return 1;
+
+    if (window.innerWidth <= 992) return 2;
+
+    return 3;
+
+}
+
+function initReviewSlider() {
+
+    cardsPerPage = getCardsPerPage();
+
+    reviewPage = 0;
+
+    updateReviewView();
+
+    const prev = document.getElementById("reviewPrev");
+    const next = document.getElementById("reviewNext");
+
+    prev.onclick = prevReview;
+    next.onclick = nextReview;
+
+}
+
+function updateReviewView() {
+
+    cardsPerPage = getCardsPerPage();
+
+    const totalPages = Math.ceil(reviewCards.length / cardsPerPage);
+
+    reviewCards.forEach(card => card.style.display = "none");
+
+    const start = reviewPage * cardsPerPage;
+
+    const end = start + cardsPerPage;
+
+    for (let i = start; i < end && i < reviewCards.length; i++) {
+
+        reviewCards[i].style.display = "flex";
+
+    }
+
+    const prev = document.getElementById("reviewPrev");
+    const next = document.getElementById("reviewNext");
+
+    if (totalPages <= 1) {
+
+        prev.classList.add("hidden");
+        next.classList.add("hidden");
+
+        return;
+
+    }
+
+    prev.classList.remove("hidden");
+    next.classList.remove("hidden");
+
+    prev.disabled = reviewPage === 0;
+
+    next.disabled = reviewPage >= totalPages - 1;
+
+}
+
+function nextReview() {
+
+    const totalPages = Math.ceil(reviewCards.length / cardsPerPage);
+
+    if (reviewPage < totalPages - 1) {
+
+        reviewPage++;
+
+        updateReviewView();
+
+    }
+
+}
+
+function prevReview() {
+
+    if (reviewPage > 0) {
+
+        reviewPage--;
+
+        updateReviewView();
+
+    }
+
+}
+
+window.addEventListener("resize", updateReviewView);
 
 
 
