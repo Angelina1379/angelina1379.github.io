@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Гид по Калининграду</title>
-  <link rel="stylesheet" href="excursion.css">
-  <script defer src="js/excursion.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калининград с гидом — Экскурсовод Ирина Пеунова</title>
+  
+  <!-- Стили -->
+  <link rel="stylesheet" href="komanda.css">
+  
+  <!-- Шрифты и иконки -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Скрипт -->
+  <script defer src="js/komanda.js"></script>
 </head>
-
 <body>
   <!-- ШАПКА -->
   <header class="header">
     <div class="container">
       <div class="logo">ГидКалининград</div>
-      <button class="burger" onclick="toggleMenu()" aria-label="Открыть меню">☰</button>
+      <button class="burger" onclick="toggleMenu()" aria-label="Меню">☰</button>
       <nav class="nav" id="navMenu">
         <a href="index.html">Главная</a>
         <a href="excursion.html">Экскурсии</a>
@@ -25,188 +31,125 @@
   </header>
 
   <main>
-    <section class="tours" id="tours">
-      <!-- 12 карточек туров -->
-      <div class="tour-card">
-        <img src="image/vorota1.jpg" alt="Ворота Кенигсберга">
-        <div class="content">
-          <h3>Ворота Кенигсберга</h3>
-          <p>Фортификационные ворота XIX века, башни, бастионы и оборонительные сооружения...</p>
-          <div class="price">от 8000 ₽</div>
-          <button onclick="showDetails(0)">Подробнее</button>
-          <a href="#vorota-kenigsberga" class="tour-link" style="display: none;">Ссылка на экскурсию "Ворота Кенигсберга"</a>
+    <!-- 1. БЛОК: О ЧЕЛОВЕКЕ (ГИД) -->
+    <section class="section-block profile-section">
+      <div class="container">
+        <div class="profile-container">
+          <!-- Левая колонка: карусель гида -->
+          <div class="photo-column">
+            <div class="carousel-container" id="carousel-guide-container">
+              <div class="carousel" id="carousel-guide">
+                <div class="carousel-inner" id="guideCarouselInner"></div>
+                <button class="carousel-control prev" onclick="prevSlide('guide')" aria-label="Назад">❮</button>
+                <button class="carousel-control next" onclick="nextSlide('guide')" aria-label="Вперед">❯</button>
+              </div>
+              <div class="carousel-indicators" id="guideIndicators"></div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: описание гида -->
+          <div class="text-column">
+            <h1 class="name">Ирина Пеунова</h1>
+            <p class="description">
+              Меню зовут Ирина Пеунова, я аттестованный экскурсовод по Калининграду и области, 
+              и вот уже почти десять лет с любовью открываю для гостей тайны этого удивительного края.
+              <br><br>
+              Калининградская земля — это место с богатой историей, живописной природой и уникальной архитектурой, 
+              которое не оставит равнодушным ни одного путешественника.
+              <br><br>
+              Я покажу вам регион во всей его красоте, помогу прочувствовать атмосферу и наполниться яркими впечатлениями. 
+              Каждая моя экскурсия — индивидуальна: она строится вокруг ваших интересов, эмоций и даже капризов погоды. 
+              Я организую мастер-классы, дегустации и гастрономические туры — вы сможете буквально попробовать наши регионы на вкус!
+              <br><br>
+              Добро пожаловать в Калининград! Откройте его для себя по-настоящему.
+            </p>
+            <div class="contact-info">
+              <p><strong>Контакты:</strong></p>
+              <p><i class="fas fa-envelope"></i> Email: <a href="mailto:bogira27@mail.ru">bogira27@mail.ru</a></p>
+              <p><i class="fas fa-phone"></i> Телефон: <a href="tel:+79052484096">+7 (905) 248-40-96</a></p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="tour-card">
-        <img src="image/obzornaya1.jpg" alt="Обзорная экскурсия">
-        <div class="content">
-          <h3>Обзорная экскурсия</h3>
-          <p>История города, Кафедральный собор, Рыбная деревня, районы старого Кёнигсберга...</p>
-          <div class="price">от 8000 ₽</div>
-          <button onclick="showDetails(1)">Подробнее</button>
-          <a href="#obzornaya-ekskursiya" class="tour-link" style="display: none;">Ссылка на экскурсию "Обзорная экскурсия"</a>
+    <!-- 2. БЛОК: О МАШИНЕ И ТРАНСПОРТЕ -->
+    <section class="section-block car-section">
+      <div class="container">
+        <div class="profile-container reverse-row">
+          <!-- Левая колонка: описание машины -->
+          <div class="text-column">
+            <h2 class="section-title">Комфорт в поездках: наш транспорт</h2>
+            <p class="description">
+              Все выездные экскурсии проходят на просторном и комфортабельном <strong>шестиместном автомобиле</strong>. 
+              В салоне всегда чисто, тепло зимой и прохладно летом благодаря раздельному климат-контролю.
+              <br><br>
+              <strong>Преимущества наших поездок:</strong>
+            </p>
+            <ul class="features-list">
+              <li><i class="fas fa-check-circle"></i> Вместимость до 6 пассажиров — идеальный формат для семьи или дружной компании.</li>
+              <li><i class="fas fa-check-circle"></i> Большие панорамные окна для комфортного обзора достопримечательностей прямо из салона.</li>
+              <li><i class="fas fa-check-circle"></i> Возможность организации <strong>трансфера из аэропорта «Храброво»</strong> и обратно.</li>
+              <li><i class="fas fa-check-circle"></i> Питьевая вода, салфетки и зарядные устройства для ваших гаджетов всегда под рукой.</li>
+            </ul>
+          </div>
+
+          <!-- Правая колонка: карусель машины -->
+          <div class="photo-column">
+            <div class="carousel-container" id="carousel-car-container">
+              <div class="carousel" id="carousel-car">
+                <div class="carousel-inner" id="carCarouselInner"></div>
+                <button class="carousel-control prev" onclick="prevSlide('car')" aria-label="Назад">❮</button>
+                <button class="carousel-control next" onclick="nextSlide('car')" aria-label="Вперед">❯</button>
+              </div>
+              <div class="carousel-indicators" id="carIndicators"></div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="tour-card">
-        <img src="image/baltiysk1.jpg" alt="Балтийск и коса">
-        <div class="content">
-          <h3>Балтийск и Балтийская коса</h3>
-          <p>Крепость Пиллау, старый маяк, Северный и Южный молы, янтарные пляжи...</p>
-          <div class="price">от 12000 ₽</div>
-          <button onclick="showDetails(2)">Подробнее</button>
-          <a href="#baltiysk-i-kosa" class="tour-link" style="display: none;">Ссылка на экскурсию "Балтийск и Балтийская коса"</a>
-        </div>
-      </div>
+    <!-- 3. БЛОК: ДОКУМЕНТЫ И СЕРТИФИКАТЫ -->
+    <section class="section-block docs-section">
+      <div class="container">
+        <div class="profile-container">
+          <!-- Левая колонка: карусель документов -->
+          <div class="photo-column">
+            <div class="carousel-container" id="carousel-docs-container">
+              <div class="carousel" id="carousel-docs">
+                <div class="carousel-inner" id="docsCarouselInner"></div>
+                <button class="carousel-control prev" onclick="prevSlide('docs')" aria-label="Назад">❮</button>
+                <button class="carousel-control next" onclick="nextSlide('docs')" aria-label="Вперед">❯</button>
+              </div>
+              <div class="carousel-indicators" id="docsIndicators"></div>
+            </div>
+          </div>
 
-      <div class="tour-card">
-        <img src="image/north1.jpg" alt="На край области">
-        <div class="content">
-          <h3>На край области</h3>
-          <p>Советск, Неман, замок Рагнит, мост Королевы Луизы, сыроварня и монастырь...</p>
-          <div class="price">от 16000 ₽</div>
-          <button onclick="showDetails(3)">Подробнее</button>
-          <a href="#na-kray-oblasti" class="tour-link" style="display: none;">Ссылка на экскурсию "На край области"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/yantarny1.jpg" alt="Янтарный + Светлогорск">
-        <div class="content">
-          <h3>Янтарный + Светлогорск</h3>
-          <p>Вы хотите увидеть все самое-самое на Янтарном побережье Балтийского моря за один день...</p>
-          <div class="price">от 12000 ₽</div>
-          <button onclick="showDetails(4)">Подробнее</button>
-          <a href="#yantarnyy-svetlogorsk" class="tour-link" style="display: none;">Ссылка на экскурсию "Янтарный + Светлогорск"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/insterburg1.jpg" alt="Инстербург и Георгенбург">
-        <div class="content">
-          <h3>Инстербург + Георгенбург</h3>
-          <p>Черняховск, старинные улочки, костелы и конезавод с тракененскими лошадьми...</p>
-          <div class="price">от 15000 ₽</div>
-          <button onclick="showDetails(5)">Подробнее</button>
-          <a href="#insterburg-georgenburg" class="tour-link" style="display: none;">Ссылка на экскурсию "Инстербург + Георгенбург"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/homlins1.jpg" alt="По тропам Хомлинов">
-        <div class="content">
-          <h3>По тропам Хомлинов</h3>
-          <p>В 2018 году в Калининграде начала появляться славная семейка Хомлинов. Поиск сказочных фигурок по ...</p>
-          <div class="price">от 6000 ₽</div>
-          <button onclick="showDetails(6)">Подробнее</button>
-          <a href="#tropami-homlinov" class="tour-link" style="display: none;">Ссылка на экскурсию "По тропам Хомлинов"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/kurshskaya1.jpg" alt="Куршская коса + Зеленоградск">
-        <div class="content">
-          <h3>Куршская коса + Зеленоградск</h3>
-          <p>Танцующий лес, высота Эфа, дюны, орнитологическая станция и морской курорт...</p>
-          <div class="price">от 15000 ₽</div>
-          <button onclick="showDetails(7)">Подробнее</button>
-          <a href="#kurshskaya-kosa-zelenogradsk" class="tour-link" style="display: none;">Ссылка на экскурсию "Куршская коса + Зеленоградск"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/3days1.jpg" alt="Все красоты области за 3 дня">
-        <div class="content">
-          <h3>Все красоты области за 3 дня</h3>
-          <p>Калининград, Янтарное побережье, Куршская коса и Зеленоградск за три дня...</p>
-          <div class="price">от 37000 ₽</div>
-          <button onclick="showDetails(8)">Подробнее</button>
-          <a href="#vse-krasoty-za-3-dnya" class="tour-link" style="display: none;">Ссылка на экскурсию "Все красоты области за 3 дня"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/gvardeisk1.JPG" alt="Гвардейск-Знаменск-Железнодорожный-Правдинск">
-        <div class="content">
-          <h3>Гвардейск-Знаменск-Железнодорожный-Правдинск</h3>
-          <p>Путешествие по четырем старинным прусским городам области...</p>
-          <div class="price">от 15000 ₽</div>
-          <button onclick="showDetails(9)">Подробнее</button>
-          <a href="#gvardeysk-znamensk" class="tour-link" style="display: none;">Ссылка на экскурсию "Гвардейск-Знаменск-Железнодорожный-Правдинск"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/amalienay1.jpg" alt="Амалиенау">
-        <div class="content">
-          <h3>Амалиенау</h3>
-          <p>Откройте для себя очарование Амалиенау, "кенигсбергской Рублевки" начала XX века, в нашей пешеходной экскурсии!...</p>
-          <div class="price">от 6000 ₽</div>
-          <button onclick="showDetails(10)">Подробнее</button>
-          <a href="#amalienau" class="tour-link" style="display: none;">Ссылка на экскурсию "Амалиенау"</a>
-        </div>
-      </div>
-
-      <div class="tour-card">
-        <img src="image/zamki1.JPG" alt="Замки Калининградской области">
-        <div class="content">
-          <h3>Замки Калининградской области</h3>
-          <p>На территории Калининградской области сохранилось несколько замков, построенных в XIII веке...</p>
-          <div class="price">от 15000 ₽</div>
-          <button onclick="showDetails(11)">Подробнее</button>
-          <a href="#zamki" class="tour-link" style="display: none;">Ссылка на экскурсию "Замки Калининградской области"</a>
+          <!-- Правая колонка: описание документов -->
+          <div class="text-column">
+            <h2 class="section-title">Официальный статус и аттестация</h2>
+            <p class="description">
+              Ваша безопасность, качество информации и комфорт — на первом месте. 
+              Я являюсь официально аттестованным гидом-экскурсоводом, состою в едином федеральном реестре экскурсоводов России 
+              и регулярно подтверждаю свою квалификацию.
+              <br><br>
+              Все маршруты согласованы, разработаны с соблюдением исторических и краеведческих стандартов. 
+              Оригиналы документов и бейдж гида всегда с собой на каждой экскурсии.
+            </p>
+            <div class="trust-badge">
+              <i class="fas fa-award"></i>
+              <span>Государственная аттестация гида-экскурсовода по Калининградской области</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ЯКОРИ ДЛЯ ПРЯМЫХ ССЫЛОК -->
-  <div id="anchor-points" style="display: none;">
-    <div id="vorota-kenigsberga"></div>
-    <div id="obzornaya-ekskursiya"></div>
-    <div id="baltiysk-i-kosa"></div>
-    <div id="na-kray-oblasti"></div>
-    <div id="yantarnyy-svetlogorsk"></div>
-    <div id="insterburg-georgenburg"></div>
-    <div id="tropami-homlinov"></div>
-    <div id="kurshskaya-kosa-zelenogradsk"></div>
-    <div id="vse-krasoty-za-3-dnya"></div>
-    <div id="gvardeysk-znamensk"></div>
-    <div id="amalienau"></div>
-    <div id="zamki"></div>
-  </div>
-
-  <!-- Модальное окно -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
-
-      <!-- Левая часть: фото -->
-      <div class="modal-left">
-        <div class="carousel">
-          <div class="carousel-inner" id="carousel-inner"></div>
-          <button class="carousel-control prev" onclick="prevSlide()">❮</button>
-          <button class="carousel-control next" onclick="nextSlide()">❯</button>
-          <div class="carousel-indicators" id="carousel-indicators"></div>
-        </div>
-      </div>
-
-      <!-- Правая часть: текст -->
-      <div class="modal-right">
-        <h3 id="modal-title"></h3>
-        <div class="modal-right-content">
-          <p id="modal-description"></p>
-        </div>
-        <a id="whatsapp-link" class="btn" target="_blank" rel="noopener noreferrer">Забронировать</a>
-      </div>
-    </div>
-  </div>  
-
   <!-- ПОДВАЛ -->
   <footer class="footer">
     <div class="container">
-      <p>© 2025 ГидКалининград</p>
+      <p>© 2025–2026 ГидКалининград</p>
       <p>Email: bogira27@mail.ru</p>
       <p>Телефон: +7 (905) 248-40-96</p>
       <p><a href="privacy.html" class="footer-link">Политика конфиденциальности</a></p>
