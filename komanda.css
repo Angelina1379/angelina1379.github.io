@@ -1,68 +1,404 @@
-/* Разделы страницы */
+:root {
+  --primary-color: #002244;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-bg: #f8fafc;
+  --light-color: #ecf0f1;
+  --dark-color: #002244;
+  --text-color: #2c3e50;
+  --text-light: #7f8c8d;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0, 34, 68, 0.08);
+}
+
+/* Базовые сбросы */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: #ffffff;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ШАПКА */
+.header {
+  background: var(--primary-color);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  position: relative;
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav a {
+  margin-left: 25px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  transition: opacity 0.2s;
+  padding: 4px 0;
+}
+
+.nav a:hover {
+  opacity: 0.85;
+}
+
+.nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary-color);
+}
+
+.burger {
+  display: none;
+  font-size: 26px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* СЕКЦИИ И СЕТКА */
+main {
+  padding: 20px 0 50px;
+}
+
 .section-block {
-    padding: 40px 0;
-    border-bottom: 1px solid #f0f0f0;
+  padding: 50px 0;
+  border-bottom: 1px solid #edf2f7;
 }
 
 .section-block:last-of-type {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-/* Стилизация заголовков блоков */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+/* Чередование сторон (для машины) */
+.reverse-row {
+  flex-direction: row-reverse;
+}
+
+.photo-column,
+.text-column {
+  flex: 1;
+  min-width: 0; /* предотвращает распирание flex-элементов */
+}
+
+/* ТЕКСТОВЫЕ БЛОКИ */
+.name {
+  font-size: 38px;
+  margin-bottom: 20px;
+}
+
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 30px;
-    margin-bottom: 20px;
-    color: var(--dark-color);
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
-/* Чередование колонок (для блока машины на десктопе) */
-@media (min-width: 769px) {
-    .reverse-row {
-        flex-direction: row-reverse;
-    }
+.description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 25px;
 }
 
-/* Список преимуществ машины */
+/* Контактная плашка */
+.contact-info {
+  background: var(--light-bg);
+  border-left: 4px solid var(--secondary-color);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.contact-info p {
+  margin: 6px 0;
+}
+
+.contact-info a {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Списки преимуществ */
 .features-list {
-    list-style: none;
-    padding: 0;
-    margin: 15px 0 25px;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
 .features-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
-    font-size: 15px;
-    line-height: 1.5;
-    color: var(--text-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 15px;
 }
 
 .features-list li i {
-    color: var(--secondary-color);
-    font-size: 18px;
-    margin-top: 2px;
-    flex-shrink: 0;
+  color: var(--secondary-color);
+  margin-top: 4px;
+  font-size: 16px;
 }
 
-/* Бейдж официального статуса */
+/* Бейдж официального гида */
 .trust-badge {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: #eef7fc;
-    border: 1px solid #bce2f7;
-    border-radius: 8px;
-    padding: 15px 20px;
-    color: var(--dark-color);
-    font-weight: 600;
-    margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f0f7fc;
+  border: 1px solid #d0e7f7;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 25px;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 .trust-badge i {
-    font-size: 32px;
-    color: #e67e22; /* Золотисто-оранжевый оттенок награды */
-    flex-shrink: 0;
+  font-size: 32px;
+  color: #f39c12;
+}
+
+/* =========================================
+   КАРУСЕЛЬ (Жесткая защита от сползания вниз)
+========================================= */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 30px; /* запас под индикаторы */
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 480px; /* фиксированная высота витрины */
+  background: #0f172a;
+  border-radius: var(--radius);
+  overflow: hidden; /* КРИТИЧЕСКИ ВАЖНО: обрезает все другие слайды */
+  box-shadow: var(--shadow);
+}
+
+.carousel-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.carousel-item {
+  flex: 0 0 100% !important; /* каждый слайд строго 100% ширины, запрещен перенос */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* аккуратно заполняет кадр без искажения пропорций */
+  display: block;
+}
+
+/* Подпись слайда */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 15, 30, 0.85));
+  color: #fff;
+  padding: 24px 20px 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Кнопки перелистывания */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--primary-color);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.carousel-control:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-control.prev { left: 14px; }
+.carousel-control.next { right: 14px; }
+
+/* Точки-индикаторы снизу */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.carousel-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicator.active {
+  background: var(--secondary-color);
+  width: 24px;
+  border-radius: 12px;
+}
+
+/* ПОДВАЛ */
+.footer {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 35px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer p {
+  margin: 6px 0;
+  opacity: 0.9;
+}
+
+.footer-link {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* =========================================
+   АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ (<= 768px)
+========================================= */
+@media screen and (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--primary-color);
+    padding: 15px 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav.show {
+    display: flex;
+  }
+
+  .nav a {
+    margin: 10px 0;
+  }
+
+  .profile-container,
+  .reverse-row {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .carousel {
+    height: 340px; /* оптимальная высота на смартфонах */
+  }
+
+  .name {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .carousel-control {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
 }
