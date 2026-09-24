@@ -7,7 +7,7 @@ function toggleMenu() {
 // Подсветка активной ссылки
 function setActiveLink() {
     const links = document.querySelectorAll('.nav a');
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPage = window.location.pathname.split('/').pop() || 'komanda.html';
 
     links.forEach(link => {
         const linkPage = link.getAttribute('href');
@@ -49,9 +49,9 @@ const carouselsData = {
         indicatorsId: 'carIndicators',
         containerId: 'carousel-car-container',
         photos: [
-            { src: 'image/car1.jpg', caption: 'Просторный и комфортабельный минивэн на 6 мест' },
-            { src: 'image/car2.jpg', caption: 'Чистый салон с климат-контролем' },
-            { src: 'image/car3.jpg', caption: 'Удобство и безопасность в каждой поездке' }
+            { src: 'image/car1.jpg', caption: 'Шестиместный салон повышенного комфорта' },
+            { src: 'image/car2.jpg', caption: 'Панорамный обзор и климат-контроль' },
+            { src: 'image/car3.jpg', caption: 'Всегда чистый и удобный автомобиль' }
         ]
     },
     // 3. Фотографии документов и сертификатов
@@ -62,14 +62,35 @@ const carouselsData = {
         indicatorsId: 'docsIndicators',
         containerId: 'carousel-docs-container',
         photos: [
-            { src: 'image/cert1.jpg', caption: 'Аттестат государственного образца экскурсовода' },
+            { src: 'image/cert1.jpg', caption: 'Государственный аттестат экскурсовода' },
             { src: 'image/cert2.jpg', caption: 'Удостоверение о повышении квалификации' },
-            { src: 'image/cert3.jpg', caption: 'Официальный бейдж гида по Калининградской области' }
+            { src: 'image/cert3.jpg', caption: 'Бейдж федерального реестра гидов' }
         ]
     }
 };
 
-// ================= УНИВЕРСАЛЬНАЯ ЛОГИКА КАРУСЕЛЕЙ =================
+// ================= ИНТЕРАКТИВ АККОРДЕОНОВ =================
+function toggleAccordion(itemId, carouselKey) {
+    const item = document.getElementById(itemId);
+    if (!item) return;
+
+    const isActive = item.classList.contains('active');
+    
+    // Переключаем класс
+    item.classList.toggle('active');
+
+    // Если открыли аккордеон — обновляем карусель и запускаем автослайд
+    if (!isActive) {
+        setTimeout(() => {
+            updateCarouselView(carouselKey);
+            startCarouselAutoSlide(carouselKey);
+        }, 150);
+    } else {
+        stopCarouselAutoSlide(carouselKey);
+    }
+}
+
+// ================= ЛОГИКА КАРУСЕЛЕЙ =================
 function initAllCarousels() {
     Object.keys(carouselsData).forEach(key => {
         buildCarousel(key);
@@ -88,7 +109,6 @@ function buildCarousel(key) {
     indicators.innerHTML = '';
 
     config.photos.forEach((photo, index) => {
-        // Слайд
         const slide = document.createElement('div');
         slide.className = 'carousel-item';
 
@@ -97,8 +117,7 @@ function buildCarousel(key) {
         img.alt = photo.caption;
         img.loading = 'lazy';
         img.onerror = function() {
-            // Если фото еще не загружено, показываем симпатичную заглушку
-            this.src = 'https://via.placeholder.com/600x450/e0e7ee/002244?text=' + encodeURIComponent(photo.caption);
+            this.src = 'https://via.placeholder.com/600x450/002244/ffffff?text=' + encodeURIComponent(photo.caption);
         };
 
         const caption = document.createElement('div');
@@ -109,7 +128,6 @@ function buildCarousel(key) {
         slide.appendChild(caption);
         inner.appendChild(slide);
 
-        // Индикатор (кружочек)
         const dot = document.createElement('div');
         dot.className = `carousel-indicator ${index === 0 ? 'active' : ''}`;
         dot.onclick = () => goToSlide(key, index);
@@ -117,13 +135,20 @@ function buildCarousel(key) {
     });
 
     updateCarouselView(key);
-    startCarouselAutoSlide(key);
+
+    // Автопрокрутку на старте запускаем только для открытого первого экрана (гида)
+    if (key === 'guide') {
+        startCarouselAutoSlide(key);
+    }
 
     if (container) {
         container.addEventListener('mouseenter', () => stopCarouselAutoSlide(key));
-        container.addEventListener('mouseleave', () => startCarouselAutoSlide(key));
-        container.addEventListener('touchstart', () => stopCarouselAutoSlide(key));
-        container.addEventListener('touchend', () => startCarouselAutoSlide(key));
+        container.addEventListener('mouseleave', () => {
+            const accItem = container.closest('.acc-item');
+            if (!accItem || accItem.classList.contains('active')) {
+                startCarouselAutoSlide(key);
+            }
+        });
     }
 }
 
@@ -184,14 +209,15 @@ function restartCarouselAutoSlide(key) {
     startCarouselAutoSlide(key);
 }
 
-// Запуск при готовности страницы
+// Запуск при старте
 document.addEventListener('DOMContentLoaded', function() {
     setActiveLink();
     initAllCarousels();
 });
 
-// Экспорт для инлайн-атрибутов onclick в HTML
+// Экспорт в глобальную область
 window.toggleMenu = toggleMenu;
+window.toggleAccordion = toggleAccordion;
 window.prevSlide = prevSlide;
 window.nextSlide = nextSlide;
 window.goToSlide = goToSlide;
