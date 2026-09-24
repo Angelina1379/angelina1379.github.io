@@ -1,459 +1,469 @@
-// ===== ДАННЫЕ ПО ВСЕМ 12 ЭКСКУРСИЯМ =====
-const toursData = [
-  {
-    title: "Ворота Кенигсберга",
-    images: Array(11).fill().map((_, i) => `image/vorota${i+1}.jpg`),
-    description: `Наша автопешеходная экскурсия по Кенигсбергу-Калининграду будет с необычным акцентом: предлагаю вам обратить внимание на шедевры фортификационного направления в городской архитектуре - живописные ворота, возведенные в конце XIX века, как часть Второго вального оборонительного обвода, опоясывающего город кольцом. Кроме ворот, он включает башни, бастионы, редуты и оборонительную казарму «Кронпринц». 
+// ============================================================
+// FIREBASE КОНФИГУРАЦИЯ
+// ============================================================
 
-В ходе обзорной экскурсии по Калининграду увидим:
-- Бранденбургские ворота
-- Закхаймские ворота
-- Королевские ворота
-- Росгартенские ворота
-- Фридрихсбургские ворота
-
-Ворота Кенигсберга, дошедшие до наших дней, возведены в XIX веке, архитектор — генерал-лейтенант инженерных войск Эрнст Людвиг фон Астер. Английская неоготика - основное направление, в котором работал фортификатор и архитектор Э. Л. Астер. Благодаря знаниям и художественно-эстетическому вкусу автора ворота Кенигсберга стали настоящей “визитной карточкой” балтийского центра. Кирпич, обожженный три раза, придавал воротам наивысшую прочность, гарантировал долговечность и презентабельный внешний вид. 
-
-Помимо ворот, маршрут включает:
-- башню «Дона» (Музей янтаря)
-- крепость Фридрихсбург
-- Музей марципана
-- прогулку по острову Канта
-- Кафедральный собор
-- форты № 5 или 11 (по желанию)`,
-    price: "от 8000 ₽ (4 часа)"
-  },
-  {
-    title: "Обзорная экскурсия",
-    images: Array(20).fill().map((_, i) => `image/obzornaya${i+1}.jpg`),
-    description: `Предлагаю начать наше знакомство с Калининградом с увлекательной обзорной экскурсии. Она откроет перед вами богатую и многослойную историю города, познакомит с его уникальной архитектурой и главными достопримечательностями.
-        
-Мы пройдемся по историческому центру, заглянем на остров Канта, где возвышается Кафедральный собор — архитектурная жемчужина с самым большим органом в России. Обязательно посетим живописную Рыбную деревню — любимое место гостей города с уютными кафе, ресторанами, гостиницами и сувенирными лавками.
-        
-Я также покажу вам знаменитое оборонительное кольцо Кёнигсберга XIX века, расскажу о его военной истории и тайнах. Не обойдем стороной и современный центр города — Площадь Победы с её динамичной атмосферой.
-        
-В завершение экскурсии мы отправимся в самые колоритные и атмосферные районы Калининграда — Амалиенау и Марауненхоф. Здесь, среди тенистых аллей и старинных особняков, вы почувствуете дух старой Европы.
-        
-Экскурсия комбинированная — часть маршрута проходит пешком, часть на автомобиле, продолжительность около 4 часов. По пути — приятные остановки: музей марципана, сказочный Домик хомлинов и необычный музей открыток, откуда можно отправить послание родным прямо из сердца Калининграда.
-        
-По вашему желанию маршрут можно дополнить посещением одного из старинных фортов, прогулкой на катере или концертом органной музыки в Кафедральном соборе.`,
-    price: "от 8000 ₽ (4 часа)"
-  },
-  {
-    title: "Балтийск и Балтийская коса",
-    images: Array(22).fill().map((_, i) => `image/baltiysk${i+1}.jpg`),
-    description: `Шведская крепость «Пиллау», руины древнего замка, фотогеничный старый маяк и «дикие» пляжи Балтийской косы — это (и не только) вы увидите вместе с профессиональным гидом во время нашей экскурсии.
-
-Путешествие в Балтийск отличает неповторимый немецкий колорит, ведь эта древняя земля долгое время находилась под германским владычеством.
-
-Первый пункт нашего тура — самый западный российский город — Балтийск. До 1946 года он назывался Пиллау. «Немецкий акцент» довольно ярко звучит в его многовековой истории, архитектурном убранстве и культурном наследии.
-
-Балтийск — крупный морской порт, паромный терминал и железнодорожный вокзал. А еще здесь находится военно-морская база Балтийского флота.
-Природная «изюминка» здешних мест — это песчаная коса, на пляжах которой так приятно понежиться в теплый денек! Но не забудем и о насыщенной туристической программе: посетим музей «Старый люнет», Западный форт, заброшенный аэродром и остатки немецких зенитных батарей.
-
-Город Балтийск (3 часа) 
-
-Покажу вам главные достопримечательности города: шведскую крепость «Пиллау», старый маяк, Морской собор, памятники Петру Великому и Елизавете Петровне и т.д
-
-Балтийская коса (2-3 часа) 
-
-Увидим прекрасные песчаные пляжи, а также посетим музей «Старый люнет», Западный форт, заброшенный аэродром «Нойтиф» и Южный мол.
-
-Дополнительные расходы:
-вход в крепость «Пиллау» - 300₽
-проезд на пароме - 70₽
-вход в музей «Старый люнет» - 100₽`,
-    price: "от 12000 ₽ (8 часов)"
-  },
-  {
-    title: "На край области (Советск – Неман – Славск)",
-    images: Array(9).fill().map((_, i) => `image/north${i+1}.jpg`),
-    description: `Увлекательная поездка начнется с посещения замка Рагнит ХIII в. и частной сыроварни.
-Узнав всё о строениях времен Тевтонского ордена, о сыроварении и прогулявшись по небольшому городу Неман, мы направимся дальше.
-
-Самый северный город области — Советск, ранее носивший имя Тильзит, находится на границе с Литвой и соединен с ней мостом Королевы Луизы (основной достопримечательностью города). Несмотря на то что город был сильно разрушен во время Великой Отечественной войны, прогуливаясь по его уютным улочкам, можно окунуться в наполеоновские времена, полюбоваться интересной архитектурой начала ХХ века или поностальгировать о советском прошлом.
-
-Также можно добавить посещение Свято-Елизаветинского монастыря в Славске с парком птиц и замка Вальдау.
-
-В экскурсию можно включить ещё и посещение пивоварни "Тильзит", где узнаете о традициях пивоварения и продегустируете несколько сортов пенного напитка.`,
-    price: "от 16000 ₽ (10 часов)"
-  },
-  {
-    title: "Янтарный + Светлогорск",
-    images: Array(35).fill().map((_, i) => `image/yantarny${i+1}.jpg`),
-    description: `Вы хотите увидеть все самое-самое на Янтарном побережье Балтийского моря за один день? Прогуляться по практически довоенным улочкам уютных приморских городков и узнать истории о «солнечном камне»? Тогда добро пожаловать на автопешеходный тур «Янтарный — Светлогорск (Балтийск)» в компании опытного гида. 
-
-На экскурсии вы вдоволь налюбуетесь Балтикой. К слову, на знаменитом пляже в Янтарном не просто для красоты развевается «голубой флаг» — символ комфорта и идеальной чистоты! 
-
-Неспешно прогуляетесь по обширному парку Морица Беккера под удивительные рассказы о добыче «слез моря» в промышленных масштабах, увидите шлифовку янтаря и его волшебное превращение в изящные украшения и фигурки, при желании нанесете визит в дом-музей скульптора Германа Брахерта. И конечно же, местная экзотика — захватывающий янтарный шоппинг! 
-
-Юным туристам не придется скучать: для них предусмотрены интересные мастер-классы по обработке янтаря, квесты или посещение парка Янтарного периода. 
-
-По вашему желанию возможно отдельное посещение Янтарного, Светлогорска и Балтийска.
-
-Поселок Янтарный (2 часа) 
-
-Здесь сосредоточено 90 % мировых запасов янтаря, поэтому все местные достопримечательности так или иначе связаны с этим камнем: Янтарный комбинат, карьер, парк и усадьба Морица Беккера — янтарного промышленника, озеро Янтарное и даже ресторан Янтарная легенда. 
-
-Город Светлогорск (2 часа) 
-
-Прогуляемся по уютным улочкам самого медленного города в России и увидим немецкую архитектуру довоенного периода. Светлогорск — это город-парк, который весь утопает в зелени. Город, который также называют Балтийской Швейцарией. Живописное озеро Тихое, Лиственничный парк, морской променад, пряничные домики, башня водогрязелечебницы, фуникулер и не только это вы увидите в нашей прогулке по Светлогорску.
-
-В экскурсию можно добавить и посещение самого западного города России - Балтийска (доплата 3000 р).
-
-Дополнительные расходы: смотровая площадка янтарного карьера, музей добычи янтаря, мастер-классы по обработке янтаря, обед на море.`,
-    price: "от 12000 ₽ (6 часов)"
-  },
-  {
-    title: "Инстербург + Георгенбург (Черняховск)",
-    images: Array(16).fill().map((_, i) => `image/insterburg${i+1}.jpg`),
-    description: `Погрузитесь в историю и окунитесь в мир лошадей в нашей экскурсии в Черняховск и на конезавод "Георгенбург"! 
-Узнайте о славном прошлом Инстербурга, основанного рыцарями Тевтонского ордена, прогуляйтесь по старинным улочкам и полюбуйтесь разнообразными архитектурными стилями. 
-
-Вы увидите прекрасно сохранившиеся здания ХІХ века и узнаете их историю, а также о том, как они использовались во времена немецкого Инстербурга.
-  
-Я расскажу вам об истории города, его архитекторах и особенностях планировки, а также об архитектурных стилях, характерных для старого Инстербурга.
-
-Мы посетим действующий костел святого Бруно, увидим бывшую ремесленную школу для девочек, старинные виллы и православный храм Архангела Михаила (бывшую кирху).
-
-Одним из самых ярких символов города является старинная водонапорная башня в форме шахматной ладьи, которую вы обязательно увидите! Также мы посетим конезавод "Георгенбург", где еще в 18 веке начали разводить тракененскую породу лошадей. Узнаем его историю, погладим и покормим лошадей.`,
-    price: "от 15000 ₽ (8 часов)"
-  },
-  {
-    title: "По тропам Хомлинов",
-    images: Array(7).fill().map((_, i) => `image/homlins${i+1}.jpg`),
-    description: `В 2018 году в Калининграде начала появляться славная семейка Хомлинов. Что это за персонажи и как они родились, вы и узнаете на нашем маршруте.  
-    
-Эти забавные человечки в количестве семи штук (Семья) разбросаны по основным достопримечательностям нашего города. 
-    
-И в процессе их поисков мы узнаем историю города и увидим его главные акценты. 
-    
-Для маленьких туристов экскурсию можно обыграть в виде квеста. 
-    
-И завершим мы нашу прогулку в уютном Домике Хомлинов, где можно приобрести их в качестве сувениров, а также полакомиться вкусным десертом с чашечкой кофе или чая. 
-    
-Время экскурсии около 3-х часов пролетает интересно и незаметно.`,
-    price: "от 6000 ₽ (3 часа)"
-  },
-  {
-    title: "Куршская коса + Зеленоградск",
-    images: Array(28).fill().map((_, i) => `image/kurshskaya${i+1}.jpg`),
-    description: `На узкой полосе суши между соленой Балтикой и пресноводным Куршским заливом расположился настоящий “туристический магнит” Калининградской области — уникальный нацпарк «Куршская коса», причем его угодья с севера граничат с Литовской Республикой. 
-
-Аутентичности местным пейзажам придает тот факт, что весь национальный парк, по сути, представляет собой крупнейшую песчаную пересыпь на планете. 
-
-Старейший из российских нацпарков протянулся почти на 100 км от Зеленоградска до литовской Клайпеды, при этом ширина заповедной территории не превышает 4 км — всё очень компактно, максимально живописно и неповторимо! 
-
-Ценители необыкновенных природных панорам особенно отмечают здешние дюнные ландшафты, которые вкупе с вековыми древесными гигантами и богатейшей локальной фауной превращают просторы Куршской косы в знаковый объект для очень актуального в наши дни экотуризма. 
-Скучать в таком природном оазисе не придется никому, тем более что для юных туристов подготовлены увлекательные загадки и мастер-классы. 
-
-Обратная дорога пройдет через курортный Зеленоградск (бывший прусский Кранц), впечатляющий старинной архитектурой, неспешностью и атмосферой.
-
-Куршская коса (4-5 часов):
-• Королевский бор: Встречает посетителей в начале косы, предлагая прогулку по живописному сосновому лесу с вековыми деревьями.
-• Визит-центр "Куршская коса": Информационный центр об истории, природе и культуре косы.
-• Орнитологическая станция "Фрингилла": Место изучения миграции птиц и процесс кольцевания.
-• Озеро Чайка и высота Мюллера: Живописное озеро и дюна с прекрасным видом.
-• Танцующий лес: Уникальный участок соснового леса с загадочно искривленными деревьями.
-• Высота Эфа: Захватывающий панорамный вид на море, залив и песчаные дюны.
-• Озеро Лебедь: Спокойная атмосфера для наблюдения за птицами.
-
-Зеленоградск (1 час):
-Пляжный курорт на побережье Балтийского моря в 35 км от Калининграда с уютными улочками и старинной архитектурой.`,
-    price: "от 15000 ₽ (8 часов)"
-  },
-  {
-    title: "Все красоты области за 3 дня",
-    images: Array(18).fill().map((_, i) => `image/3days${i+1}.jpg`),
-    description: `Если у вас есть пара-тройка свободных дней в Калининграде, этот тур по выгодной цене идеально подойдет для знакомства с городом и курортами Янтарного побережья. 
-
-1 день: Город Калининград (4 часа)
-В первый день проведем вас по знаковым локациям города: башня Врангеля, Бранденбургские ворота, Драматический театр, Кафедральный собор, Кёнигсбергский замок, кирха королевы Луизы, Медовый мост, Музей янтаря, Остров Канта и Рыбная деревня.
-
-2 день: Янтарное побережье (6 часов)
-Нас ждут красоты Светлогорска и Янтарного (можно заменить/добавить Балтийск). Обязательно полюбуемся морем, посетим чистейший пляж с Голубым флагом и испытаем удачу в поисках янтаря!
-
-3 день: Куршская коса и Зеленоградск (6 часов)
-Увидим объект ЮНЕСКО — Куршскую косу, заедем в город кошек Зеленоградск, посетим древний замок Шаакен и ремесленную сыроварню.
-
-По окончании 3-дневного тура у вас останется масса ярких эмоций, фотографии и сувениры!`,
-    price: "от 37000 ₽"
-  },
-  {
-    title: "Гвардейск – Знаменск – Железнодорожный – Правдинск",
-    images: Array(9).fill().map((_, i) => `image/gvardeisk${i+1}.JPG`),
-    description: `Отправляйтесь в авторское путешествие по четырем жемчужинам Балтики! Экскурсия ("Тапиау — Велау — Гердауэн — Фридланд") проведет вас по старинным прусским городам, где дух истории оживает на каждом шагу.
-
-Начнем с Гвардейска (Тапиау, XIII век): замок Тапиау, музыкальные часы на ратуше, старая площадь и кирха XVI века. Родина художника Ловиса Коринта.
-Далее — Знаменск (Велау): Кирха Святого Якоба, католический костел и обед на ферме Тюниных.
-В Железнодорожном (Гердауэн): руины замка 1315 года, старинная мельница, фахверковые улочки и музей патефонов.
-Также осмотрим внушительные шлюзы Мазурского канала XVIII века.
-Завершим тур в Правдинске (Фридланд): грандиозная кирха Святого Георга 1313 года с великолепным видом с башни.`,
-    price: "от 15000 ₽ (9 часов)"
-  },
-  {
-    title: "Амалиенау",
-    images: Array(17).fill().map((_, i) => `image/amalienay${i+1}.jpg`),
-    description: `Откройте для себя очарование Амалиенау, "кенигсбергской Рублевки" начала XX века, в нашей пешеходной экскурсии! Погрузитесь в историю этого престижного района "города-сада".
-
-Прогуляйтесь по тихим улочкам, любуясь элегантными виллами (Хонкамп, Лео, Шмидт, Рут, Винтер, Маковски). 
-Маршрут включает: парк "Луизенваль", кирху памяти Королевы Луизы, пруд Близнецов, визит к Хомлинам, а по желанию — посещение музея быта "Альтес Хаус" или чай с домашней шарлоткой в одной из вилл.
-
-Прогулка займет около 2,5 часов.`,
-    price: "от 6000 ₽ (2,5 часа)"
-  },
-  {
-    title: "Замки Калининградской области",
-    images: Array(17).fill().map((_, i) => `image/zamki${i+1}.jpg`),
-    description: `На территории Калининградской области сохранилось несколько замков, построенных в XIII веке рыцарями Тевтонского ордена. Многие из них активно восстанавливают.
-
-Начнём знакомство с замка Нойхаузен (XIII в.). Здесь сохранились подлинные готические своды и средневековые подвалы. 
-(Билет с экскурсией — 1200 руб./чел.)
-
-Далее направимся в замок Шаакен овальной орденской формы, где посетим музей инквизиции. Рядом находится частная сыроварня с дегустацией крафтового сыра, марципана и шоколада с бокалом вина.
-(Вход в замок — 500 руб./чел., дегустация — 500 руб./чел.)
-
-Завершить путешествие можно замком Нессельбек со стилизованной средневековой атмосферой и рестораном-пивоварней.
-Маршрут можно гибко адаптировать под ваши предпочтения, в том числе включив замок Тапиау!`,
-    price: "от 15000 ₽ (7-8 часов)"
-  }
-];
-
-// Карта соответствия якорей (slug) и индексов туров
-const slugToIndex = {
-  'vorota-kenigsberga': 0,
-  'obzornaya-ekskursiya': 1,
-  'baltiysk-i-kosa': 2,
-  'na-kray-oblasti': 3,
-  'yantarnyy-svetlogorsk': 4,
-  'insterburg-georgenburg': 5,
-  'tropami-homlinov': 6,
-  'kurshskaya-kosa-zelenogradsk': 7,
-  'vse-krasoty-za-3-dnya': 8,
-  'gvardeysk-znamensk': 9,
-  'amalienau': 10,
-  'zamki': 11
+const firebaseConfig = {
+  apiKey: "AIzaSyCmYw5h3YE0DhiD_2o2BpsqoA9EzktqIKk",
+  authDomain: "kaliningrad-tour2025.firebaseapp.com",
+  projectId: "kaliningrad-tour2025",
+  storageBucket: "kaliningrad-tour2025.appspot.com",
+  messagingSenderId: "733180646321",
+  appId: "1:733180646321:web:f7e0106357edc327162390"
 };
 
-const indexToSlug = Object.fromEntries(
-  Object.entries(slugToIndex).map(([slug, index]) => [index, slug])
-);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
-// ===== СОСТОЯНИЕ МОДАЛКИ И СЛАЙДЕРА =====
-let currentTourIndex = 0;
-let currentSlide = 0;
-let autoSlideInterval = null;
+const db = firebase.firestore();
 
-// Удаление .html из адресов в меню (если сервер настроен на чистые URL)
-function removeHtmlFromLinks() {
-  const navLinks = document.querySelectorAll('.nav a');
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && href.endsWith('.html')) {
-      link.setAttribute('href', href.replace('.html', ''));
+// ============================================================
+// ПЕРЕМЕННЫЕ ДЛЯ ОТЗЫВОВ
+// ============================================================
+
+let reviewCards = [];
+let currentPage = 0;
+let cardsPerPage = 3;
+
+// ============================================================
+// ОПРЕДЕЛЕНИЕ КОЛИЧЕСТВА КАРТОЧЕК
+// ============================================================
+
+function getCardsPerPage() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 992) return 2;
+    return 3;
+}
+
+// ============================================================
+// ЗАГРУЗКА ОТЗЫВОВ ИЗ FIREBASE
+// ============================================================
+
+async function loadReviews() {
+    const track = document.getElementById("reviewTrack");
+    if (!track) return;
+
+    try {
+        const snap = await db
+            .collection("reviews")
+            .orderBy("date", "desc")
+            .limit(20)
+            .get();
+
+        track.innerHTML = "";
+        reviewCards = [];
+
+        if (snap.empty) {
+            track.innerHTML = '<div class="review-card" style="text-align:center;padding:40px;width:100%;">Пока нет отзывов</div>';
+            const prev = document.getElementById("reviewPrev");
+            const next = document.getElementById("reviewNext");
+            if (prev) prev.classList.add("hidden");
+            if (next) next.classList.add("hidden");
+            return;
+        }
+
+        snap.forEach(doc => {
+            const r = doc.data();
+            
+            // Обработка даты
+            let date = r.date;
+            if (date && typeof date.toDate === 'function') {
+                date = date.toDate();
+            } else if (date && typeof date === 'string') {
+                date = new Date(date);
+            } else {
+                date = new Date();
+            }
+
+            const card = document.createElement("div");
+            card.className = "review-card";
+
+            const messageText = r.message || '';
+            const isLong = messageText.length > 140;
+            const shortMessage = isLong ? messageText.substring(0, 140) + "..." : messageText;
+            const authorName = r.name || 'Аноним';
+            const authorInitial = authorName.charAt(0).toUpperCase();
+            const ratingValue = Number(r.rating) || 5;
+
+            card.innerHTML = `
+                <div class="review-avatar">${authorInitial}</div>
+                <h3>${escapeHtml(authorName)}</h3>
+                <div class="review-stars">
+                    ${"★".repeat(ratingValue)}${"☆".repeat(Math.max(0, 5 - ratingValue))}
+                </div>
+                <small>${date.toLocaleDateString("ru-RU")}</small>
+                <p>${escapeHtml(shortMessage)}</p>
+                <button type="button" class="review-more-btn">
+                    Читать полностью →
+                </button>
+            `;
+
+            // Безопасное открытие модального окна без синтаксических ошибок кавычек
+            const moreBtn = card.querySelector(".review-more-btn");
+            moreBtn.addEventListener("click", () => {
+                openReviewModal({
+                    name: authorName,
+                    rating: ratingValue,
+                    date: date,
+                    message: messageText
+                });
+            });
+
+            track.appendChild(card);
+            reviewCards.push(card);
+        });
+
+        initReviewSlider();
+
+    } catch(error) {
+        console.error("Ошибка загрузки отзывов:", error);
+        track.innerHTML = '<div class="review-card" style="text-align:center;padding:40px;color:red;width:100%;">Ошибка загрузки отзывов</div>';
     }
-  });
 }
 
-// Активная ссылка меню
-function setActiveLink() {
-  const links = document.querySelectorAll('.nav a');
-  const currentPath = window.location.pathname;
-  
-  links.forEach(link => {
-    let linkHref = link.getAttribute('href') || '';
-    linkHref = linkHref.replace('.html', '');
+// Защита от XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ И УПРАВЛЕНИЕ СЛАЙДЕРОМ
+// ============================================================
+
+function initReviewSlider() {
+    currentPage = 0;
+    updateReviewView();
+
+    const prev = document.getElementById("reviewPrev");
+    const next = document.getElementById("reviewNext");
+
+    if (prev) {
+        prev.onclick = prevReview;
+        prev.classList.remove("hidden");
+    }
+    if (next) {
+        next.onclick = nextReview;
+        next.classList.remove("hidden");
+    }
+}
+
+function updateReviewView() {
+    cardsPerPage = getCardsPerPage();
+    const totalPages = Math.ceil(reviewCards.length / cardsPerPage);
+
+    // Скрываем все и показываем нужные
+    reviewCards.forEach((card, index) => {
+        const start = currentPage * cardsPerPage;
+        const end = start + cardsPerPage;
+        if (index >= start && index < end) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    const prev = document.getElementById("reviewPrev");
+    const next = document.getElementById("reviewNext");
+
+    if (!prev || !next) return;
+
+    if (totalPages <= 1 || reviewCards.length === 0) {
+        prev.classList.add("hidden");
+        next.classList.add("hidden");
+        return;
+    }
+
+    prev.classList.remove("hidden");
+    next.classList.remove("hidden");
+
+    prev.disabled = currentPage === 0;
+    next.disabled = currentPage >= totalPages - 1;
+
+    prev.style.opacity = currentPage === 0 ? '0.35' : '1';
+    prev.style.cursor = currentPage === 0 ? 'not-allowed' : 'pointer';
+    next.style.opacity = currentPage >= totalPages - 1 ? '0.35' : '1';
+    next.style.cursor = currentPage >= totalPages - 1 ? 'not-allowed' : 'pointer';
+}
+
+function nextReview() {
+    const totalPages = Math.ceil(reviewCards.length / cardsPerPage);
+    if (currentPage < totalPages - 1) {
+        currentPage++;
+        updateReviewView();
+    }
+}
+
+function prevReview() {
+    if (currentPage > 0) {
+        currentPage--;
+        updateReviewView();
+    }
+}
+
+// ============================================================
+// МОДАЛЬНОЕ ОКНО ОТЗЫВА
+// ============================================================
+
+window.openReviewModal = function(review) {
+    const modal = document.getElementById("reviewModal");
+    if (!modal) return;
+
+    let date = review.date instanceof Date ? review.date : new Date(review.date);
+    if (isNaN(date.getTime())) date = new Date();
+
+    const nameEl = document.getElementById("modalReviewName");
+    const starsEl = document.getElementById("modalReviewStars");
+    const dateEl = document.getElementById("modalReviewDate");
+    const textEl = document.getElementById("modalReviewText");
+
+    if (nameEl) nameEl.textContent = review.name || 'Аноним';
+    if (starsEl) {
+        const rating = Number(review.rating) || 5;
+        starsEl.innerHTML = "★".repeat(rating) + "☆".repeat(Math.max(0, 5 - rating));
+    }
+    if (dateEl) dateEl.textContent = date.toLocaleDateString("ru-RU");
+    if (textEl) textEl.textContent = review.message || '';
+
+    modal.classList.add("open");
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeReviewModal = function() {
+    const modal = document.getElementById("reviewModal");
+    if (modal) {
+        modal.classList.remove("open");
+        document.body.style.overflow = '';
+    }
+};
+
+// ============================================================
+// МОДАЛКИ ТУРОВ
+// ============================================================
+
+window.showDetails = function(index) {
+    const modal = document.getElementById("tourModal");
+    if (!modal) return;
     
-    const isActive = 
-      (linkHref === '/' && (currentPath === '/' || currentPath.endsWith('/index') || currentPath.endsWith('/index.html'))) ||
-      (linkHref !== '/' && (currentPath.includes(linkHref) || currentPath.endsWith(linkHref + '.html')));
+    const tours = [
+      {
+        title: "Куршская коса + Зеленоградск",
+        description: [
+          "На узкой полосе суши между соленой Балтикой и пресноводным Куршским заливом расположился настоящий \"туристический магнит\" Калининградской области — уникальный нацпарк «Куршская коса».",
+          "Аутентичности местным пейзажам придает тот факт, что весь национальный парк, по сути, представляет собой крупнейшую песчаную пересыпь на планете.",
+          "Обратная дорога пройдет через курортный Зеленоградск, впечатляющий старинной архитектурой и атмосферой.",
+          "• Королевский бор: прогулка по живописному сосновому лесу",
+          "• Танцующий лес: уникальный участок с искривленными деревьями",
+          "• Высота Эфа: захватывающий панорамный вид на море и залив"
+        ],
+        images: Array(6).fill().map((_, i) => `image/kurshskaya${i + 1}.jpg`),
+        max: "https://max.ru/+79052484096"
+      },
+      {
+        title: "Обзорная экскурсия по Калининграду",
+        description: [
+          "Предлагаю начать наше знакомство с Калининградом с увлекательной обзорной экскурсии.",
+          "Мы пройдемся по историческому центру, заглянем на остров Канта, где возвышается Кафедральный собор.",
+          "Обязательно посетим живописную Рыбную деревню — любимое место гостей города.",
+          "В завершение экскурсии мы отправимся в самые колоритные районы Калининграда — Амалиенау и Марауненхоф."
+        ],
+        images: Array(6).fill().map((_, i) => `image/obzornaya${i + 1}.jpg`),
+        max: "https://max.ru/+79052484096"
+      },
+      {
+        title: "Все красоты области за 3 дня",
+        description: [
+          "Если у вас есть пара-тройка свободных дней в Калининграде, этот тур идеально подойдет.",
+          "1 день: Обзорная экскурсия по Калининграду",
+          "2 день: Янтарное побережье — Светлогорск и Янтарный",
+          "3 день: Зеленоградск и Куршская коса"
+        ],
+        images: Array(6).fill().map((_, i) => `image/3days${i + 1}.jpg`),
+        max: "https://max.ru/+79052484096"
+      }
+    ];
     
-    link.classList.toggle('active', Boolean(isActive));
-  });
-}
-
-// Открытие тура по slug из URL
-function openTourBySlug(slug) {
-  const index = slugToIndex[slug];
-  if (index !== undefined) {
-    showDetails(index, false);
-  }
-}
-
-// Основная функция открытия модального окна
-function showDetails(index, updateHistory = true) {
-  if (index < 0 || index >= toursData.length) return;
-
-  currentTourIndex = index;
-  currentSlide = 0;
-  const tour = toursData[index];
-
-  // Блокируем прокрутку подложки страницы
-  document.body.style.overflow = 'hidden';
-  
-  // Обновляем хэш в URL
-  const slug = indexToSlug[index];
-  if (slug && updateHistory) {
-    history.pushState(null, null, `#${slug}`);
-  }
-
-  // Заполняем текстовые данные
-  document.getElementById('modal-title').textContent = tour.title;
-  document.getElementById('modal-description').textContent = tour.description;
-
-  // Формируем ссылку на WhatsApp
-  const phone = "79052484096"; 
-  const text = `Привет! Хочу забронировать экскурсию "${tour.title}"`;
-  document.getElementById('whatsapp-link').href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-
-  // Отрисовка карусели фотографий
-  const carouselInner = document.getElementById('carousel-inner');
-  const indicators = document.getElementById('carousel-indicators');
-  carouselInner.innerHTML = '';
-  indicators.innerHTML = '';
-
-  tour.images.forEach((imgSrc, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-item';
+    const tour = tours[index];
+    if (!tour) return;
     
-    const image = document.createElement('img');
-    image.src = imgSrc;
-    image.alt = `${tour.title} - фото ${i + 1}`;
-    image.loading = "lazy";
+    document.body.style.overflow = 'hidden';
+    document.getElementById("modal-title").textContent = tour.title;
+    document.getElementById("max-link").href = tour.max;
     
-    image.onerror = function() {
-      this.style.display = 'none';
-      console.warn(`Не удалось загрузить изображение: ${imgSrc}`);
-    };
+    const descContainer = document.getElementById("modal-description");
+    descContainer.innerHTML = "";
+    tour.description.forEach(text => {
+      const p = document.createElement("p");
+      p.textContent = text;
+      descContainer.appendChild(p);
+    });
     
-    slide.appendChild(image);
-    carouselInner.appendChild(slide);
+    const carouselInner = document.getElementById("carousel-inner");
+    const indicators = document.getElementById("carousel-indicators");
+    carouselInner.innerHTML = "";
+    indicators.innerHTML = "";
+    
+    tour.images.forEach((src, i) => {
+      const item = document.createElement("div");
+      item.className = `carousel-item ${i === 0 ? "active" : ""}`;
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `Фото ${i + 1}`;
+      img.onerror = function() {
+        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj7QpNC+0YLQviDQvdC1INC90LDQudC00LXQvQ</text+></svg>';
+      };
+      item.appendChild(img);
+      carouselInner.appendChild(item);
+      
+      const dot = document.createElement("button");
+      dot.className = `carousel-indicator ${i === 0 ? "active" : ""}`;
+      dot.onclick = () => showSlide(i);
+      indicators.appendChild(dot);
+    });
+    
+    window.currentSlide = 0;
+    showSlide(0);
+    modal.classList.add("open");
+    startAutoSlide();
+};
 
-    const indicator = document.createElement('button');
-    indicator.className = 'carousel-indicator' + (i === 0 ? ' active' : '');
-    indicator.setAttribute('aria-label', `Слайд ${i + 1}`);
-    indicator.onclick = () => goToSlide(i);
-    indicators.appendChild(indicator);
-  });
+window.closeModal = function() {
+    const modal = document.getElementById("tourModal");
+    if (modal) modal.classList.remove("open");
+    document.body.style.overflow = '';
+    stopAutoSlide();
+};
 
-  updateCarousel();
-  document.getElementById('modal').style.display = 'flex';
-  startAutoSlide();
-}
+// ============================================================
+// СЛАЙДЕР КАРУСЕЛИ ТУРОВ
+// ============================================================
 
-// Закрытие модального окна
-function closeModal() {
-  const modal = document.getElementById('modal');
-  if (modal) modal.style.display = 'none';
-  
-  stopAutoSlide();
-  document.body.style.overflow = '';
-  
-  // Убираем якорь из адресной строки
-  if (window.location.hash) {
-    history.pushState(null, null, window.location.pathname + window.location.search);
-  }
-}
+window.showSlide = function(index) {
+    const items = document.querySelectorAll(".carousel-item");
+    const dots = document.querySelectorAll(".carousel-indicator");
+    if (items.length === 0) return;
+    if (index >= items.length) index = 0;
+    if (index < 0) index = items.length - 1;
+    
+    const inner = document.getElementById("carousel-inner");
+    if (inner) inner.style.transform = `translateX(-${index * 100}%)`;
+    
+    items.forEach((el, i) => el.classList.toggle("active", i === index));
+    dots.forEach((d, i) => d.classList.toggle("active", i === index));
+    window.currentSlide = index;
+};
 
-// Переключение слайдов
-function prevSlide() {
-  const total = toursData[currentTourIndex].images.length;
-  currentSlide = (currentSlide - 1 + total) % total;
-  updateCarousel();
-  resetAutoSlide();
-}
+window.nextSlide = function() {
+    const items = document.querySelectorAll(".carousel-item");
+    showSlide(window.currentSlide + 1);
+};
 
-function nextSlide() {
-  const total = toursData[currentTourIndex].images.length;
-  currentSlide = (currentSlide + 1) % total;
-  updateCarousel();
-  resetAutoSlide();
-}
+window.prevSlide = function() {
+    const items = document.querySelectorAll(".carousel-item");
+    showSlide(window.currentSlide - 1);
+};
 
-function goToSlide(index) {
-  currentSlide = index;
-  updateCarousel();
-  resetAutoSlide();
-}
-
-function updateCarousel() {
-  const carouselInner = document.getElementById('carousel-inner');
-  const indicators = document.querySelectorAll('.carousel-indicator');
-  
-  if (carouselInner) {
-    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  
-  indicators.forEach((ind, i) => {
-    ind.classList.toggle('active', i === currentSlide);
-  });
-}
-
-// Автопрокрутка
+let autoSlideTimer;
 function startAutoSlide() {
-  stopAutoSlide();
-  autoSlideInterval = setInterval(() => {
-    nextSlide();
-  }, 4000);
+    stopAutoSlide();
+    autoSlideTimer = setInterval(() => {
+        const items = document.querySelectorAll(".carousel-item");
+        if (items.length > 0) {
+            showSlide(window.currentSlide + 1);
+        }
+    }, 4000);
 }
 
 function stopAutoSlide() {
-  if (autoSlideInterval) {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = null;
-  }
+    if (autoSlideTimer) {
+        clearInterval(autoSlideTimer);
+        autoSlideTimer = null;
+    }
 }
 
-function resetAutoSlide() {
-  stopAutoSlide();
-  startAutoSlide();
+// ============================================================
+// БУРГЕР И НАВИГАЦИЯ
+// ============================================================
+
+window.toggleMenu = function() {
+    const nav = document.getElementById("navMenu");
+    if (nav) nav.classList.toggle("show");
+};
+
+// ============================================================
+// SCROLL-REVEAL
+// ============================================================
+
+function initReveal() {
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                // Если раскрывается контейнер why-us, анимируем его карточки
+                const subItems = entry.target.querySelectorAll("li");
+                subItems.forEach((li, idx) => {
+                    setTimeout(() => li.classList.add("show"), idx * 100);
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    els.forEach(el => obs.observe(el));
 }
 
-// Мобильное бургер-меню
-function toggleMenu() {
-  const navMenu = document.getElementById('navMenu');
-  if (navMenu) navMenu.classList.toggle('show');
+// ============================================================
+// COOKIE-СОГЛАСИЕ
+// ============================================================
+
+const cookieBanner = document.getElementById("cookieBanner");
+if (cookieBanner && document.cookie.indexOf("cookieConsent=1") === -1) {
+    cookieBanner.classList.add("show");
 }
 
-// ===== НАВЕШИВАНИЕ СОБЫТИЙ =====
-document.addEventListener('DOMContentLoaded', () => {
-  removeHtmlFromLinks();
-  setActiveLink();
-  
-  // Пауза слайдера при наведении курсора
-  const carousel = document.querySelector('.carousel');
-  if (carousel) {
-    carousel.addEventListener('mouseenter', stopAutoSlide);
-    carousel.addEventListener('mouseleave', startAutoSlide);
-  }
+window.acceptCookies = function() {
+    document.cookie = "cookieConsent=1; max-age=" + 60 * 60 * 24 * 365 + "; path=/";
+    const banner = document.getElementById("cookieBanner");
+    if (banner) banner.classList.remove("show");
+};
 
-  // Закрытие при клике по затемненному фону
-  const modal = document.getElementById('modal');
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  }
+// ============================================================
+// ОБРАБОТКА КЛИКОВ И КЛАВИАТУРЫ
+// ============================================================
 
-  // Закрытие по клавише Esc
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
+document.addEventListener('click', function(e) {
+    // Закрытие модалки тура по фону
+    const tourModal = document.getElementById("tourModal");
+    if (tourModal && e.target === tourModal) {
+        closeModal();
+    }
 
-  // Открытие по прямому хэшу в адресной строке при входе
-  if (window.location.hash) {
-    const slug = window.location.hash.replace('#', '');
-    openTourBySlug(slug);
-  }
+    // Закрытие модалки отзыва по клику вне контента
+    const revModal = document.getElementById("reviewModal");
+    if (revModal && revModal.classList.contains('open')) {
+        const content = revModal.querySelector('.review-modal-content');
+        if (content && !content.contains(e.target) && !e.target.closest('.review-more-btn')) {
+            closeReviewModal();
+        }
+    }
 });
 
-// Навигация вперед/назад в истории браузера
-window.addEventListener('hashchange', () => {
-  const hash = window.location.hash;
-  if (!hash) {
-    closeModal();
-  } else {
-    const slug = hash.replace('#', '');
-    openTourBySlug(slug);
-  }
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+        closeReviewModal();
+    }
+});
+
+window.addEventListener("resize", function() {
+    if (reviewCards.length > 0) {
+        updateReviewView();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    initReveal();
+    loadReviews();
 });
