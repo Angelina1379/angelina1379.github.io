@@ -6,8 +6,7 @@
   <title>Гид по Калининграду</title>
   <link rel="stylesheet" href="excursion.css">
   <script defer src="js/excursion.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
@@ -15,7 +14,7 @@
   <header class="header">
     <div class="container">
       <div class="logo">ГидКалининград</div>
-      <button class="burger" onclick="toggleMenu()">☰</button>
+      <button class="burger" onclick="toggleMenu()" aria-label="Открыть меню">☰</button>
       <nav class="nav" id="navMenu">
         <a href="index.html">Главная</a>
         <a href="excursion.html">Экскурсии</a>
@@ -33,7 +32,7 @@
         <div class="content">
           <h3>Ворота Кенигсберга</h3>
           <p>Фортификационные ворота XIX века, башни, бастионы и оборонительные сооружения...</p>
-          <div class="price">от 7000 ₽</div>
+          <div class="price">от 8000 ₽</div>
           <button onclick="showDetails(0)">Подробнее</button>
           <a href="#vorota-kenigsberga" class="tour-link" style="display: none;">Ссылка на экскурсию "Ворота Кенигсберга"</a>
         </div>
@@ -44,7 +43,7 @@
         <div class="content">
           <h3>Обзорная экскурсия</h3>
           <p>История города, Кафедральный собор, Рыбная деревня, районы старого Кёнигсберга...</p>
-          <div class="price">от 7000 ₽</div>
+          <div class="price">от 8000 ₽</div>
           <button onclick="showDetails(1)">Подробнее</button>
           <a href="#obzornaya-ekskursiya" class="tour-link" style="display: none;">Ссылка на экскурсию "Обзорная экскурсия"</a>
         </div>
@@ -98,7 +97,7 @@
         <img src="image/homlins1.jpg" alt="По тропам Хомлинов">
         <div class="content">
           <h3>По тропам Хомлинов</h3>
-          <p>В 2018 году в Калининграде  начала появляться славная семейка Хомлинов. Поиск сказочных фигурок по ...</p>
+          <p>В 2018 году в Калининграде начала появляться славная семейка Хомлинов. Поиск сказочных фигурок по ...</p>
           <div class="price">от 6000 ₽</div>
           <button onclick="showDetails(6)">Подробнее</button>
           <a href="#tropami-homlinov" class="tour-link" style="display: none;">Ссылка на экскурсию "По тропам Хомлинов"</a>
@@ -138,7 +137,7 @@
         </div>
       </div>
 
-            <div class="tour-card">
+      <div class="tour-card">
         <img src="image/amalienay1.jpg" alt="Амалиенау">
         <div class="content">
           <h3>Амалиенау</h3>
@@ -148,20 +147,21 @@
           <a href="#amalienau" class="tour-link" style="display: none;">Ссылка на экскурсию "Амалиенау"</a>
         </div>
       </div>
+
       <div class="tour-card">
         <img src="image/zamki1.JPG" alt="Замки Калининградской области">
         <div class="content">
           <h3>Замки Калининградской области</h3>
           <p>На территории Калининградской области сохранилось несколько замков, построенных в XIII веке...</p>
           <div class="price">от 15000 ₽</div>
-          <button onclick="showDetails(9)">Подробнее</button>
+          <button onclick="showDetails(11)">Подробнее</button>
           <a href="#zamki" class="tour-link" style="display: none;">Ссылка на экскурсию "Замки Калининградской области"</a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ДОБАВЬТЕ ЭТОТ БЛОК - ЯКОРИ ДЛЯ ССЫЛОК НА ЭКСКУРСИИ -->
+  <!-- ЯКОРИ ДЛЯ ПРЯМЫХ ССЫЛОК -->
   <div id="anchor-points" style="display: none;">
     <div id="vorota-kenigsberga"></div>
     <div id="obzornaya-ekskursiya"></div>
@@ -174,34 +174,34 @@
     <div id="vse-krasoty-za-3-dnya"></div>
     <div id="gvardeysk-znamensk"></div>
     <div id="amalienau"></div>
+    <div id="zamki"></div>
   </div>
 
-<!-- Модальное окно -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">×</button>
+  <!-- Модальное окно -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
 
-    <!-- Левая часть: фото -->
-    <div class="modal-left">
-      <div class="carousel">
-        <div class="carousel-inner" id="carousel-inner"></div>
-        <button class="carousel-control prev" onclick="prevSlide()">❮</button>
-        <button class="carousel-control next" onclick="nextSlide()">❯</button>
-        <div class="carousel-indicators" id="carousel-indicators"></div>
+      <!-- Левая часть: фото -->
+      <div class="modal-left">
+        <div class="carousel">
+          <div class="carousel-inner" id="carousel-inner"></div>
+          <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+          <button class="carousel-control next" onclick="nextSlide()">❯</button>
+          <div class="carousel-indicators" id="carousel-indicators"></div>
+        </div>
+      </div>
+
+      <!-- Правая часть: текст -->
+      <div class="modal-right">
+        <h3 id="modal-title"></h3>
+        <div class="modal-right-content">
+          <p id="modal-description"></p>
+        </div>
+        <a id="whatsapp-link" class="btn" target="_blank" rel="noopener noreferrer">Забронировать</a>
       </div>
     </div>
-
-    <!-- Правая часть: текст -->
-    <div class="modal-right">
-      <h3 id="modal-title"></h3>
-      <div class="modal-right-content">
-        <p id="modal-description"></p>
-      </div>
-      <a id="whatsapp-link" class="btn" target="_blank">Забронировать</a>
-    </div>
-  </div>
-</div>  
-
+  </div>  
 
   <!-- ПОДВАЛ -->
   <footer class="footer">
