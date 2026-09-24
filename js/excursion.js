@@ -301,10 +301,8 @@ function showDetails(index, updateHistory = true) {
   document.getElementById('modal-title').textContent = tour.title;
   document.getElementById('modal-description').textContent = tour.description;
 
-  // Формируем ссылку на WhatsApp
-  const phone = "79052484096"; 
-  const text = `Привет! Хочу забронировать экскурсию "${tour.title}"`;
-  document.getElementById('whatsapp-link').href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+ // Ссылка в MAX по номеру телефона 
+  const phone = "79052484096"; document.getElementById('whatsapp-link').href = https://max.im/+${phone};
 
   // Отрисовка карусели фотографий
   const carouselInner = document.getElementById('carousel-inner');
