@@ -50,7 +50,7 @@
             <h3>Куршская коса + Зеленоградск</h3>
             <p>Танцующий лес, высота Эфа, дюны, орнитологическая станция и морской курорт...</p>
             <span class="price">15 000 ₽</span>
-            <a href="javascript:void(0)" class="btn-small" onclick="showDetails(0)">Подробнее</a>
+            <button type="button" class="btn-small" onclick="showDetails(0)">Подробнее</button>
           </div>
         </div>
         <div class="tour-card reveal">
@@ -62,7 +62,7 @@
             <h3>Обзорная экскурсия</h3>
             <p>История города, Кафедральный собор, Рыбная деревня, районы старого Кёнигсберга...</p>
             <span class="price">8 000 ₽</span>
-            <a href="javascript:void(0)" class="btn-small" onclick="showDetails(1)">Подробнее</a>
+            <button type="button" class="btn-small" onclick="showDetails(1)">Подробнее</button>
           </div>
         </div>
         <div class="tour-card reveal">
@@ -74,7 +74,7 @@
             <h3>Все красоты области за 3 дня</h3>
             <p>Калининград, Янтарное побережье, Куршская коса и Зеленоградск за три дня...</p>
             <span class="price">37 000 ₽</span>
-            <a href="javascript:void(0)" class="btn-small" onclick="showDetails(2)">Подробнее</a>
+            <button type="button" class="btn-small" onclick="showDetails(2)">Подробнее</button>
           </div>
         </div>
       </div>
@@ -82,14 +82,14 @@
   </section>
  
   <!-- ПОЧЕМУ МЫ -->
-  <section class="why-us">
+  <section class="why-us reveal">
     <div class="container">
-      <h2 class="section-title reveal">Почему выбирают нас</h2>
+      <h2 class="section-title">Почему выбирают нас</h2>
       <ul>
-        <li class="reveal"><span class="why-icon">★</span> Опытные гиды</li>
-        <li class="reveal"><span class="why-icon">🗺</span> Уникальные маршруты</li>
-        <li class="reveal"><span class="why-icon">🚐</span> Комфортный транспорт</li>
-        <li class="reveal"><span class="why-icon">♥️</span> Индивидуальный подход</li>
+        <li><span class="why-icon">★</span> Опытные гиды</li>
+        <li><span class="why-icon">🗺</span> Уникальные маршруты</li>
+        <li><span class="why-icon">🚐</span> Комфортный транспорт</li>
+        <li><span class="why-icon">♥️</span> Индивидуальный подход</li>
       </ul>
     </div>
   </section>
@@ -97,26 +97,15 @@
   <!-- ОТЗЫВЫ -->
   <section class="reviews">
     <div class="container">
-      <h2 class="section-title reveal">Отзывы</h2>
-
+      <h2 class="section-title reveal">Отзывы наших гостей</h2>
       <div class="reviews-wrapper">
-        <button
-          class="review-arrow review-prev"
-          id="reviewPrev"
-          aria-label="Предыдущие отзывы">
-          ❮
-        </button>
-
+        <button class="review-arrow review-prev" id="reviewPrev" aria-label="Предыдущие отзывы">❮</button>
         <div class="review-slider">
-          <div class="review-track" id="reviewTrack"></div>
+          <div class="review-track" id="reviewTrack">
+            <!-- Отзывы загружаются через JS -->
+          </div>
         </div>
-
-        <button
-          class="review-arrow review-next"
-          id="reviewNext"
-          aria-label="Следующие отзывы">
-          ❯
-        </button>
+        <button class="review-arrow review-next" id="reviewNext" aria-label="Следующие отзывы">❯</button>
       </div>
     </div>
   </section>
@@ -124,11 +113,11 @@
   <!-- МОДАЛКА ПОЛНОГО ОТЗЫВА -->
   <div class="review-modal" id="reviewModal">
     <div class="review-modal-content">
-      <button class="review-modal-close" onclick="closeReviewModal()">×</button>
+      <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Закрыть">×</button>
       <h3 id="modalReviewName"></h3>
       <div id="modalReviewStars" class="review-stars"></div>
       <div id="modalReviewDate" class="review-modal-date"></div>
-      <p id="modalReviewText"></p>
+      <div id="modalReviewText" class="review-modal-text"></div>
     </div>
   </div>
  
