@@ -84,80 +84,53 @@
   <!-- ПОЧЕМУ МЫ -->
   <section class="why-us">
     <div class="container">
-      <h2 class="section-title">Почему выбирают нас</h2>
+      <h2 class="section-title reveal">Почему выбирают нас</h2>
       <ul>
-        <li><span class="why-icon">★</span> Опытные гиды</li>
-        <li><span class="why-icon">🗺</span> Уникальные маршруты</li>
-        <li><span class="why-icon">🚐</span> Комфортный транспорт</li>
-        <li><span class="why-icon">♥</span> Индивидуальный подход</li>
+        <li class="reveal"><span class="why-icon">★</span> Опытные гиды</li>
+        <li class="reveal"><span class="why-icon">🗺</span> Уникальные маршруты</li>
+        <li class="reveal"><span class="why-icon">🚐</span> Комфортный транспорт</li>
+        <li class="reveal"><span class="why-icon">♥️</span> Индивидуальный подход</li>
       </ul>
     </div>
   </section>
  
-<!-- ОТЗЫВЫ -->
-<section class="reviews">
+  <!-- ОТЗЫВЫ -->
+  <section class="reviews">
     <div class="container">
+      <h2 class="section-title reveal">Отзывы</h2>
 
-        <h2 class="section-title reveal">Отзывы</h2>
-
-        <div class="reviews-wrapper">
-
-            <button
-                class="review-arrow review-prev"
-                id="reviewPrev"
-                aria-label="Предыдущие отзывы">
-                ❮
-            </button>
-
-             <div class="review-slider">
-            
-                <div
-                    class="review-track"
-                    id="reviewTrack">
-                </div>
-            
-            </div>
-
-            <button
-                class="review-arrow review-next"
-                id="reviewNext"
-                aria-label="Следующие отзывы">
-                ❯
-            </button>
-
-        </div>
-
-    </div>
-</section>
- 
-  <!-- МОДАЛКА ПОЛНОГО ОТЗЫВА -->
-<div class="review-modal" id="reviewModal">
-
-    <div class="review-modal-content">
-
+      <div class="reviews-wrapper">
         <button
-            class="review-modal-close"
-            onclick="closeReviewModal()">
-            ×
+          class="review-arrow review-prev"
+          id="reviewPrev"
+          aria-label="Предыдущие отзывы">
+          ❮
         </button>
 
-        <h3 id="modalReviewName"></h3>
-
-        <div
-            id="modalReviewStars"
-            class="review-stars">
+        <div class="review-slider">
+          <div class="review-track" id="reviewTrack"></div>
         </div>
 
-        <div
-            id="modalReviewDate"
-            class="review-modal-date">
-        </div>
-
-        <p id="modalReviewText"></p>
-
+        <button
+          class="review-arrow review-next"
+          id="reviewNext"
+          aria-label="Следующие отзывы">
+          ❯
+        </button>
+      </div>
     </div>
-
-</div>
+  </section>
+ 
+  <!-- МОДАЛКА ПОЛНОГО ОТЗЫВА -->
+  <div class="review-modal" id="reviewModal">
+    <div class="review-modal-content">
+      <button class="review-modal-close" onclick="closeReviewModal()">×</button>
+      <h3 id="modalReviewName"></h3>
+      <div id="modalReviewStars" class="review-stars"></div>
+      <div id="modalReviewDate" class="review-modal-date"></div>
+      <p id="modalReviewText"></p>
+    </div>
+  </div>
  
   <!-- Кнопки мессенджеров -->
   <div class="messenger-float">
