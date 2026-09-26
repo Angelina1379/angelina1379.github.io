@@ -302,7 +302,8 @@ function showDetails(index, updateHistory = true) {
   document.getElementById('modal-description').textContent = tour.description;
 
  // Ссылка в MAX по номеру телефона 
-  const phone = "79052484096"; document.getElementById('whatsapp-link').href = https://max.im/+${phone};
+  const phone = "79052484096"; 
+  document.getElementById('whatsapp-link').href = https://max.im/+${phone};
 
   // Отрисовка карусели фотографий
   const carouselInner = document.getElementById('carousel-inner');
