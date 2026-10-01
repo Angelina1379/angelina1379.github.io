@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Калининград с гидом — Экскурсовод Ирина Пеунова</title>
   
-  <!-- Стили -->
   <link rel="stylesheet" href="komanda.css">
   
-  <!-- Иконки и Шрифты -->
+  <!-- Иконки Font Awesome и Шрифты -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Скрипт -->
   <script defer src="js/komanda.js"></script>
 </head>
 <body>
@@ -24,20 +22,20 @@
       <nav class="nav" id="navMenu">
         <a href="index.html">Главная</a>
         <a href="excursion.html">Экскурсии</a>
-        <a href="komanda.html">О нас</a>
+        <a href="komanda.html" class="active">О нас</a>
         <a href="reviews.html">Отзывы</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- 1. ГЛАВНЫЙ ЭКРАН: О ГИДЕ (ВСЕГДА ОТКРЫТ) -->
-    <section class="profile-hero">
-      <div class="container">
+    <div class="container">
+
+      <!-- 1. БЛОК: О ЧЕЛОВЕКЕ (ГИД) — ВСЕГДА ОТКРЫТ -->
+      <section class="profile-card">
         <div class="profile-grid">
-          <!-- Левая колонка: Карусель гида -->
           <div class="photo-column">
-            <div class="carousel-container" id="carousel-guide-container">
+            <div class="carousel-container">
               <div class="carousel" id="carousel-guide">
                 <div class="carousel-inner" id="guideCarouselInner"></div>
                 <button class="carousel-control prev" onclick="prevSlide('guide')" aria-label="Назад">❮</button>
@@ -47,9 +45,8 @@
             </div>
           </div>
 
-          <!-- Правая колонка: Информация -->
           <div class="text-column">
-            <span class="badge-subtitle">Персональный гид по области</span>
+            <span class="meta-tag">Ваш персональный гид</span>
             <h1 class="name">Ирина Пеунова</h1>
             <p class="description">
               Меня зовут Ирина Пеунова, я аттестованный экскурсовод по Калининграду и области, 
@@ -60,123 +57,102 @@
               <br><br>
               Я покажу вам регион во всей его красоте, помогу прочувствовать атмосферу и наполниться яркими впечатлениями. 
               Каждая моя экскурсия — индивидуальна: она строится вокруг ваших интересов, эмоций и даже капризов погоды. 
-              Я организую мастер-классы, дегустации и гастрономические туры — вы сможете буквально попробовать наши регионы на вкус!
-              <br><br>
-              Добро пожаловать в Калининград! Откройте его для себя по-настоящему.
+              Я организую мастер-классы, дегустации и гастрономические туры — вы сможете буквально попробовать наш край на вкус!
             </p>
-            <div class="contact-card">
-              <div class="contact-title">Связаться со мной напрямую:</div>
-              <div class="contact-items">
-                <a href="tel:+79052484096" class="contact-pill">
-                  <i class="fas fa-phone-alt"></i> +7 (905) 248-40-96
-                </a>
-                <a href="mailto:bogira27@mail.ru" class="contact-pill">
-                  <i class="fas fa-envelope"></i> bogira27@mail.ru
-                </a>
+            <div class="contact-info">
+              <p><strong>Контакты:</strong></p>
+              <p><i class="fas fa-envelope"></i> Email: <a href="mailto:bogira27@mail.ru">bogira27@mail.ru</a></p>
+              <p><i class="fas fa-phone"></i> Телефон: <a href="tel:+79052484096">+7 (905) 248-40-96</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. СВОРАЧИВАЕМЫЙ БЛОК: МАШИНА -->
+      <details class="acc-card" id="details-car">
+        <summary class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-icon"><i class="fas fa-car-side"></i></div>
+            <div>
+              <span class="acc-subtitle">Комфорт в путешествиях</span>
+              <h2 class="acc-title">Автомобиль для экскурсий</h2>
+            </div>
+          </div>
+          <div class="acc-arrow"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="acc-body">
+          <div class="profile-grid reverse-row">
+            <div class="photo-column">
+              <div class="carousel-container">
+                <div class="carousel" id="carousel-car">
+                  <div class="carousel-inner" id="carCarouselInner"></div>
+                  <button class="carousel-control prev" onclick="prevSlide('car')" aria-label="Назад">❮</button>
+                  <button class="carousel-control next" onclick="nextSlide('car')" aria-label="Вперед">❯</button>
+                </div>
+                <div class="carousel-indicators" id="carIndicators"></div>
+              </div>
+            </div>
+            <div class="text-column">
+              <h3 class="section-title">Просторный минивэн на 6 мест</h3>
+              <p class="description">
+                Все выездные экскурсии проходят на удобном шестиместном автомобиле повышенного комфорта. 
+                В салоне всегда идеальная чистота, много пространства, а также предусмотрен раздельный климат-контроль для любой погоды.
+                <br><br>
+                При желании любую экскурсию можно совместить с индивидуальным трансфером из аэропорта «Храброво» или железнодорожного вокзала прямо до дверей вашего отеля.
+              </p>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- 3. СВОРАЧИВАЕМЫЙ БЛОК: ДОКУМЕНТЫ -->
+      <details class="acc-card" id="details-docs">
+        <summary class="acc-header">
+          <div class="acc-header-left">
+            <div class="acc-icon"><i class="fas fa-award"></i></div>
+            <div>
+              <span class="acc-subtitle">Официальный статус</span>
+              <h2 class="acc-title">Аттестация, документы и лицензии</h2>
+            </div>
+          </div>
+          <div class="acc-arrow"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="acc-body">
+          <div class="profile-grid">
+            <div class="photo-column">
+              <div class="carousel-container">
+                <div class="carousel" id="carousel-docs">
+                  <div class="carousel-inner" id="docsCarouselInner"></div>
+                  <button class="carousel-control prev" onclick="prevSlide('docs')" aria-label="Назад">❮</button>
+                  <button class="carousel-control next" onclick="nextSlide('docs')" aria-label="Вперед">❯</button>
+                </div>
+                <div class="carousel-indicators" id="docsIndicators"></div>
+              </div>
+            </div>
+            <div class="text-column">
+              <h3 class="section-title">Гарантия качества и безопасности</h3>
+              <p class="description">
+                Я являюсь официально аттестованным экскурсоводом по Калининграду и Калининградской области и внесена в Единый федеральный реестр гидов.
+                <br><br>
+                Все авторские программы составлены с соблюдением исторических стандартов и гарантируют достоверность фактов, точность маршрутов и вашу безопасность.
+              </p>
+              <div class="trust-badge">
+                <i class="fas fa-certificate"></i>
+                <span>Государственная аттестация гида-экскурсовода</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </details>
 
-    <!-- 2. ИНТЕРАКТИВНЫЕ ДИЗАЙНЕРСКИЕ АККОРДЕОНЫ -->
-    <section class="accordion-section">
-      <div class="container">
-        
-        <!-- АККОРДЕОН 1: АВТОМОБИЛЬ -->
-        <div class="acc-item" id="acc-car">
-          <button class="acc-header" onclick="toggleAccordion('acc-car', 'car')">
-            <div class="acc-header-left">
-              <span class="acc-icon-box"><i class="fas fa-car-side"></i></span>
-              <div>
-                <span class="acc-meta">Комфорт в путешествии</span>
-                <h3 class="acc-title">Автомобиль для экскурсий</h3>
-              </div>
-            </div>
-            <div class="acc-arrow"><i class="fas fa-chevron-down"></i></div>
-          </button>
-          
-          <div class="acc-collapse">
-            <div class="acc-content">
-              <div class="acc-grid reverse">
-                <!-- Карусель авто -->
-                <div class="photo-column">
-                  <div class="carousel-container" id="carousel-car-container">
-                    <div class="carousel" id="carousel-car">
-                      <div class="carousel-inner" id="carCarouselInner"></div>
-                      <button class="carousel-control prev" onclick="prevSlide('car')">❮</button>
-                      <button class="carousel-control next" onclick="nextSlide('car')">❯</button>
-                    </div>
-                    <div class="carousel-indicators" id="carIndicators"></div>
-                  </div>
-                </div>
-                <!-- Описание авто -->
-                <div class="text-column">
-                  <div class="feature-tag">Индивидуальный трансфер</div>
-                  <h4 class="acc-body-title">Просторный минивэн на 6 мест</h4>
-                  <p class="description">
-                    Все выездные маршруты проходят на комфортабельном шестиместном автомобиле с высоким уровнем удобства. Салон подготовлен для длительных поездок по побережью и историческим городкам области.
-                    <br><br>
-                    При желании любую экскурсию можно совместить с комфортным трансфером прямо из аэропорта «Храброво» или железнодорожного вокзала, чтобы ваше знакомство с краем началось с первых минут приезда.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- АККОРДЕОН 2: АТТЕСТАЦИЯ И СЕРТИФИКАТЫ -->
-        <div class="acc-item" id="acc-docs">
-          <button class="acc-header" onclick="toggleAccordion('acc-docs', 'docs')">
-            <div class="acc-header-left">
-              <span class="acc-icon-box"><i class="fas fa-award"></i></span>
-              <div>
-                <span class="acc-meta">Официальный статус</span>
-                <h3 class="acc-title">Аттестация, документы и лицензии</h3>
-              </div>
-            </div>
-            <div class="acc-arrow"><i class="fas fa-chevron-down"></i></div>
-          </button>
-          
-          <div class="acc-collapse">
-            <div class="acc-content">
-              <div class="acc-grid">
-                <!-- Карусель сертификатов -->
-                <div class="photo-column">
-                  <div class="carousel-container" id="carousel-docs-container">
-                    <div class="carousel" id="carousel-docs">
-                      <div class="carousel-inner" id="docsCarouselInner"></div>
-                      <button class="carousel-control prev" onclick="prevSlide('docs')">❮</button>
-                      <button class="carousel-control next" onclick="nextSlide('docs')">❯</button>
-                    </div>
-                    <div class="carousel-indicators" id="docsIndicators"></div>
-                  </div>
-                </div>
-                <!-- Описание сертификатов -->
-                <div class="text-column">
-                  <div class="feature-tag verified"><i class="fas fa-shield-alt"></i> Проверенный гид</div>
-                  <h4 class="acc-body-title">Государственная регистрация</h4>
-                  <p class="description">
-                    Являюсь официально аттестованным гидом-экскурсоводом, внесена в Федеральный реестр экскурсоводов и гидов-переводчиков России.
-                    <br><br>
-                    Это гарантирует вам историческую достоверность фактов, выверенные авторские маршруты, абсолютную пунктуальность и безопасность во время всех наших путешествий.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
+    </div>
   </main>
 
   <!-- ПОДВАЛ -->
   <footer class="footer">
     <div class="container">
-      <p>© 2025–2026 «ГидКалининград». Авторские экскурсии по Янтарному краю.</p>
-      <p>Телефон: +7 (905) 248-40-96 &nbsp;|&nbsp; Email: bogira27@mail.ru</p>
+      <p>© 2025–2026 ГидКалининград</p>
+      <p>Email: bogira27@mail.ru &nbsp;|&nbsp; Телефон: +7 (905) 248-40-96</p>
       <p><a href="privacy.html" class="footer-link">Политика конфиденциальности</a></p>
     </div>
   </footer>
