@@ -19,15 +19,14 @@ function setActiveLink() {
     });
 }
 
-// ================= ДАННЫЕ ДЛЯ КАРУСЕЛЕЙ =================
+// Данные каруселей
 const carouselsData = {
-    // 1. Фотографии гида
     guide: {
         currentSlide: 0,
         interval: null,
         innerId: 'guideCarouselInner',
         indicatorsId: 'guideIndicators',
-        containerId: 'carousel-guide-container',
+        containerId: 'carousel-guide',
         photos: [
             { src: 'image/irina1.jpg', caption: 'Ирина Пеунова — ваш гид по Калининграду' },
             { src: 'image/irina2.jpg', caption: 'Профессиональный подход к каждой экскурсии' },
@@ -41,60 +40,35 @@ const carouselsData = {
             { src: 'image/irina10.jpg', caption: 'Ваш персональный гид по Калининграду' }
         ]
     },
-    // 2. Фотографии автомобиля
     car: {
         currentSlide: 0,
         interval: null,
         innerId: 'carCarouselInner',
         indicatorsId: 'carIndicators',
-        containerId: 'carousel-car-container',
+        containerId: 'carousel-car',
         photos: [
-            { src: 'image/car1.jpg', caption: 'Шестиместный салон повышенного комфорта' },
-            { src: 'image/car2.jpg', caption: 'Панорамный обзор и климат-контроль' },
-            { src: 'image/car3.jpg', caption: 'Всегда чистый и удобный автомобиль' }
+            { src: 'image/car1.jpg', caption: 'Просторный и комфортабельный минивэн на 6 мест' },
+            { src: 'image/car2.jpg', caption: 'Чистый салон с климат-контролем' },
+            { src: 'image/car3.jpg', caption: 'Удобство и безопасность в каждой поездке' }
         ]
     },
-    // 3. Фотографии документов и сертификатов
     docs: {
         currentSlide: 0,
         interval: null,
         innerId: 'docsCarouselInner',
         indicatorsId: 'docsIndicators',
-        containerId: 'carousel-docs-container',
+        containerId: 'carousel-docs',
         photos: [
-            { src: 'image/cert1.jpg', caption: 'Государственный аттестат экскурсовода' },
+            { src: 'image/cert1.jpg', caption: 'Аттестат государственного образца экскурсовода' },
             { src: 'image/cert2.jpg', caption: 'Удостоверение о повышении квалификации' },
-            { src: 'image/cert3.jpg', caption: 'Бейдж федерального реестра гидов' }
+            { src: 'image/cert3.jpg', caption: 'Официальный бейдж гида по Калининградской области' }
         ]
     }
 };
 
-// ================= ИНТЕРАКТИВ АККОРДЕОНОВ =================
-function toggleAccordion(itemId, carouselKey) {
-    const item = document.getElementById(itemId);
-    if (!item) return;
-
-    const isActive = item.classList.contains('active');
-    
-    // Переключаем класс
-    item.classList.toggle('active');
-
-    // Если открыли аккордеон — обновляем карусель и запускаем автослайд
-    if (!isActive) {
-        setTimeout(() => {
-            updateCarouselView(carouselKey);
-            startCarouselAutoSlide(carouselKey);
-        }, 150);
-    } else {
-        stopCarouselAutoSlide(carouselKey);
-    }
-}
-
-// ================= ЛОГИКА КАРУСЕЛЕЙ =================
 function initAllCarousels() {
-    Object.keys(carouselsData).forEach(key => {
-        buildCarousel(key);
-    });
+    Object.keys(carouselsData).forEach(key => buildCarousel(key));
+    setupDetailsListeners();
 }
 
 function buildCarousel(key) {
@@ -136,17 +110,38 @@ function buildCarousel(key) {
 
     updateCarouselView(key);
 
-    // Автопрокрутку на старте запускаем только для открытого первого экрана (гида)
     if (key === 'guide') {
         startCarouselAutoSlide(key);
     }
 
     if (container) {
         container.addEventListener('mouseenter', () => stopCarouselAutoSlide(key));
-        container.addEventListener('mouseleave', () => {
-            const accItem = container.closest('.acc-item');
-            if (!accItem || accItem.classList.contains('active')) {
-                startCarouselAutoSlide(key);
+        container.addEventListener('mouseleave', () => startCarouselAutoSlide(key));
+    }
+}
+
+// Отслеживание раскрытия аккордеонов для перерасчета карусели
+function setupDetailsListeners() {
+    const carDetails = document.getElementById('details-car');
+    if (carDetails) {
+        carDetails.addEventListener('toggle', () => {
+            if (carDetails.open) {
+                updateCarouselView('car');
+                startCarouselAutoSlide('car');
+            } else {
+                stopCarouselAutoSlide('car');
+            }
+        });
+    }
+
+    const docsDetails = document.getElementById('details-docs');
+    if (docsDetails) {
+        docsDetails.addEventListener('toggle', () => {
+            if (docsDetails.open) {
+                updateCarouselView('docs');
+                startCarouselAutoSlide('docs');
+            } else {
+                stopCarouselAutoSlide('docs');
             }
         });
     }
@@ -172,7 +167,6 @@ function goToSlide(key, index) {
     const config = carouselsData[key];
     config.currentSlide = index;
     updateCarouselView(key);
-    restartCarouselAutoSlide(key);
 }
 
 function nextSlide(key) {
@@ -204,20 +198,12 @@ function stopCarouselAutoSlide(key) {
     }
 }
 
-function restartCarouselAutoSlide(key) {
-    stopCarouselAutoSlide(key);
-    startCarouselAutoSlide(key);
-}
-
-// Запуск при старте
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     setActiveLink();
     initAllCarousels();
 });
 
-// Экспорт в глобальную область
 window.toggleMenu = toggleMenu;
-window.toggleAccordion = toggleAccordion;
 window.prevSlide = prevSlide;
 window.nextSlide = nextSlide;
 window.goToSlide = goToSlide;
