@@ -36,8 +36,7 @@ const carouselsData = {
             { src: 'image/irina6.jpg', caption: 'Экскурсии на любой вкус' },
             { src: 'image/irina7.jpg', caption: 'Познавательные маршруты' },
             { src: 'image/irina8.jpg', caption: 'Увлекательные рассказы о городе' },
-            { src: 'image/irina9.jpg', caption: 'Профессионализм и внимание к деталям' },
-            { src: 'image/irina10.jpg', caption: 'Ваш персональный гид по Калининграду' }
+            { src: 'image/irina9.jpg', caption: 'Ваш персональный гид по Калининграду' }
         ]
     },
     car: {
@@ -61,7 +60,13 @@ const carouselsData = {
         photos: [
             { src: 'image/cert1.jpg', caption: 'Аттестат государственного образца экскурсовода' },
             { src: 'image/cert2.jpg', caption: 'Удостоверение о повышении квалификации' },
-            { src: 'image/cert3.jpg', caption: 'Официальный бейдж гида по Калининградской области' }
+            { src: 'image/cert3.jpg', caption: 'Аттестат государственного образца экскурсовода' },
+            { src: 'image/cert4.jpg', caption: 'Удостоверение о повышении квалификации' },
+            { src: 'image/cert5.jpg', caption: 'Аттестат государственного образца экскурсовода' },
+            { src: 'image/cert6.jpg', caption: 'Удостоверение о повышении квалификации' },
+            { src: 'image/cert7.jpg', caption: 'Аттестат государственного образца экскурсовода' },
+            { src: 'image/cert8.jpg', caption: 'Удостоверение о повышении квалификации' },
+            { src: 'image/cert9.jpg', caption: 'Официальный бейдж гида по Калининградской области' }
         ]
     }
 };
