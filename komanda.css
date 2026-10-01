@@ -3,10 +3,10 @@
   --secondary: #3498db;
   --text: #2c3e50;
   --text-muted: #64748b;
-  --bg: #ffffff;
-  --card-bg: #f8fafc;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
   --border: #e2e8f0;
-  --radius: 14px;
+  --radius: 16px;
   --shadow: 0 8px 24px rgba(0, 34, 68, 0.08);
 }
 
@@ -34,7 +34,7 @@ a {
   margin: 0 auto;
 }
 
-/* ================= ШАПКА ================= */
+/* ШАПКА */
 .header {
   background: var(--primary);
   position: sticky;
@@ -84,43 +84,52 @@ a {
   cursor: pointer;
 }
 
-/* ================= ОСНОВНЫЕ РАЗДЕЛЫ ================= */
+/* ОСНОВНОЙ КОНТЕНТ */
 main {
-  padding: 20px 0 60px;
+  padding: 35px 0 60px;
 }
 
-.section-block {
-  padding: 45px 0;
-  border-bottom: 1px solid var(--border);
+/* КАРТОЧКА ГИДА (ПЕРВЫЙ БЛОК) */
+.profile-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 35px;
+  margin-bottom: 25px;
 }
 
-.section-block:last-of-type {
-  border-bottom: none;
-}
-
-/* ГЛАВНЫЙ FLEX-КОНТЕЙНЕР (держит 2 колонки) */
-.profile-container {
+/* СЕТКА ИЗ ДВУХ КОЛОНОК (1:1) */
+.profile-grid {
   display: flex;
   align-items: center;
-  gap: 45px;
+  gap: 40px;
   width: 100%;
 }
 
-/* Чередование колонок для машины */
 .reverse-row {
   flex-direction: row-reverse;
 }
 
-/* СТРОГОЕ ОГРАНИЧЕНИЕ КОЛОНОК */
 .photo-column,
 .text-column {
   flex: 1 1 50%;
   width: 50%;
-  min-width: 0 !important; /* КРИТИЧНО: запрещает карусели распирать блок */
+  min-width: 0 !important; /* ЗАПРЕЩАЕТ КАРТИНКАМ РАСПИРАТЬ БЛОК */
   max-width: 50%;
 }
 
-/* ТЕКСТЫ И ЗАГОЛОВКИ */
+.meta-tag,
+.acc-subtitle {
+  text-transform: uppercase;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--secondary);
+  display: block;
+  margin-bottom: 5px;
+}
+
 .name {
   font-family: 'Playfair Display', serif;
   font-size: 38px;
@@ -130,27 +139,26 @@ main {
 
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
+  font-size: 26px;
   color: var(--primary);
   margin-bottom: 15px;
 }
 
 .description {
-  font-size: 15.5px;
+  font-size: 15px;
   color: #475569;
   margin-bottom: 20px;
 }
 
-/* Контакты */
 .contact-info {
-  background: var(--card-bg);
+  background: #f1f5f9;
   border-left: 4px solid var(--secondary);
   padding: 14px 18px;
   border-radius: 8px;
 }
 
 .contact-info p {
-  margin: 4px 0;
+  margin: 5px 0;
   font-size: 14.5px;
 }
 
@@ -159,49 +167,127 @@ main {
   font-weight: 600;
 }
 
-/* Список особенностей авто */
-.features-list {
-  list-style: none;
-  padding: 0;
-  margin: 15px 0;
-}
-
-.features-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 15px;
-  color: #334155;
-}
-
-.features-list li i {
-  color: var(--secondary);
-  margin-top: 5px;
-  font-size: 16px;
-}
-
-/* Бейдж аттестации */
 .trust-badge {
   display: flex;
   align-items: center;
-  gap: 15px;
-  background: #f0f7fc;
-  border: 1px solid #d0e7f7;
+  gap: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 12px 18px;
   border-radius: 10px;
-  padding: 14px 18px;
-  color: var(--primary);
   font-weight: 600;
+  color: var(--primary);
   font-size: 14.5px;
 }
 
 .trust-badge i {
-  font-size: 28px;
-  color: #f39c12;
+  color: #f59e0b;
+  font-size: 24px;
 }
 
 /* ==========================================================
-   ФИКС КАРУСЕЛИ (ПОЛНАЯ ИЗОЛЯЦИЯ ОТ «КОЛБАСЫ»)
+   СВОРАЧИВАЕМЫЕ БЛОКИ (DETAILS / SUMMARY)
+   ========================================================== */
+.acc-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.acc-card[open] {
+  border-color: #cbd5e1;
+}
+
+.acc-header {
+  list-style: none;
+  padding: 22px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  background: #ffffff;
+  transition: background-color 0.2s;
+}
+
+.acc-header::-webkit-details-marker {
+  display: none;
+}
+
+.acc-header:hover {
+  background-color: #fafbfc;
+}
+
+.acc-header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.acc-icon {
+  width: 48px;
+  height: 48px;
+  background: #eff6ff;
+  color: var(--secondary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.acc-card[open] .acc-icon {
+  background: var(--primary);
+  color: #fff;
+}
+
+.acc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--primary);
+  margin: 0;
+}
+
+.acc-arrow {
+  width: 40px;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--primary);
+  transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), background 0.2s;
+  flex-shrink: 0;
+}
+
+/* Поворот стрелки при раскрытии */
+.acc-card[open] .acc-arrow {
+  transform: rotate(180deg);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.acc-body {
+  padding: 24px 30px 35px;
+  border-top: 1px solid #f1f5f9;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   КАРУСЕЛЬ: СТРОГАЯ ИЗОЛЯЦИЯ ОТ «КОЛБАСЫ»
    ========================================================== */
 .carousel-container {
   position: relative;
@@ -214,11 +300,11 @@ main {
 .carousel {
   position: relative;
   width: 100%;
-  height: 440px; /* фиксированная высота витрины */
+  height: 420px;
   background: #0f172a;
-  border-radius: var(--radius);
-  overflow: hidden !important; /* Намертво режет все соседние слайды */
-  box-shadow: var(--shadow);
+  border-radius: 12px;
+  overflow: hidden !important; /* НЕ ДАЕТ КАРТИНКАМ ВЫПАДАТЬ */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-inner {
@@ -232,20 +318,20 @@ main {
 }
 
 .carousel-item {
-  flex: 0 0 100% !important; /* Ровно 1 слайд на весь экран карусели */
+  flex: 0 0 100% !important; /* СТРОГО 1 СЛАЙД НА ЭКРАН */
   width: 100% !important;
   min-width: 100% !important;
   max-width: 100% !important;
   height: 100% !important;
   position: relative;
-  overflow: hidden;
   background: #0f172a;
+  overflow: hidden;
 }
 
 .carousel-item img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important; /* Картинка аккуратно заполняет кадр */
+  object-fit: cover !important;
   display: block;
 }
 
@@ -263,7 +349,6 @@ main {
   pointer-events: none;
 }
 
-/* Кнопки перелистывания */
 .carousel-control {
   position: absolute;
   top: 50%;
@@ -271,11 +356,11 @@ main {
   background: rgba(255, 255, 255, 0.88);
   color: var(--primary);
   border: none;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,7 +377,6 @@ main {
 .carousel-control.prev { left: 12px; }
 .carousel-control.next { right: 12px; }
 
-/* Индикаторы (точки) */
 .carousel-indicators {
   display: flex;
   justify-content: center;
@@ -315,7 +399,7 @@ main {
   border-radius: 10px;
 }
 
-/* ================= ПОДВАЛ ================= */
+/* ПОДВАЛ */
 .footer {
   background: var(--primary);
   color: #fff;
@@ -333,7 +417,7 @@ main {
   color: var(--secondary);
 }
 
-/* ================= АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ (<= 820px) ================= */
+/* МОБИЛЬНАЯ ВЕРСИЯ */
 @media screen and (max-width: 820px) {
   .burger {
     display: block;
@@ -355,7 +439,7 @@ main {
     display: flex;
   }
 
-  .profile-container,
+  .profile-grid,
   .reverse-row {
     flex-direction: column !important;
     gap: 25px;
@@ -369,12 +453,24 @@ main {
   }
 
   .carousel {
-    height: 320px;
+    height: 300px;
   }
 
   .name,
   .section-title {
     text-align: center;
     font-size: 26px;
+  }
+
+  .acc-header {
+    padding: 18px 20px;
+  }
+
+  .acc-body {
+    padding: 18px 20px 24px;
+  }
+
+  .acc-title {
+    font-size: 18px;
   }
 }
